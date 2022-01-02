@@ -13,6 +13,7 @@ namespace JCAirbnb.Controllers
     public class HomeController : Controller
     {
         [Route("/")]
+        [Route("/{action}")]
         public IActionResult Index()
         {
             return View();
