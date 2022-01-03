@@ -10,13 +10,43 @@ namespace JCAirbnb.Data
         public static void InitializeDatabase(this IServiceProvider serviceProvider)
         {
             var context = serviceProvider.GetRequiredService<ApplicationDbContext>();
+            var passwordHasher = serviceProvider.GetRequiredService<IPasswordHasher<IdentityUser>>();
             context.Database.EnsureCreated();
             if (!context.Roles.Any())
             {
-                context.Roles.Add(new IdentityRole("Administrator"));
+                var admin = new IdentityRole("Administrator");
+                context.Roles.Add(admin);
                 context.Roles.Add(new IdentityRole("Manager"));
                 context.Roles.Add(new IdentityRole("Employee"));
+                context.SaveChanges();
+            }
 
+            if (!context.Users.Any())
+            {
+                Guid guid = Guid.NewGuid();
+                var user = new IdentityUser("Admin")
+                {
+                    Id = guid.ToString(),
+                    NormalizedUserName = "admin@admin.com",
+                    Email = "admin@admin.com",
+                    EmailConfirmed = true
+                };
+
+                user.PasswordHash = passwordHasher.HashPassword(user, "Test1234!");
+                user.SecurityStamp = Guid.NewGuid().ToString();
+
+                context.Users.Add(user);
+                context.SaveChanges();
+            }
+
+            if (!context.UserRoles.Any())
+            {
+                var userRole = new IdentityUserRole<string>
+                {
+                    RoleId = context.Roles.Where(r => r.Name == "Administrator").FirstOrDefault().Id,
+                    UserId = context.Users.Where(u => u.UserName == "Admin").FirstOrDefault().Id
+                };
+                context.UserRoles.Add(userRole);
                 context.SaveChanges();
             }
         }
