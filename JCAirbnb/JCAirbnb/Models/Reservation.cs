@@ -20,13 +20,10 @@ namespace JCAirbnb.Models
         [DataType(DataType.Date)]
         public DateTime CheckOut { get; set; }
 
-        public string ReservationStateId { get; set; }
         public virtual ReservationState ReservationState { get; set; }
 
-        public string PropertyId { get; set; }
         public virtual Property Property { get; set; }
 
-        public string UserId { get; set; }
         public virtual IdentityUser User { get; set; }
     }
 }

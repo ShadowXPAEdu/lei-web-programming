@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -8,14 +7,11 @@ using System.Threading.Tasks;
 
 namespace JCAirbnb.Models
 {
-    public class Company
+    public class Employee
     {
         [Key]
         public string Id { get; set; }
 
-        [Required]
-        public virtual IdentityUser Manager { get; set; }
-
-        public virtual List<Employee> Employees { get; set; }
+        public IdentityUser User { get; set; }
     }
 }

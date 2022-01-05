@@ -37,6 +37,7 @@ namespace JCAirbnb.Data
                     Id = guid.ToString(),
                     NormalizedUserName = "ADMIN",
                     Email = "admin@admin.com",
+                    NormalizedEmail = "ADMIN@ADMIN.COM",
                     EmailConfirmed = true
                 };
 

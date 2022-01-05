@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
+using JCAirbnb.Data;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -24,16 +25,20 @@ namespace JCAirbnb.Areas.Identity.Pages.Account
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
 
+        private readonly ApplicationDbContext _context;
+
         public RegisterModel(
             UserManager<IdentityUser> userManager,
             SignInManager<IdentityUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            ApplicationDbContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _context = context;
         }
 
         [BindProperty]
@@ -107,7 +112,15 @@ namespace JCAirbnb.Areas.Identity.Pages.Account
                     //else
                     //{
                     if (Input.Host)
+                    {
                         await _userManager.AddToRoleAsync(user, "Manager");
+                        _context.Companies.Add(new Models.Company()
+                        {
+                            Id = Guid.NewGuid().ToString(),
+                            Manager = user
+                        });
+                        await _context.SaveChangesAsync();
+                    }
 
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     return LocalRedirect(returnUrl);
