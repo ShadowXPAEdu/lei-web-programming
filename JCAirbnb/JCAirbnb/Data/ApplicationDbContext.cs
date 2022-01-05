@@ -12,5 +12,7 @@ namespace JCAirbnb.Data
         }
 
         public DbSet<Commodity> Commodities { get; set; }
+
+        public DbSet<ReservationState> ReservationStates { get; set; }
     }
 }

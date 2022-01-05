@@ -1,6 +1,6 @@
 ﻿namespace JCAirbnb.Models
 {
-    public class Rating
+    public class Ratings
     {
         public float Cleanliness { get; set; } = 0;
         public float Accuracy { get; set; } = 0;

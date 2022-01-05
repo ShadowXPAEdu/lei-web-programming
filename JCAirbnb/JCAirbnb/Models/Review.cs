@@ -8,12 +8,15 @@ namespace JCAirbnb.Models
     {
         [Key]
         public string Id { get; set; }
+
         [Required]
         public string Text { get; set; }
+
         [Required]
+        [DataType(DataType.Date)]
         public DateTime Date { get; set; }
 
-        public string ClientId { get; set; }
+        public string UserId { get; set; }
         public virtual IdentityUser User { get; set; }
     }
 }
