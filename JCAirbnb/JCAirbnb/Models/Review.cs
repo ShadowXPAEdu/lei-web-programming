@@ -7,7 +7,7 @@ namespace JCAirbnb.Models
     public class Review
     {
         [Key]
-        public ulong Id { get; set; }
+        public string Id { get; set; }
         [Required]
         public string Text { get; set; }
         [Required]

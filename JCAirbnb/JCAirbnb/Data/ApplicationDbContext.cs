@@ -10,6 +10,7 @@ namespace JCAirbnb.Data
             : base(options)
         {
         }
-        public DbSet<JCAirbnb.Models.Commodity> Commodity { get; set; }
+
+        public DbSet<Commodity> Commodities { get; set; }
     }
 }
