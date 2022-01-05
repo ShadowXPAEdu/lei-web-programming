@@ -14,10 +14,18 @@ namespace JCAirbnb.Data
             context.Database.EnsureCreated();
             if (!context.Roles.Any())
             {
-                var admin = new IdentityRole("Administrator");
-                context.Roles.Add(admin);
-                context.Roles.Add(new IdentityRole("Manager"));
-                context.Roles.Add(new IdentityRole("Employee"));
+                context.Roles.Add(new IdentityRole("Administrator")
+                {
+                    NormalizedName = "ADMINISTRATOR"
+                });
+                context.Roles.Add(new IdentityRole("Manager")
+                {
+                    NormalizedName = "MANAGER"
+                });
+                context.Roles.Add(new IdentityRole("Employee")
+                {
+                    NormalizedName = "EMPLOYEE"
+                });
                 context.SaveChanges();
             }
 
@@ -27,7 +35,7 @@ namespace JCAirbnb.Data
                 var user = new IdentityUser("Admin")
                 {
                     Id = guid.ToString(),
-                    NormalizedUserName = "admin@admin.com",
+                    NormalizedUserName = "ADMIN",
                     Email = "admin@admin.com",
                     EmailConfirmed = true
                 };
