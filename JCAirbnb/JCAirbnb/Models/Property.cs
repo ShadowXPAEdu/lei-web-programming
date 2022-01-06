@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace JCAirbnb.Models
 {
@@ -27,13 +28,11 @@ namespace JCAirbnb.Models
 
         public Divisions Divisions { get; set; }
 
-        public List<string> Photos { get; set; }
+        public List<Photo> Photos { get; set; }
 
         public IdentityUser Manager { get; set; }
 
         public virtual List<PropertyCommodity> Commodities { get; set; }
-
-        public virtual List<PropertyCommodity> NonIncludedCommodities { get; set; }
 
         public virtual List<Review> Reviews { get; set; }
     }
