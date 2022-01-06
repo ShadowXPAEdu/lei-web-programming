@@ -58,45 +58,39 @@ namespace JCAirbnb.Areas.Manager.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("Id")] Employee employee)
+        public IActionResult Create([FromForm(Name = "username")] string username)
         {
             if (ModelState.IsValid)
             {
-                var user = _context.Users.FirstOrDefault(u => u.UserName == employee.Id || u.Email == employee.Id);
-                if (user != null)
-                {
-                    employee.User = user;
-                    return View(employee);
-                }
-
+                var user = _context.Users.FirstOrDefault(u => u.UserName == username || u.Email == username);
+                return View(user);
             }
-            return View(employee);
+            return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AddEmployee([Bind("Id")] Employee employee)
+        public async Task<IActionResult> AddEmployee([Bind("Id")] IdentityUser identityUser)
         {
             if (ModelState.IsValid)
             {
                 //verificar se o user ja esta nesta empresa
                 //_context.Companies.FirstOrDefault(c => c.Manager.Id == );
-
-                var user = _context.Users.FirstOrDefault(u => u.UserName == employee.Id || u.Email == employee.Id);
-                
-                employee.Id = Guid.NewGuid().ToString();
-                employee.User = user;
+                var employee = new Employee()
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    User = await _context.Users.FindAsync(identityUser.Id)
+                };
                 string managerId = (await _userManager.GetUserAsync(User)).Id;
-
-                var company = _context.Companies.Include(c => c.Employees).FirstOrDefault(c => c.Manager.Id == managerId);
-                
-                company?.Employees.Add(employee);
-
-                _context.Add(employee);
+                var company = await _context.Companies.Include(c => c.Employees).FirstOrDefaultAsync(c => c.Manager.Id == managerId);
+                if (company.Employees.Contains(employee))
+                    return RedirectToAction(nameof(Create));
+                company.Employees.Add(employee);
+                await _context.AddAsync(employee);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(employee);
+            return RedirectToAction(nameof(Create));
         }
 
         // GET: Manager/ManageEmployees/Edit/5
