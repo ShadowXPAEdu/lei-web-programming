@@ -196,7 +196,7 @@ namespace JCAirbnb.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Employee",
+                name: "Employees",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
@@ -205,15 +205,15 @@ namespace JCAirbnb.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Employee", x => x.Id);
+                    table.PrimaryKey("PK_Employees", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Employee_AspNetUsers_UserId",
+                        name: "FK_Employees_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Employee_Companies_CompanyId",
+                        name: "FK_Employees_Companies_CompanyId",
                         column: x => x.CompanyId,
                         principalTable: "Companies",
                         principalColumn: "Id",
@@ -265,13 +265,13 @@ namespace JCAirbnb.Data.Migrations
                 column: "ManagerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Employee_CompanyId",
-                table: "Employee",
+                name: "IX_Employees_CompanyId",
+                table: "Employees",
                 column: "CompanyId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Employee_UserId",
-                table: "Employee",
+                name: "IX_Employees_UserId",
+                table: "Employees",
                 column: "UserId");
         }
 
@@ -296,7 +296,7 @@ namespace JCAirbnb.Data.Migrations
                 name: "Commodities");
 
             migrationBuilder.DropTable(
-                name: "Employee");
+                name: "Employees");
 
             migrationBuilder.DropTable(
                 name: "ReservationStates");

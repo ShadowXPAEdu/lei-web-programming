@@ -68,7 +68,7 @@ namespace JCAirbnb.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Employee");
+                    b.ToTable("Employees");
                 });
 
             modelBuilder.Entity("JCAirbnb.Models.ReservationState", b =>

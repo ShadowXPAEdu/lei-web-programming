@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JCAirbnb.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220105182856_First")]
+    [Migration("20220105194353_First")]
     partial class First
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -70,7 +70,7 @@ namespace JCAirbnb.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Employee");
+                    b.ToTable("Employees");
                 });
 
             modelBuilder.Entity("JCAirbnb.Models.ReservationState", b =>
