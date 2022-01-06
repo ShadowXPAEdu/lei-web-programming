@@ -20,5 +20,7 @@ namespace JCAirbnb.Data
         public DbSet<Employee> Employees { get; set; }
 
         public DbSet<Property> Properties { get; set; }
+
+        public DbSet<Client> Clients { get; set; }
     }
 }

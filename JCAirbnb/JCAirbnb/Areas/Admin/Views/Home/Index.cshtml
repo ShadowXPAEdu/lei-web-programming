@@ -4,5 +4,14 @@
 @{
 }
 
+<h1>Admin area</h1>
 
-Admin/Home
+<p>Welcome @User.Identity.Name!</p>
+
+<div class="">
+    <div><a asp-area="Admin" asp-controller="ManageClients" asp-action="">Manage clients</a></div>
+    <div><a asp-area="Admin" asp-controller="ManageCommodities" asp-action="">Manage commodities</a></div>
+    <div><a asp-area="Admin" asp-controller="ManageListing" asp-action="">Manage listing</a></div>
+    <div><a asp-area="Admin" asp-controller="ManageOwner" asp-action="">Manage managers</a></div>
+    <div><a asp-area="Admin" asp-controller="ManageReservationStates" asp-action="">Manage reservation states</a></div>
+</div>

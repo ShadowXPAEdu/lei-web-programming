@@ -119,9 +119,15 @@ namespace JCAirbnb.Areas.Identity.Pages.Account
                             Id = Guid.NewGuid().ToString(),
                             Manager = user
                         });
-                        await _context.SaveChangesAsync();
                     }
 
+                    _context.Clients.Add(new Models.Client
+                    {
+                        Id = user.Id,
+                        Reviews = new List<Models.Review>()
+                    });
+
+                    await _context.SaveChangesAsync();
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     return LocalRedirect(returnUrl);
                     //}
