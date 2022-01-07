@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using JCAirbnb.Data;
 using JCAirbnb.Models;
 using Microsoft.AspNetCore.Authorization;
+using JCAirbnb.Areas.Admin.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace JCAirbnb.Areas.Admin.Controllers
 {
@@ -59,13 +61,17 @@ namespace JCAirbnb.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var client = await _context.Clients.FindAsync(id);
+            var client = await _context.Clients.Include(c => c.User).FirstOrDefaultAsync(c => c.Id == id);
             if (client == null)
             {
                 return NotFound();
             }
-            ViewData["Id"] = new SelectList(_context.Users, "Id", "Id", client.Id);
-            return View(client);
+            //ViewData["Id"] = new SelectList(_context.Users, "Id", "Id", client.Id);
+            return View(new ManageClientEditViewModel()
+            {
+                Roles = new(_context.Roles),
+                Client = client
+            });
         }
 
         // POST: Admin/ManageClients/Edit/5
@@ -73,35 +79,67 @@ namespace JCAirbnb.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("Id")] Models.Client client)
+        public async Task<IActionResult> Edit(string id, [Bind("Roles,Client,AddingRole")] ManageClientEditViewModel viewModel,
+            [FromForm(Name = "role")] string role)
         {
-            if (id != client.Id)
+            if (id != viewModel.Client.Id)
             {
                 return NotFound();
             }
 
             if (ModelState.IsValid)
             {
-                try
+                if (viewModel.AddingRole)
                 {
-                    _context.Update(client);
+                    // Check if already has role
+                    // Role is an ID here
+                    var userRole = new IdentityUserRole<string>()
+                    {
+                        RoleId = role,
+                        UserId = viewModel.Client.Id
+                    };
+                    if (!await _context.UserRoles.ContainsAsync(userRole))
+                    {
+                        await _context.UserRoles.AddAsync(new()
+                        {
+                            RoleId = role,
+                            UserId = viewModel.Client.Id
+                        });
+                        await _context.SaveChangesAsync();
+                    }
+                    return await Edit(id);
+                }
+                else
+                {
+                    // Remove role
+                    // Role is the name
+                    var roleId = (await _context.Roles.FirstOrDefaultAsync(r => r.Name == role))?.Id;
+                    var userRole = await _context.UserRoles.FirstOrDefaultAsync(r => r.RoleId == roleId && r.UserId == viewModel.Client.Id);
+                    _context.UserRoles.Remove(userRole);
                     await _context.SaveChangesAsync();
+                    return await Edit(id);
                 }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ClientExists(client.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+
+                //try
+                //{
+                //    _context.Update(viewModel.Client);
+                //    await _context.SaveChangesAsync();
+                //}
+                //catch (DbUpdateConcurrencyException)
+                //{
+                //    if (!ClientExists(viewModel.Client.Id))
+                //    {
+                //        return NotFound();
+                //    }
+                //    else
+                //    {
+                //        throw;
+                //    }
+                //}
+                //return RedirectToAction(nameof(Index));
             }
-            ViewData["Id"] = new SelectList(_context.Users, "Id", "Id", client.Id);
-            return View(client);
+            //ViewData["Id"] = new SelectList(_context.Users, "Id", "Id", client.Id);
+            return await Edit(id);
         }
 
         // GET: Admin/ManageClients/Delete/5

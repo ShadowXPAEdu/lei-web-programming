@@ -32,17 +32,21 @@
                         }
                         @if (User.IsInRole("Manager"))
                         {
-                            
-                                <!--<li class="nav-item">
-                                    <a href="#" class="dropdown-toggle" data-toggle="nav-link text-dark dropdown" asp-area="Manager" asp-controller="Home" asp-action="">Manager area</a>
-                                    <ul class="dropdown-menu">
-                                        <li>Manage Commodities-->@*<%= Html.ActionLink("Add", "Add", "Log")%>*@<!--</li>
-                                        <li>Manage Something-->@*<%= Html.ActionLink("Edit", "Edit", "Log")%>*@<!--</li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="Manager" asp-controller="Home" asp-action="">Manager area</a>
+                            </li>
+                            <!--<li class="nav-item">
+                            <a href="#" class="dropdown-toggle" data-toggle="nav-link text-dark dropdown" asp-area="Manager" asp-controller="Home" asp-action="">Manager area</a>
+                            <ul class="dropdown-menu">
+                                <li>Manage Commodities-->@*<%= Html.ActionLink("Add", "Add", "Log")%>*@
+                                <!--</li>
+                                <li>Manage Something-->@*<%= Html.ActionLink("Edit", "Edit", "Log")%>*@
+                                <!--</li>
                                     </ul>
                                 </li>
                                 <li>-->@*<%= Html.ActionLink("Administration", "Administration", "Log")%>*@<!--</li>-->
-                            
-                            <!--<li class="nav-item">
+
+                                <!--<li class="nav-item">
                                 <a class="nav-link text-dark dropdown-toggle" asp-area="Manager" asp-controller="Home" asp-action="" href="#" data-toggle="dropdown">Manager area</a>
                                 <ul class="dropdown-menu">
                                     <li><%= Html.ActionLink("Add", "Add", "Log")%></li>
@@ -50,8 +54,8 @@
                                     <li><%= Html.ActionLink("Delete", "Delete", "Log")%></li>
                                 </ul>-->
                                 @*<a class="nav-link text-dark" asp-area="Manager" asp-controller="Home" asp-action="">Manager area</a>*@
-                            <!--</li>-->
-                        }
+                                <!--</li>-->
+                            }
                         @if (User.IsInRole("Employee"))
                         {
                             <li class="nav-item">

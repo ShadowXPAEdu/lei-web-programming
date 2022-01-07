@@ -1,4 +1,6 @@
-﻿@model JCAirbnb.Models.Client
+﻿@using Microsoft.AspNetCore.Identity
+@model JCAirbnb.Areas.Admin.Models.ManageClientEditViewModel
+@inject UserManager<IdentityUser> UserManager
 
 @{
     ViewData["Title"] = "Edit";
@@ -7,22 +9,64 @@
 
 <h1>Edit</h1>
 
-<h4>Client</h4>
+<h4>Client @Model.Client.User.UserName</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+            <input type="hidden" asp-for="Client.Id" />
+            <input type="hidden" asp-for="AddingRole" value="true" />
+            <div class="flex-fill">
+                <div class="form-group d-inline-block">
+                    <select name="role" class="custom-select">
+                        @foreach (var role in Model.Roles)
+                        {
+                            <option value="@role.Id">@role.Name</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group d-inline-block">
+                    <input type="submit" value="Add role" class="btn btn-primary" />
+                </div>
             </div>
         </form>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Roles
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in await UserManager.GetRolesAsync(Model.Client.User))
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(m => item)
+                        </td>
+                        <td>
+                            <form asp-action="Edit">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <input type="hidden" asp-for="Client.Id" />
+                                <input type="hidden" asp-for="AddingRole" value="false" />
+                                <input type="hidden" name="role" value="@item" />
+                                <div class="form-group">
+                                    <input type="submit" value="Remove role" class="btn btn-danger" />
+                                </div>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="">Back to List</a>
 </div>
 
 @section Scripts {
