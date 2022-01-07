@@ -6,6 +6,16 @@
     <title>@ViewData["Title"] - JCAirbnb</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+
+    <style>
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+
+        .dropdown-menu > li > a:hover {
+            background: #f5f5f5;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -26,36 +36,26 @@
                         </li>
                         @if (User.IsInRole("Administrator"))
                         {
-                            <li class="nav-item">
+                            <li class="nav-item dropdown">
                                 <a class="nav-link text-dark" asp-area="Admin" asp-controller="Home" asp-action="">Admin area</a>
+                                <ul class="dropdown-menu clearfix">
+                                    <li><a class="nav-link text-dark" asp-area="Admin" asp-controller="ManageClients" asp-action="">Manage clients</a></li>
+                                    <li><a class="nav-link text-dark" asp-area="Admin" asp-controller="ManageCommodities" asp-action="">Manage commodities</a></li>
+                                    <li><a class="nav-link text-dark" asp-area="Admin" asp-controller="ManageReservationStates" asp-action="">Manage reservation states</a></li>
+                                </ul>
                             </li>
                         }
                         @if (User.IsInRole("Manager"))
                         {
-                            <li class="nav-item">
+                            <li class="nav-item dropdown">
                                 <a class="nav-link text-dark" asp-area="Manager" asp-controller="Home" asp-action="">Manager area</a>
+                                <ul class="dropdown-menu clearfix">
+                                    <li><a class="nav-link text-dark" asp-area="Manager" asp-controller="ManageEmployees" asp-action="">Manage employees</a></li>
+                                    <li><a class="nav-link text-dark" asp-area="Manager" asp-controller="ManageListing" asp-action="">Manage listing</a></li>
+                                    <li><a class="nav-link text-dark" asp-area="Manager" asp-controller="ManageProperties" asp-action="">Manage properties</a></li>
+                                </ul>
                             </li>
-                            <!--<li class="nav-item">
-                            <a href="#" class="dropdown-toggle" data-toggle="nav-link text-dark dropdown" asp-area="Manager" asp-controller="Home" asp-action="">Manager area</a>
-                            <ul class="dropdown-menu">
-                                <li>Manage Commodities-->@*<%= Html.ActionLink("Add", "Add", "Log")%>*@
-                                <!--</li>
-                                <li>Manage Something-->@*<%= Html.ActionLink("Edit", "Edit", "Log")%>*@
-                                <!--</li>
-                                    </ul>
-                                </li>
-                                <li>-->@*<%= Html.ActionLink("Administration", "Administration", "Log")%>*@<!--</li>-->
-
-                                <!--<li class="nav-item">
-                                <a class="nav-link text-dark dropdown-toggle" asp-area="Manager" asp-controller="Home" asp-action="" href="#" data-toggle="dropdown">Manager area</a>
-                                <ul class="dropdown-menu">
-                                    <li><%= Html.ActionLink("Add", "Add", "Log")%></li>
-                                    <li><%= Html.ActionLink("Edit", "Edit", "Log")%></li>
-                                    <li><%= Html.ActionLink("Delete", "Delete", "Log")%></li>
-                                </ul>-->
-                                @*<a class="nav-link text-dark" asp-area="Manager" asp-controller="Home" asp-action="">Manager area</a>*@
-                                <!--</li>-->
-                            }
+                        }
                         @if (User.IsInRole("Employee"))
                         {
                             <li class="nav-item">
