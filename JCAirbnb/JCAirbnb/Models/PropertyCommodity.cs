@@ -1,19 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace JCAirbnb.Models
 {
     public class PropertyCommodity
     {
         [Key]
+        [Display(Name = "Id")]
         public string Id { get; set; }
 
-        public bool Included { get; set; } = true;
+        [Required]
+        [Display(Name = "Commodity")]
+        public virtual Commodity Commodity { get; set; }
 
-        public Commodity Commodity { get; set; }
+        [Display(Name = "Included")]
+        public bool Included { get; set; } = true;
     }
 }

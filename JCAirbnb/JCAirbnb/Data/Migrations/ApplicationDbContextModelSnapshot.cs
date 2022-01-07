@@ -51,12 +51,7 @@ namespace JCAirbnb.Data.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("ManagerId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("ManagerId");
 
                     b.ToTable("Companies");
                 });
@@ -189,6 +184,24 @@ namespace JCAirbnb.Data.Migrations
                     b.HasIndex("PropertyId");
 
                     b.ToTable("PropertyCommodities");
+                });
+
+            modelBuilder.Entity("JCAirbnb.Models.PropertyType", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PropertyTypes");
                 });
 
             modelBuilder.Entity("JCAirbnb.Models.Ratings", b =>
@@ -480,7 +493,9 @@ namespace JCAirbnb.Data.Migrations
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "Manager")
                         .WithMany()
-                        .HasForeignKey("ManagerId");
+                        .HasForeignKey("Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Manager");
                 });

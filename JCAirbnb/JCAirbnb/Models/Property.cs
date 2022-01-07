@@ -1,39 +1,68 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace JCAirbnb.Models
 {
     public class Property
     {
         [Key]
+        [Display(Name = "Id")]
         public string Id { get; set; }
 
         [Required]
+        [Display(Name = "Title")]
         public string Title { get; set; }
 
         [Required]
+        [Display(Name = "Description")]
         public string Description { get; set; }
 
         [Required]
+        [Display(Name = "Location")]
         public string Location { get; set; }
 
         [Required]
+        [Display(Name = "BasePrice")]
         public int BasePrice { get; set; }
 
+        [Display(Name = "Price")]
         public int Price { get; set; }
 
-        public Ratings Ratings { get; set; }
+        [Required]
+        [Display(Name = "Ratings")]
+        public virtual Ratings Ratings { get; set; }
 
-        public Divisions Divisions { get; set; }
+        [Required]
+        [Display(Name = "Divisions")]
+        public virtual Divisions Divisions { get; set; }
 
-        public List<Photo> Photos { get; set; }
+        [Display(Name = "Photos")]
+        public virtual List<Photo> Photos { get; set; } = new();
 
-        public IdentityUser Manager { get; set; }
+        [Required]
+        [Display(Name = "Host")]
+        public virtual IdentityUser Manager { get; set; }
 
-        public virtual List<PropertyCommodity> Commodities { get; set; }
+        [Display(Name = "Commodities")]
+        public virtual List<PropertyCommodity> Commodities { get; set; } = new();
 
-        public virtual List<Review> Reviews { get; set; }
+        [Display(Name = "Reviews")]
+        public virtual List<Review> Reviews { get; set; } = new();
+
+        public Property()
+        {
+            Id = Guid.NewGuid().ToString();
+            Divisions = new()
+            {
+                Id = Id
+            };
+            Ratings = new()
+            {
+                Id = Id
+            };
+            Price = BasePrice;
+        }
     }
 }

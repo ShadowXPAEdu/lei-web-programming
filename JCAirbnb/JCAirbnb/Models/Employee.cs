@@ -2,17 +2,18 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace JCAirbnb.Models
 {
     public class Employee
     {
         [Key]
-        public string Id { get; set; }
+        [Display(Name = "Id")]
+        public string Id { get; set; } = Guid.NewGuid().ToString();
 
-        public IdentityUser User { get; set; }
+        [Required]
+        [Display(Name = "User")]
+        public virtual IdentityUser User { get; set; }
 
         public override bool Equals(object obj)
         {

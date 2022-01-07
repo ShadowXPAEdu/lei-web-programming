@@ -78,7 +78,6 @@ namespace JCAirbnb.Areas.Manager.Controllers
                 //_context.Companies.FirstOrDefault(c => c.Manager.Id == );
                 var employee = new Employee()
                 {
-                    Id = Guid.NewGuid().ToString(),
                     User = await _context.Users.FindAsync(identityUser.Id)
                 };
                 string managerId = (await _userManager.GetUserAsync(User)).Id;
@@ -86,7 +85,7 @@ namespace JCAirbnb.Areas.Manager.Controllers
                 if (company.Employees.Contains(employee))
                     return RedirectToAction(nameof(Create));
                 company.Employees.Add(employee);
-                await _context.AddAsync(employee);
+                await _context.Employees.AddAsync(employee);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }

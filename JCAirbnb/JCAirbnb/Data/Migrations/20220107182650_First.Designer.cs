@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JCAirbnb.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220106154455_First")]
+    [Migration("20220107182650_First")]
     partial class First
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -20,6 +20,16 @@ namespace JCAirbnb.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.12")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("JCAirbnb.Models.Client", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Clients");
+                });
 
             modelBuilder.Entity("JCAirbnb.Models.Commodity", b =>
                 {
@@ -43,12 +53,7 @@ namespace JCAirbnb.Data.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("ManagerId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("ManagerId");
 
                     b.ToTable("Companies");
                 });
@@ -180,7 +185,25 @@ namespace JCAirbnb.Data.Migrations
 
                     b.HasIndex("PropertyId");
 
-                    b.ToTable("PropertyCommodity");
+                    b.ToTable("PropertyCommodities");
+                });
+
+            modelBuilder.Entity("JCAirbnb.Models.PropertyType", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PropertyTypes");
                 });
 
             modelBuilder.Entity("JCAirbnb.Models.Ratings", b =>
@@ -230,6 +253,9 @@ namespace JCAirbnb.Data.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("ClientId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
@@ -244,6 +270,8 @@ namespace JCAirbnb.Data.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ClientId");
 
                     b.HasIndex("PropertyId");
 
@@ -452,11 +480,24 @@ namespace JCAirbnb.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("JCAirbnb.Models.Client", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
+                        .WithMany()
+                        .HasForeignKey("Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("JCAirbnb.Models.Company", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "Manager")
                         .WithMany()
-                        .HasForeignKey("ManagerId");
+                        .HasForeignKey("Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Manager");
                 });
@@ -517,6 +558,10 @@ namespace JCAirbnb.Data.Migrations
 
             modelBuilder.Entity("JCAirbnb.Models.Review", b =>
                 {
+                    b.HasOne("JCAirbnb.Models.Client", null)
+                        .WithMany("Reviews")
+                        .HasForeignKey("ClientId");
+
                     b.HasOne("JCAirbnb.Models.Property", null)
                         .WithMany("Reviews")
                         .HasForeignKey("PropertyId");
@@ -577,6 +622,11 @@ namespace JCAirbnb.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("JCAirbnb.Models.Client", b =>
+                {
+                    b.Navigation("Reviews");
                 });
 
             modelBuilder.Entity("JCAirbnb.Models.Company", b =>

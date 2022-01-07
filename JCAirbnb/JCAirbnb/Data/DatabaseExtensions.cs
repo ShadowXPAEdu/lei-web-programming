@@ -1,5 +1,7 @@
 ﻿using JCAirbnb.Models;
+using JCAirbnb.Models.Configuration;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using System;
@@ -18,9 +20,23 @@ namespace JCAirbnb.Data
             context.Database.EnsureCreated();
             AddRoles(context);
             AddUsers(context, passwordHasher);
-            AddUserToRoles(context);
             AddReservationStates(context);
             AddCommodities(context);
+            AddPropertyTypes(context);
+        }
+
+        private static void AddPropertyTypes(ApplicationDbContext context)
+        {
+            if (!context.PropertyTypes.Any())
+            {
+                var configPropertyTypes = File.ReadAllText($@"Configuration\PropertyType.json");
+                var propertyTypes = JsonConvert.DeserializeObject<List<PropertyType>>(configPropertyTypes);
+                foreach (var propertyType in propertyTypes)
+                {
+                    context.PropertyTypes.Add(propertyType);
+                }
+                context.SaveChanges();
+            }
         }
 
         private static void AddCommodities(ApplicationDbContext context)
@@ -31,7 +47,6 @@ namespace JCAirbnb.Data
                 var commodities = JsonConvert.DeserializeObject<List<Commodity>>(configCommodities);
                 foreach (var commodity in commodities)
                 {
-                    commodity.Id = Guid.NewGuid().ToString();
                     context.Commodities.Add(commodity);
                 }
                 context.SaveChanges();
@@ -46,23 +61,8 @@ namespace JCAirbnb.Data
                 var reservationStates = JsonConvert.DeserializeObject<List<ReservationState>>(configReservationStates);
                 foreach (var reservationState in reservationStates)
                 {
-                    reservationState.Id = Guid.NewGuid().ToString();
                     context.ReservationStates.Add(reservationState);
                 }
-                context.SaveChanges();
-            }
-        }
-
-        private static void AddUserToRoles(ApplicationDbContext context)
-        {
-            if (!context.UserRoles.Any())
-            {
-                var userRole = new IdentityUserRole<string>
-                {
-                    RoleId = context.Roles.Where(r => r.Name == "Administrator").FirstOrDefault().Id,
-                    UserId = context.Users.Where(u => u.UserName == "Admin").FirstOrDefault().Id
-                };
-                context.UserRoles.Add(userRole);
                 context.SaveChanges();
             }
         }
@@ -71,19 +71,72 @@ namespace JCAirbnb.Data
         {
             if (!context.Users.Any())
             {
-                Guid guid = Guid.NewGuid();
-                var user = new IdentityUser("Admin")
+                var configUsers = File.ReadAllText($@"Configuration\Users.json");
+                var users = JsonConvert.DeserializeObject<List<UserConfig>>(configUsers);
+
+                Random rand = new();
+                Dictionary<string, string> rolesById = new();
+                Dictionary<string, string> rolesByName = new();
+                foreach (var role in context.Roles)
                 {
-                    Id = guid.ToString(),
-                    NormalizedUserName = "ADMIN",
-                    Email = "admin@admin.com",
-                    NormalizedEmail = "ADMIN@ADMIN.COM",
-                    EmailConfirmed = true
-                };
-                user.PasswordHash = passwordHasher.HashPassword(user, "Test1234!");
-                user.SecurityStamp = Guid.NewGuid().ToString();
-                context.Users.Add(user);
-                context.SaveChanges();
+                    rolesById.Add(role.Id, role.Name);
+                    rolesByName.Add(role.Name, role.Id);
+                }
+
+                foreach (var u in users)
+                {
+                    var user = u.GetUser(passwordHasher);
+                    context.Users.Add(user);
+                    context.Clients.Add(new Client
+                    {
+                        Id = user.Id,
+                        Reviews = new()
+                    });
+                    context.SaveChanges();
+
+                    if (!string.IsNullOrWhiteSpace(u.Role))
+                        context.UserRoles.Add(new()
+                        {
+                            UserId = user.Id,
+                            RoleId = rolesByName[u.Role]
+                        });
+
+                    AddUserToRole(context, rand, rolesByName, u, user);
+                    context.SaveChanges();
+                }
+            }
+        }
+
+        private static void AddUserToRole(ApplicationDbContext context, Random rand, Dictionary<string, string> rolesByName, UserConfig u, IdentityUser user)
+        {
+            switch (u.Role)
+            {
+                case "Employee":
+                    {
+                        var managers = context.UserRoles.Where(ur => ur.RoleId == rolesByName["Manager"]).ToList();
+                        // Add to the employee list
+                        var next = rand.Next(managers.Count);
+                        var company = context.Companies.Include(c => c.Employees).FirstOrDefault(m => m.Id == managers[next].UserId);
+                        Employee employee = new()
+                        {
+                            User = user
+                        };
+                        company.Employees.Add(employee);
+                        context.Employees.Add(employee);
+                    }
+                    break;
+                case "Manager":
+                    {
+                        // Create a company
+                        context.Companies.Add(new()
+                        {
+                            Id = user.Id,
+                            Manager = user
+                        });
+                    }
+                    break;
+                default:
+                    break;
             }
         }
 
@@ -91,18 +144,12 @@ namespace JCAirbnb.Data
         {
             if (!context.Roles.Any())
             {
-                context.Roles.Add(new IdentityRole("Administrator")
+                var configRoles = File.ReadAllText($@"Configuration\Roles.json");
+                var roles = JsonConvert.DeserializeObject<List<IdentityRole>>(configRoles);
+                foreach (var role in roles)
                 {
-                    NormalizedName = "ADMINISTRATOR"
-                });
-                context.Roles.Add(new IdentityRole("Manager")
-                {
-                    NormalizedName = "MANAGER"
-                });
-                context.Roles.Add(new IdentityRole("Employee")
-                {
-                    NormalizedName = "EMPLOYEE"
-                });
+                    context.Roles.Add(role);
+                }
                 context.SaveChanges();
             }
         }

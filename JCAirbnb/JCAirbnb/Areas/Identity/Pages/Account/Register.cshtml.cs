@@ -116,7 +116,7 @@ namespace JCAirbnb.Areas.Identity.Pages.Account
                         await _userManager.AddToRoleAsync(user, "Manager");
                         _context.Companies.Add(new Models.Company()
                         {
-                            Id = Guid.NewGuid().ToString(),
+                            Id = user.Id,
                             Manager = user
                         });
                     }
