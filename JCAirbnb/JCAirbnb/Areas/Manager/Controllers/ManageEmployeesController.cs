@@ -28,8 +28,11 @@ namespace JCAirbnb.Areas.Manager.Controllers
         [Route("/{area}/{controller}/{id?}")]
         public async Task<IActionResult> Index()
         {
-            var aux = _context.Employees.Include(e => e.User);
-            return View(await aux.ToListAsync());
+            var managerId = (await _userManager.GetUserAsync(User)).Id;
+            var company = await _context.Companies
+                .Include(c => c.Employees).ThenInclude(e => e.User)
+                .FirstOrDefaultAsync(c => c.Id == managerId);
+            return View(company.Employees);
         }
 
         // GET: Manager/ManageEmployees/Details/5
