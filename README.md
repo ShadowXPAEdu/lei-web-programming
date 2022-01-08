@@ -180,7 +180,7 @@ Descrição: Pretende-se com esta aplicação criar uma plataforma web no modelo
 
 # Classes
 
-- Imovel:
+Imovel:
 
   - Imagens
   
@@ -194,7 +194,9 @@ Descrição: Pretende-se com esta aplicação criar uma plataforma web no modelo
   
   -
   
-- Comodidades
+ ---
+  
+Comodidades:
 
   - Nome
   
@@ -204,4 +206,23 @@ Descrição: Pretende-se com esta aplicação criar uma plataforma web no modelo
 
 ---
 
+Estados:
+
+ - Reserved (Owner - precisa de fazer a checklist e enviar para o Funcionário)
+
+ - Pending (Vai para o Funcionário - validar a checklist e entregar ao cliente caso esteja pronto, se não devolve ao Owner)
+
+ - CheckedIn (Vai para o cliente - Entregar chaves)
+
+ - CheckedOut (Volta para o Funcionário - Cliente devolve as chaves e o Funcionário verifica o estado)
+
+ - (Finalmente devolve ao Owner - Upload de fotos de eventuais danos / situações a reportar, e outras observações)
+
+---
+
+Report:
+
+ - Fotos (eventuais danos)
+ 
+ - Descrição
 
