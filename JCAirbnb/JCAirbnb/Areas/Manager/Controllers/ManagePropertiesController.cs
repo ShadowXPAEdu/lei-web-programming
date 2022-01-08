@@ -7,6 +7,7 @@ using JCAirbnb.Data;
 using JCAirbnb.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using JCAirbnb.Areas.Manager.Models;
 
 namespace JCAirbnb.Areas.Manager.Controllers
 {
@@ -61,9 +62,9 @@ namespace JCAirbnb.Areas.Manager.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Title,Description,Location,BasePrice,Price")] Property @property, 
-            [FromForm(Name = "guest")] int guest, [FromForm(Name = "bedroom")] int bedroom, [FromForm(Name = "bed")] int bed, 
-            [FromForm(Name = "bath")] int bath, [FromForm(Name = "privateBath")] int privateBath)
+        public async Task<IActionResult> Create([Bind("Title,Description,Location,BasePrice,Price")] Property @property,
+        [FromForm(Name = "guest")] int guest, [FromForm(Name = "bedroom")] int bedroom, [FromForm(Name = "bed")] int bed,
+        [FromForm(Name = "bath")] int bath, [FromForm(Name = "privateBath")] int privateBath)
         {
             if (ModelState.IsValid)
             {
@@ -77,8 +78,6 @@ namespace JCAirbnb.Areas.Manager.Controllers
                 property.Divisions.Bed = bed;
                 property.Divisions.Bath = bath;
                 property.Divisions.PrivateBath = privateBath;
-
-                //property.Commodities[0]. = new Commodity();
 
                 _context.Add(@property);
                 await _context.SaveChangesAsync();
@@ -95,12 +94,17 @@ namespace JCAirbnb.Areas.Manager.Controllers
                 return NotFound();
             }
 
-            var @property = await _context.Properties.FindAsync(id);
-            if (@property == null)
+            var property = await _context.Properties.FindAsync(id);
+            if (property == null)
             {
                 return NotFound();
             }
-            return View(@property);
+            return View(new ManagePropertyEditViewModel()
+            {
+                Property = property,
+                PropertyCommodities = new (await _context.PropertyCommodities.ToListAsync()),
+                Commodities = new(await _context.Commodities.ToListAsync())
+            }) ;
         }
 
         // POST: Manager/ManageProperties/Edit/5
@@ -136,6 +140,103 @@ namespace JCAirbnb.Areas.Manager.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(@property);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditCommodity(string id, [Bind("Property,Commodities,AddingCommodity")] ManagePropertyEditViewModel viewModel,
+            [FromForm(Name = "commodity")] string commodity, string submit)
+        {
+            if (ModelState.IsValid)
+            {
+                if (submit == "Included Commodity")
+                {
+                    var commo = _context.Commodities.FirstOrDefault(c => c.Id == commodity);
+                    if (commo == null)
+                    {
+                        return NotFound();
+                    }
+                    var prop = _context.Properties.FirstOrDefault(p => p.Id == id);
+                    if (prop == null)
+                    {
+                        return NotFound();
+                    }
+
+                    PropertyCommodity propertyCommodity = new()
+                    {
+                        Id = Guid.NewGuid().ToString(),
+                        Commodity = commo,
+                        Included = true
+                    };
+
+                    if (!_context.Properties.FirstOrDefault(p => p.Id == id).Commodities.Contains(propertyCommodity))
+                    {
+                        _context.Properties.FirstOrDefault(p => p.Id == id).Commodities.Add(propertyCommodity);
+                        await _context.SaveChangesAsync();
+                        return RedirectToAction("Edit", new { id });
+                    }
+
+                    return RedirectToAction("Edit", new { id });
+                }
+                else
+                {
+                    var commo = _context.Commodities.FirstOrDefault(c => c.Id == commodity);
+                    if (commo == null)
+                    {
+                        return NotFound();
+                    }
+                    var prop = _context.Properties.FirstOrDefault(p => p.Id == id);
+                    if (prop == null)
+                    {
+                        return NotFound();
+                    }
+
+                    PropertyCommodity propertyCommodity = new()
+                    {
+                        Id = Guid.NewGuid().ToString(),
+                        Commodity = commo,
+                        Included = false
+                    };
+
+                    if (!_context.Properties.FirstOrDefault(p => p.Id == id).Commodities.Contains(propertyCommodity))
+                    {
+                        _context.Properties.FirstOrDefault(p => p.Id == id).Commodities.Add(propertyCommodity);
+                        await _context.SaveChangesAsync();
+                        return RedirectToAction("Edit", new { id });
+                    }
+
+                    return RedirectToAction("Edit", new { id });
+
+                }
+            }
+            return RedirectToAction("Edit", new { id });
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> RemoveCommodity(string id, [Bind("Property,Commodities,AddingCommodity")] ManagePropertyEditViewModel viewModel,
+            [FromForm(Name = "commodity")] string commodity)
+        {
+            var prop = _context.Properties.FirstOrDefault(p => p.Id == id);
+            if (prop == null)
+            {
+                return NotFound();
+            }
+
+            var com = prop.Commodities.FirstOrDefault(c => c.Commodity.Id == commodity);
+            if (com == null)
+            {
+                return NotFound();
+            }
+
+            var propCom = _context.PropertyCommodities.FirstOrDefault(pc => pc.Commodity.Id == commodity);
+            if(_context.Properties.FirstOrDefault(p => p.Id == id).Commodities.Contains(propCom))
+            {
+                _context.Properties.FirstOrDefault(p => p.Id == id).Commodities.Remove(propCom);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Edit", new { id });
+            }
+            return RedirectToAction("Edit", new { id });
         }
 
         // GET: Manager/ManageProperties/Delete/5

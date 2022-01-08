@@ -1,78 +1,17 @@
 ﻿@model JCAirbnb.Models.Property
-@using JCAirbnb.Data
-@using Microsoft.AspNetCore.Identity
-@inject ApplicationDbContext _context
+
 @{
     ViewData["Title"] = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h1>Create</h1>
-
-<h4>Property</h4>
 <hr />
-@*<form asp-action="Create">
-    <table style="width:70%">
-        <tr>
-            <th>
-                <h4>Property</h4>
-            </th>
-            <th>
-                <h4>Divisions</h4>
 
-            </th>
-            <th>
-                <div class="form-group">
-                    <label asp-for="Location" class="control-label"></label>
-                    <input asp-for="Location" class="form-control" />
-                    <span asp-validation-for="Location" class="text-danger"></span>
-                </div>
-            </th>
-            <th>
-                <div class="form-group">
-                    <label asp-for="BasePrice" class="control-label"></label>
-                    <input asp-for="BasePrice" class="form-control" />
-                    <span asp-validation-for="BasePrice" class="text-danger"></span>
-                </div>
-            </th>
-            <th>
-                <div class="form-group">
-                    <label asp-for="Price" class="control-label"></label>
-                    <input asp-for="Price" class="form-control" />
-                    <span asp-validation-for="Price" class="text-danger"></span>
-                </div>
-            </th>
-        </tr>
-        <tr>
-            <td>
-                <div class="form-group">
-                    <label asp-for="Title" class="control-label"></label>
-                    <input asp-for="Title" class="form-control" />
-                    <span asp-validation-for="Title" class="text-danger"></span>
-                </div>
-            </td>
-            <td>Maria Anders</td>
-            <td>Germany</td>
-        </tr>
-        <tr>
-            <td>
-                <div class="form-group">
-                    <label asp-for="Description" class="control-label"></label>
-                    <input asp-for="Description" class="form-control" />
-                    <span asp-validation-for="Description" class="text-danger"></span>
-                </div>
-            </td>
-            <td></td>
-            <td>Mexico</td>
-        </tr>
-    </table>
-    <div class="form-group">
-        <input type="submit" value="Create" class="btn btn-primary" />
-    </div>
-</form>*@
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
+<form asp-action="Create">
+    <div class="row">
+        <div class="col-md-6">
+            <h4>Property:</h4>
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Title" class="control-label"></label>
@@ -91,58 +30,51 @@
             </div>
             <div class="form-group">
                 <label asp-for="BasePrice" class="control-label"></label>
-                <input asp-for="BasePrice" class="form-control" />
+                <input asp-for="BasePrice" min="0" class="form-control" />
                 <span asp-validation-for="BasePrice" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Price" class="control-label"></label>
-                <input asp-for="Price" class="form-control" />
+                <input asp-for="Price" min="0" class="form-control" />
                 <span asp-validation-for="Price" class="text-danger"></span>
             </div>
-            <h6>Divisions:</h6>
+        </div>
+        <div class="col-md-3">
+            <h4>Divisions:</h4>
             <div class="form-group">
                 <label asp-for="Divisions.Guest" class="control-label"></label>
-                <input name="guest" class="form-control" />
+                <input type="number" min="0" name="guest" class="form-control" value="0"/>
                 <span asp-validation-for="Divisions.Guest" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Divisions.Bedroom" class="control-label"></label>
-                <input name="bedroom" class="form-control" />
+                <input type="number" min="0" name="bedroom" class="form-control" value="0"/>
                 <span asp-validation-for="Divisions.Bedroom" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Divisions.Bed" class="control-label"></label>
-                <input name="bed" class="form-control" />
+                <input type="number" min="0" name="bed" class="form-control" value="0"/>
                 <span asp-validation-for="Divisions.Bed" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Divisions.Bath" class="control-label"></label>
-                <input name="bath" class="form-control" />
+                <input type="number" min="0" name="bath" class="form-control" value="0"/>
                 <span asp-validation-for="Divisions.Bath" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Divisions.PrivateBath" class="control-label"></label>
-                <input name="privateBath" class="form-control" />
+                <input type="number" min="0" name="privateBath" class="form-control" value="0"/>
                 <span asp-validation-for="Divisions.PrivateBath" class="text-danger"></span>
             </div>
-            <div style="column-count: 6">
-                @foreach (var item in _context.Commodities)
-                {
-                    <div>
-                        <input type="checkbox" />
-                        <label name="add">@item.Title</label>
-                    </div>
-                }
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
-</div>
+    <div class="form-group d-inline-block">
+        <input type="submit" value="Add Property" class="btn btn-primary" />
+    </div>
+</form>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="">Back to List</a>
 </div>
 
 @section Scripts {

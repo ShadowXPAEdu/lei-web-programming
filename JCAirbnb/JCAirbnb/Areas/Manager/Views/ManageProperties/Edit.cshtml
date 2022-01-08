@@ -1,4 +1,8 @@
-﻿@model JCAirbnb.Models.Property
+﻿@*@model JCAirbnb.Models.Property*@
+@model JCAirbnb.Areas.Manager.Models.ManagePropertyEditViewModel
+@*@using JCAirbnb.Data
+    @using Microsoft.AspNetCore.Identity
+    @inject ApplicationDbContext _context*@
 
 @{
     ViewData["Title"] = "Edit";
@@ -13,31 +17,31 @@
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="Property.Id" />
             <div class="form-group">
-                <label asp-for="Title" class="control-label"></label>
-                <input asp-for="Title" class="form-control" />
-                <span asp-validation-for="Title" class="text-danger"></span>
+                <label asp-for="Property.Title" class="control-label"></label>
+                <input asp-for="Property.Title" class="form-control" />
+                <span asp-validation-for="Property.Title" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
+                <label asp-for="Property.Description" class="control-label"></label>
+                <input asp-for="Property.Description" class="form-control" />
+                <span asp-validation-for="Property.Description" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Location" class="control-label"></label>
-                <input asp-for="Location" class="form-control" />
-                <span asp-validation-for="Location" class="text-danger"></span>
+                <label asp-for="Property.Location" class="control-label"></label>
+                <input asp-for="Property.Location" class="form-control" />
+                <span asp-validation-for="Property.Location" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="BasePrice" class="control-label"></label>
-                <input asp-for="BasePrice" class="form-control" />
-                <span asp-validation-for="BasePrice" class="text-danger"></span>
+                <label asp-for="Property.BasePrice" class="control-label"></label>
+                <input asp-for="Property.BasePrice" class="form-control" />
+                <span asp-validation-for="Property.BasePrice" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Price" class="control-label"></label>
-                <input asp-for="Price" class="form-control" />
-                <span asp-validation-for="Price" class="text-danger"></span>
+                <label asp-for="Property.Price" class="control-label"></label>
+                <input asp-for="Property.Price" class="form-control" />
+                <span asp-validation-for="Property.Price" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
@@ -45,9 +49,68 @@
         </form>
     </div>
 </div>
-
+<div class="row">
+    <div class="col-md-3">
+        <form asp-action="EditCommodity" asp-route-id="@Model.Property.Id">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Property" />
+            <input type="hidden" asp-for="Commodities" />
+            <input type="hidden" asp-for="AddingCommodity" value="true" />
+            <div class="flex-fill">
+                <div class="form-group d-inline-block">
+                    <select name="commodity" class="custom-select">
+                        @foreach (var item in Model.Commodities)
+                        {
+                            <option value="@item.Id">@item.Title</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group d-inline-block">
+                    <input type="submit" name="submit" value="Included Commodity" class="btn btn-primary" />
+                </div>
+                <div class="form-group d-inline-block">
+                    <input type="submit" name="submit" value="Not Included Commodity" class="btn btn-primary" />
+                </div>
+            </div>
+        </form>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Roles
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var item in Model.PropertyCommodities)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(m => item.Commodity.Title)
+                        @Html.DisplayFor(m => item.Commodity.Description)
+                        @Html.DisplayFor(m => item.Included)
+                    </td>
+                    <td>
+                        <form asp-action="RemoveCommodity" asp-route-id="@Model.Property.Id">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <input type="hidden" asp-for="Property" />
+                            <input type="hidden" asp-for="Commodities" />
+                            <input type="hidden" asp-for="AddingCommodity" value="false" />
+                            <input type="hidden" name="commodity" value="@item" />
+                            <div class="form-group">
+                                <input type="submit" value="Remove role" class="btn btn-danger" />
+                            </div>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+        </table>
+    </div>
+</div>
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="">Back to List</a>
 </div>
 
 @section Scripts {

@@ -30,18 +30,18 @@ namespace JCAirbnb.Models
         [Display(Name = "Price")]
         public int Price { get; set; }
 
-        [Required]
+        //[Required]
         [Display(Name = "Ratings")]
         public virtual Ratings Ratings { get; set; }
 
-        [Required]
+        //[Required]
         [Display(Name = "Divisions")]
         public virtual Divisions Divisions { get; set; }
 
         [Display(Name = "Photos")]
         public virtual List<Photo> Photos { get; set; } = new();
 
-        [Required]
+        //[Required]
         [Display(Name = "Host")]
         public virtual IdentityUser Manager { get; set; }
 
