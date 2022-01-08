@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace JCAirbnb.Models
 {
@@ -51,18 +52,7 @@ namespace JCAirbnb.Models
         [Display(Name = "Reviews")]
         public virtual List<Review> Reviews { get; set; } = new();
 
-        public Property()
-        {
-            Id = Guid.NewGuid().ToString();
-            Divisions = new()
-            {
-                Id = Id
-            };
-            Ratings = new()
-            {
-                Id = Id
-            };
-            Price = BasePrice;
-        }
+        [Display(Name = "Property type")]
+        public virtual PropertyType PropertyType { get; set; }
     }
 }

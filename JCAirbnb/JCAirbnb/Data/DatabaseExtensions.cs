@@ -75,11 +75,9 @@ namespace JCAirbnb.Data
                 var users = JsonConvert.DeserializeObject<List<UserConfig>>(configUsers);
 
                 Random rand = new();
-                Dictionary<string, string> rolesById = new();
                 Dictionary<string, string> rolesByName = new();
                 foreach (var role in context.Roles)
                 {
-                    rolesById.Add(role.Id, role.Name);
                     rolesByName.Add(role.Name, role.Id);
                 }
 

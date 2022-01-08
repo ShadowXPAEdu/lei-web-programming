@@ -29,8 +29,8 @@ namespace JCAirbnb.Areas.Admin.Controllers
         [Route("/{area}/{controller}/{id?}")]
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Clients.Include(c => c.User);
-            return View(await applicationDbContext.ToListAsync());
+            var clients = _context.Clients.Include(c => c.User);
+            return View(await clients.ToListAsync());
         }
 
         // GET: Admin/ManageClients/Details/5
@@ -107,7 +107,6 @@ namespace JCAirbnb.Areas.Admin.Controllers
                         });
                         await _context.SaveChangesAsync();
                     }
-                    return await Edit(id);
                 }
                 else
                 {
@@ -117,28 +116,8 @@ namespace JCAirbnb.Areas.Admin.Controllers
                     var userRole = await _context.UserRoles.FirstOrDefaultAsync(r => r.RoleId == roleId && r.UserId == viewModel.Client.Id);
                     _context.UserRoles.Remove(userRole);
                     await _context.SaveChangesAsync();
-                    return await Edit(id);
                 }
-
-                //try
-                //{
-                //    _context.Update(viewModel.Client);
-                //    await _context.SaveChangesAsync();
-                //}
-                //catch (DbUpdateConcurrencyException)
-                //{
-                //    if (!ClientExists(viewModel.Client.Id))
-                //    {
-                //        return NotFound();
-                //    }
-                //    else
-                //    {
-                //        throw;
-                //    }
-                //}
-                //return RedirectToAction(nameof(Index));
             }
-            //ViewData["Id"] = new SelectList(_context.Users, "Id", "Id", client.Id);
             return await Edit(id);
         }
 

@@ -11,7 +11,6 @@ namespace JCAirbnb.Models
         [Display(Name = "Id")]
         public string Id { get; set; }
 
-        [Required]
         [ForeignKey("Id")]
         [Display(Name = "Client")]
         public virtual IdentityUser User { get; set; }

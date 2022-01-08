@@ -71,13 +71,20 @@ namespace JCAirbnb.Areas.Manager.Controllers
                 property.Id = Guid.NewGuid().ToString();
                 property.Manager = (await _userManager.GetUserAsync(User)); //falta por o manager associado
 
-                property.Divisions = new Divisions();
-                property.Divisions.Id = property.Id;
-                property.Divisions.Guest = guest;
-                property.Divisions.Bedroom = bedroom;
-                property.Divisions.Bed = bed;
-                property.Divisions.Bath = bath;
-                property.Divisions.PrivateBath = privateBath;
+                property.Divisions = new()
+                {
+                    Id = property.Id,
+                    Guest = guest,
+                    Bedroom = bedroom,
+                    Bed = bed,
+                    Bath = bath,
+                    PrivateBath = privateBath
+                };
+
+                property.Ratings = new()
+                {
+                    Id = property.Id
+                };
 
                 _context.Add(@property);
                 await _context.SaveChangesAsync();
@@ -102,9 +109,9 @@ namespace JCAirbnb.Areas.Manager.Controllers
             return View(new ManagePropertyEditViewModel()
             {
                 Property = property,
-                PropertyCommodities = new (await _context.PropertyCommodities.ToListAsync()),
+                PropertyCommodities = new(await _context.PropertyCommodities.ToListAsync()),
                 Commodities = new(await _context.Commodities.ToListAsync())
-            }) ;
+            });
         }
 
         // POST: Manager/ManageProperties/Edit/5
@@ -230,7 +237,7 @@ namespace JCAirbnb.Areas.Manager.Controllers
             }
 
             var propCom = _context.PropertyCommodities.FirstOrDefault(pc => pc.Commodity.Id == commodity);
-            if(_context.Properties.FirstOrDefault(p => p.Id == id).Commodities.Contains(propCom))
+            if (_context.Properties.FirstOrDefault(p => p.Id == id).Commodities.Contains(propCom))
             {
                 _context.Properties.FirstOrDefault(p => p.Id == id).Commodities.Remove(propCom);
                 await _context.SaveChangesAsync();

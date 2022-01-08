@@ -269,7 +269,8 @@ namespace JCAirbnb.Data.Migrations
                     Price = table.Column<int>(type: "int", nullable: false),
                     RatingsId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     DivisionsId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    ManagerId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    ManagerId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    PropertyTypeId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -284,6 +285,12 @@ namespace JCAirbnb.Data.Migrations
                         name: "FK_Properties_Divisions_DivisionsId",
                         column: x => x.DivisionsId,
                         principalTable: "Divisions",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Properties_PropertyTypes_PropertyTypeId",
+                        column: x => x.PropertyTypeId,
+                        principalTable: "PropertyTypes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -463,6 +470,11 @@ namespace JCAirbnb.Data.Migrations
                 column: "ManagerId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Properties_PropertyTypeId",
+                table: "Properties",
+                column: "PropertyTypeId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Properties_RatingsId",
                 table: "Properties",
                 column: "RatingsId");
@@ -520,9 +532,6 @@ namespace JCAirbnb.Data.Migrations
                 name: "PropertyCommodities");
 
             migrationBuilder.DropTable(
-                name: "PropertyTypes");
-
-            migrationBuilder.DropTable(
                 name: "ReservationStates");
 
             migrationBuilder.DropTable(
@@ -548,6 +557,9 @@ namespace JCAirbnb.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Divisions");
+
+            migrationBuilder.DropTable(
+                name: "PropertyTypes");
 
             migrationBuilder.DropTable(
                 name: "Ratings");

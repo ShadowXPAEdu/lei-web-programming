@@ -69,7 +69,7 @@ namespace JCAirbnb
 
                 endpoints.MapControllerRoute(
                               name: "default",
-                              pattern: "{controller=Home}/{action=Index}/{id?}");
+                              pattern: "{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
         }

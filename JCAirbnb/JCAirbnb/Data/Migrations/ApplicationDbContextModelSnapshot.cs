@@ -145,6 +145,9 @@ namespace JCAirbnb.Data.Migrations
                     b.Property<int>("Price")
                         .HasColumnType("int");
 
+                    b.Property<string>("PropertyTypeId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("RatingsId")
                         .HasColumnType("nvarchar(450)");
 
@@ -157,6 +160,8 @@ namespace JCAirbnb.Data.Migrations
                     b.HasIndex("DivisionsId");
 
                     b.HasIndex("ManagerId");
+
+                    b.HasIndex("PropertyTypeId");
 
                     b.HasIndex("RatingsId");
 
@@ -530,6 +535,10 @@ namespace JCAirbnb.Data.Migrations
                         .WithMany()
                         .HasForeignKey("ManagerId");
 
+                    b.HasOne("JCAirbnb.Models.PropertyType", "PropertyType")
+                        .WithMany()
+                        .HasForeignKey("PropertyTypeId");
+
                     b.HasOne("JCAirbnb.Models.Ratings", "Ratings")
                         .WithMany()
                         .HasForeignKey("RatingsId");
@@ -537,6 +546,8 @@ namespace JCAirbnb.Data.Migrations
                     b.Navigation("Divisions");
 
                     b.Navigation("Manager");
+
+                    b.Navigation("PropertyType");
 
                     b.Navigation("Ratings");
                 });
