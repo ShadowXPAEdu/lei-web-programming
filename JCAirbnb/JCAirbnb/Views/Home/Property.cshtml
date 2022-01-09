@@ -1,48 +1,160 @@
 ﻿@model JCAirbnb.Models.Property
 
 @{
-    ViewData["Title"] = "Property";
+    ViewData["Title"] = $"Property {Model.Title}";
 }
 
-<h1>Property</h1>
+@section CSS {
+    <style>
+        .review > span {
+            margin: 0.2rem;
+        }
+
+            .review > span::after {
+                content: '•';
+            }
+
+            .review > span:last-child::after {
+                content: '';
+            }
+
+        .property-images {
+            height: 450px;
+        }
+
+        .property-check-in {
+            position: -webkit-sticky;
+            position: sticky;
+            top: 10px !important;
+            z-index: 1 !important;
+            width: 100% !important;
+            display: inline-block !important;
+            border: 1px solid rgb(221, 221, 221);
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: rgba(0, 0, 0, 0.12) 0px 6px 16px;
+        }
+
+        .property-price {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .old-price {
+            color: gray;
+        }
+
+        .per-night {
+            font-size: 1rem;
+            font-weight: normal;
+        }
+
+        .property-commodities > span {
+            margin: 0.2rem;
+        }
+    </style>
+}
+
+<h1>@Html.DisplayFor(model => model.Title)</h1>
 
 <div>
-    <h4>Property</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Location)
-        </dt>
-        <dd class = "col-sm-10">
+    <div class="review d-inline-flex">
+        @{var avg = 3.5727412f/*Model.Ratings.GetAverage()*/;}
+        <span>
+            @avg.ToString("F2")
+        </span>
+        <span>
+            @{bool halfStar = (avg - ((int)avg) >= 0.5f);}
+            @for (int i = 0; i < 5; i++)
+            {
+                <span class="@(((i + 1) <= avg) ? "fas" : "far") fa-star@(((i) == (int)avg && halfStar) ? "-half-alt fas" : "")"></span>
+            }
+        </span>
+        <span>
+            @Model.Reviews.Count Reviews
+        </span>
+        <span>
             @Html.DisplayFor(model => model.Location)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.BasePrice)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.BasePrice)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+        </span>
+    </div>
+
+    <div class="property-images">
+
+    </div>
+
+    <div class="d-flex">
+        <div class="col col-6">
+            <div class="property-details">
+                <div class="property-header">
+                    <h4>@Model.PropertyType.Title hosted by @Model.Manager.UserName</h4>
+                    <div class="property-divisions review d-inline-flex">
+                        <span>
+                            @Html.DisplayFor(model => model.Divisions.Guest) guest@(Model.Divisions.Guest > 1 ? "s" : "")
+                        </span>
+                        @if (Model.Divisions.Bedroom > 0)
+                        {
+                            <span>
+                                @Html.DisplayFor(model => model.Divisions.Bedroom) bedroom@(Model.Divisions.Bedroom > 1 ? "s" : "")
+                            </span>
+                        }
+                        @if (Model.Divisions.Bed > 0)
+                        {
+                            <span>
+                                @Html.DisplayFor(model => model.Divisions.Bed) bed@(Model.Divisions.Bed > 1 ? "s" : "")
+                            </span>
+                        }
+                        @if (Model.Divisions.Bath > 0)
+                        {
+                            <span>
+                                @Html.DisplayFor(model => model.Divisions.Bath) bath@(Model.Divisions.Bath > 1 ? "s" : "")
+                            </span>
+                        }
+                        @if (Model.Divisions.PrivateBath > 0)
+                        {
+                            <span>
+                                @Html.DisplayFor(model => model.Divisions.PrivateBath) private bath@(Model.Divisions.PrivateBath > 1 ? "s" : "")
+                            </span>
+                        }
+                    </div>
+                </div>
+                <hr />
+                <div class="property-description">
+                    @Html.DisplayFor(model => model.Description)
+                </div>
+                <hr />
+                <div class="property-commodities">
+                    <h4>What this place offers</h4>
+                    <div class="property-commodities d-inline-flex flex-wrap">
+                        @foreach (var commodity in Model.Commodities)
+                        {
+                            <span class="btn btn-sm btn-@(commodity.Included ? "primary" : "danger")">
+                                @Html.DisplayFor(m => commodity.Commodity.Title)
+                            </span>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col col-1"></div>
+        <div class="col col-5">
+            <div class="property-check-in d-inline-block">
+                <div class="property-check-in-content">
+                    <div class="property-price-review d-flex justify-content-between align-items-end">
+                        <div class="property-price">
+                            @if (Model.BasePrice != Model.Price)
+                            {
+                                <span class="old-price"><s>€@Html.DisplayFor(model => model.BasePrice)</s></span>
+                            }
+                            <span class="price">€@Html.DisplayFor(model => model.Price)</span><span class="per-night">/night</span>
+                        </div>
+                        <div class="review">
+                            <span>
+                                @avg.ToString("F2")
+                            </span><span>@Model.Reviews.Count Reviews</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

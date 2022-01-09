@@ -83,30 +83,29 @@
                 </tr>
             </thead>
             <tbody>
-            @foreach (var item in Model.PropertyCommodities)
-            {
-                @*@if(item.)*@
-                <tr>
-                    <td>
-                        @Html.DisplayFor(m => item.Commodity.Title)
-                        @Html.DisplayFor(m => item.Commodity.Description)
-                        @Html.DisplayFor(m => item.Included)
-                    </td>
-                    <td>
-                        <form asp-action="RemoveCommodity" asp-route-id="@Model.Property.Id">
-                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                            <input type="hidden" asp-for="Property" />
-                            <input type="hidden" asp-for="Commodities" />
-                            <input type="hidden" asp-for="AddingCommodity" value="false" />
-                            <input type="hidden" name="commodity" value="@item" />
-                            <div class="form-group">
-                                <input type="submit" value="Remove role" class="btn btn-danger" />
-                            </div>
-                        </form>
-                    </td>
-                </tr>
-            }
-        </tbody>
+                @foreach (var item in Model.Property.Commodities)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(m => item.Commodity.Title)
+                            @Html.DisplayFor(m => item.Commodity.Description)
+                            @Html.DisplayFor(m => item.Included)
+                        </td>
+                        <td>
+                            <form asp-action="RemoveCommodity" asp-route-id="@Model.Property.Id">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <input type="hidden" asp-for="Property" />
+                                <input type="hidden" asp-for="Commodities" />
+                                <input type="hidden" asp-for="AddingCommodity" value="false" />
+                                <input type="hidden" name="commodity" value="@item" />
+                                <div class="form-group">
+                                    <input type="submit" value="Remove role" class="btn btn-danger" />
+                                </div>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
         </table>
     </div>
 </div>

@@ -29,24 +29,21 @@ namespace JCAirbnb.Areas.Manager.Controllers
         [Route("/{area}/{controller}/{id?}")]
         public async Task<IActionResult> Index()
         {
-            var aux = _context.Properties.Include(d => d.Divisions).Include(c => c.Commodities);
+            var manager = (await _userManager.GetUserAsync(User));
+            var aux = _context.Properties.Where(p => p.Manager.Id == manager.Id);
+            aux = aux.Include(p => p.Divisions).Include(p => p.Commodities).ThenInclude(c => c.Commodity);
             return View(await aux.ToListAsync());
         }
 
         // GET: Manager/ManageProperties/Details/5
         public async Task<IActionResult> Details(string id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
             var @property = await _context.Properties
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (@property == null)
-            {
-                return NotFound();
-            }
+
+            if (@property == null) return NotFound();
 
             return View(@property);
         }
@@ -96,21 +93,19 @@ namespace JCAirbnb.Areas.Manager.Controllers
         // GET: Manager/ManageProperties/Edit/5
         public async Task<IActionResult> Edit(string id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
-            var property = await _context.Properties.FindAsync(id);
-            if (property == null)
-            {
-                return NotFound();
-            }
+            var property = await _context.Properties
+                .Include(p => p.Commodities)
+                .ThenInclude(c => c.Commodity)
+                .FirstOrDefaultAsync(p => p.Id == id);
+
+            if (property == null) return NotFound();
+
             return View(new ManagePropertyEditViewModel()
             {
                 Property = property,
-                PropertyCommodities = new(await _context.PropertyCommodities.ToListAsync()),
-                Commodities = new(await _context.Commodities.ToListAsync())
+                Commodities = await _context.Commodities.ToListAsync()
             });
         }
 
@@ -121,10 +116,7 @@ namespace JCAirbnb.Areas.Manager.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(string id, [Bind("Id,Title,Description,Location,BasePrice,Price")] Property @property)
         {
-            if (id != @property.Id)
-            {
-                return NotFound();
-            }
+            if (id != @property.Id) return NotFound();
 
             if (ModelState.IsValid)
             {

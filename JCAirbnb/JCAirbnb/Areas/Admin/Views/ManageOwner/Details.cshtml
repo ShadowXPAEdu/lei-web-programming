@@ -75,21 +75,17 @@
                     </td>
                     <td>
                         <div class="minWidthMaxContent d-inline-flex align-items-center flex-column">
-                            @{
-                                var avg = item.Ratings.GetAverage();
-                                <div>
-                                    @avg.ToString("F2")
-                                </div>
-                                <div>
-                                    @{
-                                        bool halfStar = (avg - ((int)avg) >= 0.5f);
-                                        for (int i = 0; i < 5; i++)
-                                        {
-                                            <span class="@(((i + 1) <= avg) ? "fas" : "far") fa-star@(((i) == (int)avg && halfStar) ? "-half-alt fas" : "")"></span>
-                                        }
-                                    }
-                                </div>
-                            }
+                            @{var avg = item.Ratings.GetAverage();}
+                            <div>
+                                @avg.ToString("F2")
+                            </div>
+                            <div>
+                                @{bool halfStar = (avg - ((int)avg) >= 0.5f);}
+                                @for (int i = 0; i < 5; i++)
+                                {
+                                    <span class="@(((i + 1) <= avg) ? "fas" : "far") fa-star@(((i) == (int)avg && halfStar) ? "-half-alt fas" : "")"></span>
+                                }
+                            </div>
                         </div>
                     </td>
                     <td class="d-inline-flex flex-wrap">

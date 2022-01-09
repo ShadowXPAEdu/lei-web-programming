@@ -11,9 +11,6 @@ namespace JCAirbnb.Areas.Manager.Models
         [Display(Name = "Property")]
         public JCAirbnb.Models.Property Property { get; set; }
 
-        [Display(Name = "PropertyCommodities")]
-        public List<JCAirbnb.Models.PropertyCommodity> PropertyCommodities { get; set; }
-
         [Display(Name = "Commodities")]
         public List<JCAirbnb.Models.Commodity> Commodities { get; set; }
 
