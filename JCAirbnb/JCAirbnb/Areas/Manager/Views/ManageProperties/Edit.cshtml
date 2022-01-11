@@ -1,8 +1,5 @@
-﻿@*@model JCAirbnb.Models.Property*@
+﻿
 @model JCAirbnb.Areas.Manager.Models.ManagePropertyEditViewModel
-@*@using JCAirbnb.Data
-    @using Microsoft.AspNetCore.Identity
-    @inject ApplicationDbContext _context*@
 
 @{
     ViewData["Title"] = "Edit";
@@ -13,9 +10,9 @@
 
 <h4>Property</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
+<form asp-action="Edit">
+    <div class="row">
+        <div class="col-md-4">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Property.Id" />
             <div class="form-group">
@@ -46,9 +43,57 @@
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
-        </form>
+        </div>
+        <div class="col-md-2">
+            <input asp-for="Property.Divisions.Id" type="hidden" />
+            <div class="form-group">
+                <label asp-for="Property.Divisions.Guest" class="control-label"></label>
+                <input asp-for="Property.Divisions.Guest" type="number" min="0" name="guest" class="form-control" />
+                <span asp-validation-for="Property.Divisions.Guest" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Property.Divisions.Bedroom" class="control-label"></label>
+                <input asp-for="Property.Divisions.Bedroom" type="number" min="0" name="bedroom" class="form-control" />
+                <span asp-validation-for="Property.Divisions.Bedroom" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Property.Divisions.Bed" class="control-label"></label>
+                <input asp-for="Property.Divisions.Bed" type="number" min="0" name="bed" class="form-control" />
+                <span asp-validation-for="Property.Divisions.Bed" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Property.Divisions.Bath" class="control-label"></label>
+                <input asp-for="Property.Divisions.Bath" type="number" min="0" name="bath" class="form-control" />
+                <span asp-validation-for="Property.Divisions.Bath" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Property.Divisions.PrivateBath" class="control-label"></label>
+                <input asp-for="Property.Divisions.PrivateBath" type="number" min="0" name="privateBath" class="form-control" />
+                <span asp-validation-for="Property.Divisions.PrivateBath" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <h4>Property tipe:</h4>
+            <div class="flex-fill">
+                <div class="form-group d-inline-block">
+                    <select name="propTypeId" class="custom-select">
+                        @foreach (var item in Model.PropertyTypes)
+                        {
+                            @if (item.Id == Model.Property.PropertyType.Id)
+                            {
+                                <option selected value="@item.Id">@item.Title</option>
+                            }
+                            else
+                            {
+                                <option value="@item.Id">@item.Title</option>
+                            }
+                        }
+                    </select>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
+</form>
 <div class="row">
     <div class="col-md-3">
         <form asp-action="EditCommodity" asp-route-id="@Model.Property.Id">
@@ -77,7 +122,7 @@
             <thead>
                 <tr>
                     <th>
-                        Roles
+                        Commodities
                     </th>
                     <th></th>
                 </tr>
@@ -88,18 +133,17 @@
                     <tr>
                         <td>
                             @Html.DisplayFor(m => item.Commodity.Title)
-                            @Html.DisplayFor(m => item.Commodity.Description)
                             @Html.DisplayFor(m => item.Included)
                         </td>
                         <td>
                             <form asp-action="RemoveCommodity" asp-route-id="@Model.Property.Id">
                                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                                 <input type="hidden" asp-for="Property" />
-                                <input type="hidden" asp-for="Commodities" />
+                                <input type="hidden" asp-for="Property.Commodities" />
                                 <input type="hidden" asp-for="AddingCommodity" value="false" />
-                                <input type="hidden" name="commodity" value="@item" />
+                                <input type="hidden" name="commodity" value="@item.Commodity.Id" />
                                 <div class="form-group">
-                                    <input type="submit" value="Remove role" class="btn btn-danger" />
+                                    <input type="submit" value="Remove Commodity" class="btn btn-danger" />
                                 </div>
                             </form>
                         </td>

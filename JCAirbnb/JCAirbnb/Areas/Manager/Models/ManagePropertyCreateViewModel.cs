@@ -6,18 +6,12 @@ using System.Threading.Tasks;
 
 namespace JCAirbnb.Areas.Manager.Models
 {
-    public class ManagePropertyEditViewModel
+    public class ManagePropertyCreateViewModel
     {
         [Display(Name = "Property")]
         public JCAirbnb.Models.Property Property { get; set; }
 
-        [Display(Name = "Commodities")]
-        public List<JCAirbnb.Models.Commodity> Commodities { get; set; }
-
-        [Display(Name = "AddingCommodity")]
-        public bool AddingCommodity { get; set; }
-
-        [Display(Name = "Property Types")]
+        [Display(Name = "PropertyTypes")]
         public List<JCAirbnb.Models.PropertyType> PropertyTypes { get; set; }
     }
 }

@@ -31,7 +31,7 @@ namespace JCAirbnb.Areas.Manager.Controllers
         {
             var manager = (await _userManager.GetUserAsync(User));
             var aux = _context.Properties.Where(p => p.Manager.Id == manager.Id);
-            aux = aux.Include(p => p.Divisions).Include(p => p.Commodities).ThenInclude(c => c.Commodity);
+            aux = aux.Include(p => p.Divisions).Include(p => p.Commodities).ThenInclude(c => c.Commodity).Include(p => p.PropertyType);
             return View(await aux.ToListAsync());
         }
 
@@ -40,7 +40,9 @@ namespace JCAirbnb.Areas.Manager.Controllers
         {
             if (id == null) return NotFound();
 
-            var @property = await _context.Properties
+            var @property = await _context.Properties.
+                Include(p => p.Divisions).Include(p => p.Commodities).ThenInclude(c => c.Commodity).Include(p => p.PropertyType)
+                .Include(p => p.Reviews).ThenInclude(r => r.User)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
             if (@property == null) return NotFound();
@@ -51,7 +53,9 @@ namespace JCAirbnb.Areas.Manager.Controllers
         // GET: Manager/ManageProperties/Create
         public IActionResult Create()
         {
-            return View();
+            ManagePropertyCreateViewModel managePropertyCreateViewModel = new ManagePropertyCreateViewModel();
+            managePropertyCreateViewModel.PropertyTypes = _context.PropertyTypes.ToList();
+            return View(managePropertyCreateViewModel);
         }
 
         // POST: Manager/ManageProperties/Create
@@ -59,18 +63,19 @@ namespace JCAirbnb.Areas.Manager.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Title,Description,Location,BasePrice,Price")] Property @property,
+        public async Task<IActionResult> Create([Bind("Property")] ManagePropertyCreateViewModel viewModel,
         [FromForm(Name = "guest")] int guest, [FromForm(Name = "bedroom")] int bedroom, [FromForm(Name = "bed")] int bed,
-        [FromForm(Name = "bath")] int bath, [FromForm(Name = "privateBath")] int privateBath)
+        [FromForm(Name = "bath")] int bath, [FromForm(Name = "privateBath")] int privateBath,
+        [FromForm(Name = "propTypeId")] string propTypeId)
         {
             if (ModelState.IsValid)
             {
-                property.Id = Guid.NewGuid().ToString();
-                property.Manager = (await _userManager.GetUserAsync(User)); //falta por o manager associado
+                viewModel.Property.Id = Guid.NewGuid().ToString();
+                viewModel.Property.Manager = (await _userManager.GetUserAsync(User)); //falta por o manager associado
 
-                property.Divisions = new()
+                viewModel.Property.Divisions = new()
                 {
-                    Id = property.Id,
+                    Id = viewModel.Property.Id,
                     Guest = guest,
                     Bedroom = bedroom,
                     Bed = bed,
@@ -78,16 +83,19 @@ namespace JCAirbnb.Areas.Manager.Controllers
                     PrivateBath = privateBath
                 };
 
-                property.Ratings = new()
+                viewModel.Property.Ratings = new()
                 {
-                    Id = property.Id
+                    Id = viewModel.Property.Id
                 };
 
-                _context.Add(@property);
+                var propType = _context.PropertyTypes.FirstOrDefault(pt => pt.Id == propTypeId);
+                viewModel.Property.PropertyType = propType;
+
+                _context.Add(viewModel.Property);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(@property);
+            return View(viewModel);
         }
 
         // GET: Manager/ManageProperties/Edit/5
@@ -96,14 +104,21 @@ namespace JCAirbnb.Areas.Manager.Controllers
             if (id == null) return NotFound();
 
             var property = await _context.Properties
+                .Include(p => p.Divisions)
                 .Include(p => p.Commodities)
                 .ThenInclude(c => c.Commodity)
+                .Include(pt => pt.PropertyType)
                 .FirstOrDefaultAsync(p => p.Id == id);
 
             if (property == null) return NotFound();
 
+            var manager = (await _userManager.GetUserAsync(User));
+
+            if (manager.Id != property.Manager.Id) return NotFound();
+
             return View(new ManagePropertyEditViewModel()
             {
+                PropertyTypes = await _context.PropertyTypes.ToListAsync(),
                 Property = property,
                 Commodities = await _context.Commodities.ToListAsync()
             });
@@ -114,20 +129,30 @@ namespace JCAirbnb.Areas.Manager.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("Id,Title,Description,Location,BasePrice,Price")] Property @property)
+        public async Task<IActionResult> Edit(string id, [Bind("Property,Commodities,AddingCommodity")] ManagePropertyEditViewModel viewModel,
+            [FromForm(Name = "guest")] int guest, [FromForm(Name = "bedroom")] int bedroom, [FromForm(Name = "bed")] int bed,
+        [FromForm(Name = "bath")] int bath, [FromForm(Name = "privateBath")] int privateBath, [FromForm(Name = "propTypeId")] string propTypeId)
         {
-            if (id != @property.Id) return NotFound();
+            if (id != viewModel.Property.Id) return NotFound();
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(@property);
+                    viewModel.Property.Divisions.Guest = guest;
+                    viewModel.Property.Divisions.Bedroom = bedroom;
+                    viewModel.Property.Divisions.Bed = bed;
+                    viewModel.Property.Divisions.Bath = bath;
+                    viewModel.Property.Divisions.PrivateBath = privateBath;
+
+                    var propType = _context.PropertyTypes.FirstOrDefault(pt => pt.Id == propTypeId);
+                    viewModel.Property.PropertyType = propType;
+                    _context.Update(viewModel.Property);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!PropertyExists(@property.Id))
+                    if (!PropertyExists(viewModel.Property.Id))
                     {
                         return NotFound();
                     }
@@ -138,7 +163,7 @@ namespace JCAirbnb.Areas.Manager.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(@property);
+            return View(viewModel);
         }
 
         [HttpPost]
@@ -150,12 +175,12 @@ namespace JCAirbnb.Areas.Manager.Controllers
             {
                 if (submit == "Included Commodity")
                 {
-                    var commo = _context.Commodities.FirstOrDefault(c => c.Id == commodity);
+                    var commo = await _context.Commodities.FirstOrDefaultAsync(c => c.Id == commodity);
                     if (commo == null)
                     {
                         return NotFound();
                     }
-                    var prop = _context.Properties.FirstOrDefault(p => p.Id == id);
+                    var prop = await _context.Properties.Include(p => p.Commodities).ThenInclude(c => c.Commodity).FirstOrDefaultAsync(p => p.Id == id);
                     if (prop == null)
                     {
                         return NotFound();
@@ -168,9 +193,9 @@ namespace JCAirbnb.Areas.Manager.Controllers
                         Included = true
                     };
 
-                    if (!_context.Properties.FirstOrDefault(p => p.Id == id).Commodities.Contains(propertyCommodity))
+                    if (!prop.Commodities.Contains(propertyCommodity))
                     {
-                        _context.Properties.FirstOrDefault(p => p.Id == id).Commodities.Add(propertyCommodity);
+                        prop.Commodities.Add(propertyCommodity);
                         await _context.SaveChangesAsync();
                         return RedirectToAction("Edit", new { id });
                     }
@@ -184,7 +209,7 @@ namespace JCAirbnb.Areas.Manager.Controllers
                     {
                         return NotFound();
                     }
-                    var prop = _context.Properties.FirstOrDefault(p => p.Id == id);
+                    var prop = _context.Properties.Include(p => p.Commodities).ThenInclude(c => c.Commodity).FirstOrDefault(p => p.Id == id);
                     if (prop == null)
                     {
                         return NotFound();
@@ -197,9 +222,11 @@ namespace JCAirbnb.Areas.Manager.Controllers
                         Included = false
                     };
 
-                    if (!_context.Properties.FirstOrDefault(p => p.Id == id).Commodities.Contains(propertyCommodity))
+                    if (!prop.Commodities.Contains(propertyCommodity))
                     {
-                        _context.Properties.FirstOrDefault(p => p.Id == id).Commodities.Add(propertyCommodity);
+                        //    if (!_context.Properties.FirstOrDefault(p => p.Id == id).Commodities.Contains(propertyCommodity))
+                        //{
+                        prop.Commodities.Add(propertyCommodity);
                         await _context.SaveChangesAsync();
                         return RedirectToAction("Edit", new { id });
                     }
@@ -216,22 +243,33 @@ namespace JCAirbnb.Areas.Manager.Controllers
         public async Task<IActionResult> RemoveCommodity(string id, [Bind("Property,Commodities,AddingCommodity")] ManagePropertyEditViewModel viewModel,
             [FromForm(Name = "commodity")] string commodity)
         {
-            var prop = _context.Properties.FirstOrDefault(p => p.Id == id);
+            var prop = await _context.Properties.Include(p => p.Commodities).ThenInclude(c => c.Commodity).FirstOrDefaultAsync(p => p.Id == id);
             if (prop == null)
             {
                 return NotFound();
             }
+            //var commo = _context.Commodities.FirstOrDefault(c => c.Id == commodity);
+            //if (commo == null)
+            //{
+            //    return NotFound();
+            //}
 
-            var com = prop.Commodities.FirstOrDefault(c => c.Commodity.Id == commodity);
-            if (com == null)
+            //var com = _context.Properties.FirstOrDefault(p => p.Id == id).Commodities.Find(c => c.Id == commodity);
+            ////var com = prop.Commodities.FirstOrDefault(c => c.Commodity.Id == commodity);
+            //if (com == null)
+            //{
+            //    return NotFound();
+            //}
+
+            var propCom = await _context.PropertyCommodities.Include(pc => pc.Commodity).FirstOrDefaultAsync(pc => pc.Commodity.Id == commodity);
+            if (propCom == null)
             {
                 return NotFound();
             }
 
-            var propCom = _context.PropertyCommodities.FirstOrDefault(pc => pc.Commodity.Id == commodity);
-            if (_context.Properties.FirstOrDefault(p => p.Id == id).Commodities.Contains(propCom))
+            if (prop.Commodities.Contains(propCom))
             {
-                _context.Properties.FirstOrDefault(p => p.Id == id).Commodities.Remove(propCom);
+                prop.Commodities.Remove(propCom);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Edit", new { id });
             }
@@ -261,7 +299,12 @@ namespace JCAirbnb.Areas.Manager.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            var @property = await _context.Properties.FindAsync(id);
+            //first delete all PropertyCommodities with the same ID
+            var @property = await _context.Properties.Include(p => p.Commodities)
+                .ThenInclude(c => c.Commodity).FirstOrDefaultAsync(p => p.Id == id);
+            //@property.Commodities.RemoveAll(c => c.Id = id);
+            property.Commodities.Clear();
+            //await _context.SaveChangesAsync();
             _context.Properties.Remove(@property);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace JCAirbnb.Models
 {
@@ -14,5 +15,11 @@ namespace JCAirbnb.Models
 
         [Display(Name = "Included")]
         public bool Included { get; set; } = true;
+
+        public override bool Equals(object obj)
+        {
+            return obj is PropertyCommodity commodity &&
+                   EqualityComparer<Commodity>.Default.Equals(Commodity, commodity.Commodity);
+        }
     }
 }
