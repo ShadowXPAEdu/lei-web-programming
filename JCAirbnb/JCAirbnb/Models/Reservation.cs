@@ -28,5 +28,9 @@ namespace JCAirbnb.Models
 
         [Display(Name = "Tenant")]
         public virtual IdentityUser User { get; set; }
+
+        // TODO: add reservation check list
+        [Display(Name = "Check list")]
+        public virtual CheckList CheckList { get; set; }
     }
 }

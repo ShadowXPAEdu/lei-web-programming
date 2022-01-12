@@ -1,17 +1,106 @@
-﻿@model IEnumerable<JCAirbnb.Models.Property>
+﻿@model JCAirbnb.Models.ViewModel.HomeViewModel
 
 @{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+@section CSS {
+    <style type="text/css">
+        .property-image {
+            width: 300px;
+            height: 300px;
+        }
+
+        .property-title {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-weight: bold;
+        }
+
+        .property-price .per-night {
+            font-size: 0.8rem;
+        }
+
+        .property-info .property-host {
+            font-size: 0.8rem;
+        }
+
+        .property-info .property-rating {
+            font-size: 0.8rem;
+            color: gray;
+        }
+
+        .property-link {
+            text-decoration: none;
+            color: inherit;
+        }
+
+            .property-link:hover {
+                text-decoration: none;
+                color: gray;
+            }
+
+            .property-link:active {
+                text-decoration: none;
+                color: lightgray;
+            }
+    </style>
+}
+
+<div class="d-flex flex-row flex-wrap justify-content-around">
+    @foreach (var property in Model.Properties)
+    {
+        <div class="col-4 d-flex flex-column align-items-center">
+            <a class="property-link" asp-controller="" asp-action="Property" asp-route-id="@property.Id">
+                <div class="property-image">
+                    @foreach (var photo in property.Photos)
+                    {
+                        <img src="~/img/photos/@photo.Path" />
+                    }
+                </div>
+            </a>
+            <a class="property-link" asp-controller="" asp-action="Property" asp-route-id="@property.Id">
+                <div class="property-info d-inline-flex align-items-center">
+                    <div class="col-7">
+                        <div class="property-title">
+                            @property.Title
+
+                        </div>
+                        <div class="property-host">
+                            @property.Manager.UserName
+                        </div>
+                    </div>
+                    <div class="col-5">
+                        <div class="property-price">
+                            <span class="price">€@property.Price</span><span class="per-night">/night</span>
+                        </div>
+                        <div class="property-rating">
+                            @property.Ratings.GetAverage().ToString("F2")
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    }
 </div>
 
-@foreach (var property in Model)
-{
-    <div>
-        <a asp-controller="" asp-action="Property" asp-route-id="@property.Id">@property.Id</a>
-    </div>
+<hr />
+
+<div class="d-flex justify-content-center page-navigation">
+    @if (Model.HasPrevPage)
+    {
+        <div class="prev-page"><a asp-controller="" asp-action="" asp-route-page="@(Model.Page - 1)"><i class="fas fa-chevron-left"></i></a></div>
+    }
+    <div class="current-page">@Model.Page</div>
+    @if (Model.HasNextPage)
+    {
+        <div class="next-page"><a asp-controller="" asp-action="" asp-route-page="@(Model.Page + 1)"><i class="fas fa-chevron-right"></i></a></div>
+    }
+</div>
+
+@section Scripts {
+    <script type="text/html">
+
+    </script>
 }

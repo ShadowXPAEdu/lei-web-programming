@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace JCAirbnb.Models
@@ -20,6 +21,11 @@ namespace JCAirbnb.Models
         {
             return obj is PropertyCommodity commodity &&
                    EqualityComparer<Commodity>.Default.Equals(Commodity, commodity.Commodity);
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Id, Commodity, Included);
         }
     }
 }

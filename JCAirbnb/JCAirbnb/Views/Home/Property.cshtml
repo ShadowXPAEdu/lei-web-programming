@@ -5,7 +5,7 @@
 }
 
 @section CSS {
-    <style>
+    <style type="text/css">
         .review > span {
             margin: 0.2rem;
         }
@@ -220,7 +220,7 @@
                             </span><span><a href="#reviews">@Model.Reviews.Count Reviews</a></span>
                         </div>
                     </div>
-                    <form asp-area="Client" asp-controller="" asp-action="CheckIn">
+                    <form method="get" asp-area="Client" asp-controller="" asp-action="Reserve" asp-route-id="@Model.Id">
                         <div class="property-check-in-form">
                             <div class="property-dates d-flex justify-content-around">
                                 <div class="d-flex flex-column">

@@ -53,7 +53,6 @@ namespace JCAirbnb.Areas.Admin.Controllers
         }
 
         // GET: Admin/ManageClients/Edit/5
-        // TODO: edit user roles
         public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
@@ -66,7 +65,7 @@ namespace JCAirbnb.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            //ViewData["Id"] = new SelectList(_context.Users, "Id", "Id", client.Id);
+
             return View(new ManageClientEditViewModel()
             {
                 Roles = new(_context.Roles),

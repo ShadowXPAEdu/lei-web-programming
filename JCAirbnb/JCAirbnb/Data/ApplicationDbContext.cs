@@ -26,5 +26,9 @@ namespace JCAirbnb.Data
         public DbSet<PropertyCommodity> PropertyCommodities { get; set; }
 
         public DbSet<PropertyType> PropertyTypes { get; set; }
+
+        public DbSet<Reservation> Reservations { get; set; }
+
+        public DbSet<CheckListItem> CheckListItems { get; set; }
     }
 }

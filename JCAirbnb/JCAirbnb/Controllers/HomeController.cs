@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using System.Linq;
+using JCAirbnb.Models.ViewModel;
 
 namespace JCAirbnb.Controllers
 {
@@ -14,6 +16,8 @@ namespace JCAirbnb.Controllers
         private readonly ApplicationDbContext _context;
         private readonly UserManager<IdentityUser> _userManager;
 
+        private const int DEFAULT_ITEMS_PER_PAGE = 50;
+
         public HomeController(ApplicationDbContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
@@ -21,14 +25,30 @@ namespace JCAirbnb.Controllers
         }
 
         [Route("/")]
-        public IActionResult Index()
+        public async Task<IActionResult> Index(int? page, string q)
         {
-            return View(_context.Properties);
-        }
+            int pg = page ?? 1;
+            pg = pg < 1 ? 1 : pg;
+            q ??= "";
 
-        public IActionResult Privacy()
-        {
-            return View();
+            var properties = _context.Properties.Include(p => p.PropertyType)
+                .Include(p => p.Ratings)
+                .OrderByDescending(p => (p.Ratings.Cleanliness + p.Ratings.Accuracy + p.Ratings.Communication + p.Ratings.Location + p.Ratings.CheckIn + p.Ratings.Value) / 6.0f)
+                .Skip((pg - 1) * DEFAULT_ITEMS_PER_PAGE)
+                .Take(DEFAULT_ITEMS_PER_PAGE)
+                .Where(p => p.Title.Contains(q) || p.Location.Contains(q) || p.PropertyType.Title.Contains(q));
+
+            var count = _context.Properties.Count();
+
+            var viewModel = new HomeViewModel()
+            {
+                Properties = await properties.Include(p => p.Photos).Include(p => p.Manager).ToListAsync(),
+                Page = pg,
+                HasPrevPage = pg != 1,
+                HasNextPage = count > DEFAULT_ITEMS_PER_PAGE * (pg)
+            };
+
+            return View(viewModel);
         }
 
         public async Task<IActionResult> Property(string id)
