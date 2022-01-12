@@ -22,7 +22,6 @@
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Client\Data\" />
     <Folder Include="Areas\Manager\Data\" />
-    <Folder Include="wwwroot\img\" />
   </ItemGroup>
 
 </Project>

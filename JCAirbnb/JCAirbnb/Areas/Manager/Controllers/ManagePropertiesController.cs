@@ -69,7 +69,7 @@ namespace JCAirbnb.Areas.Manager.Controllers
         public async Task<IActionResult> Create([Bind("Property")] ManagePropertyCreateViewModel viewModel,
         [FromForm(Name = "guest")] int guest, [FromForm(Name = "bedroom")] int bedroom, [FromForm(Name = "bed")] int bed,
         [FromForm(Name = "bath")] int bath, [FromForm(Name = "privateBath")] int privateBath,
-        [FromForm(Name = "propTypeId")] string propTypeId)
+        [FromForm(Name = "propTypeId")] string propTypeId, [FromForm(Name = "files")] IEnumerable<IFormFile> files)
         {
             if (ModelState.IsValid)
             {
@@ -94,7 +94,29 @@ namespace JCAirbnb.Areas.Manager.Controllers
                 var propType = _context.PropertyTypes.FirstOrDefault(pt => pt.Id == propTypeId);
                 viewModel.Property.PropertyType = propType;
 
-                _context.Add(viewModel.Property);
+                viewModel.Property.Photos = new();
+
+                foreach (var file in files)
+                {
+                    if (file.Length > 0)
+                    {
+                        var fileGuid = Guid.NewGuid();
+                        var fileExtension = file.FileName[file.FileName.LastIndexOf(".")..];
+
+                        var filePath = $"wwwroot/img/photos/{fileGuid}{fileExtension}";
+
+                        using var stream = System.IO.File.Create(filePath);
+                        await file.CopyToAsync(stream);
+
+                        viewModel.Property.Photos.Add(new()
+                        {
+                            Id = fileGuid.ToString(),
+                            Path = $"{fileGuid}{fileExtension}"
+                        });
+                    }
+                }
+
+                _context.Properties.Add(viewModel.Property);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -102,25 +124,23 @@ namespace JCAirbnb.Areas.Manager.Controllers
         }
 
         [HttpPost]
-        public ActionResult UploadPhotos(HttpPostedFileBase file)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> UploadPhotos([FromForm(Name = "files")] IEnumerable<IFormFile> files)
         {
-            if (file != null && file.ContentLength > 0)
-                try
-                {
-                    string path = Path.Combine(Server.MapPath("~/Images"),
-                                               Path.GetFileName(file.FileName));
-                    file.SaveAs(path);
-                    ViewBag.Message = "File uploaded successfully";
-                }
-                catch (Exception ex)
-                {
-                    ViewBag.Message = "ERROR:" + ex.Message.ToString();
-                }
-            else
+            if (files == null) return NotFound();
+
+            foreach (var file in files)
             {
-                ViewBag.Message = "You have not specified a file.";
+                if (file.Length > 0)
+                {
+                    var filePath = $"wwwroot/img/photos/{Guid.NewGuid()}{file.FileName[file.FileName.LastIndexOf(".")..]}";
+
+                    using var stream = System.IO.File.Create(filePath);
+                    await file.CopyToAsync(stream);
+                }
             }
-            return View();
+
+            return RedirectToAction(nameof(Index));
         }
 
         //[HttpPost]
