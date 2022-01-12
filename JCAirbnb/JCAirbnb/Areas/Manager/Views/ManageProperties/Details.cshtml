@@ -23,6 +23,23 @@
         .comment-header > * {
             margin: 0.4rem;
         }
+
+        .rating-progress-bar {
+            display: block;
+            width: 100%;
+            height: 10px;
+            border: 1px solid rgb(221, 221, 221);
+        }
+
+        .rating-progress-bar-active {
+            display: block;
+            background: gray;
+            height: 10px;
+        }
+
+        .property-rating > span {
+            margin: 0.2rem;
+        }
     </style>
 }
 <h1>Details</h1>
@@ -133,7 +150,7 @@
         <dt class="col-sm-2">
             <h4>Commodities:</h4>
         </dt>
-        <div  class="col-sm-12"></div>
+        <div class="col-sm-12"></div>
         <dd class="property-commodities d-inline-flex flex-wrap">
             <div class="tutorial">
                 <span class="p-2">Included</span><p class="btn btn-sm btn-primary">&nbsp;</p>
@@ -149,6 +166,78 @@
         </dd>
     </dl>
 </dt>
+<div class="ratings d-flex justify-content-between">
+    <div class="d-inline-flex flex-column col col-6">
+        <span class="property-rating">
+            <span class="review">
+                <span class="rating-label">
+                    @Html.DisplayNameFor(m => m.Ratings.Cleanliness)
+                </span>
+                <span class="rating-value">
+                    @Html.DisplayFor(m => m.Ratings.Cleanliness)
+                </span>
+            </span>
+            <span class="rating-progress-bar"><span class="rating-progress-bar-active" style="width:@((Model.Ratings.Cleanliness / 5.0f) * 100)%;"></span></span>
+        </span>
+        <span class="property-rating">
+            <span class="review">
+                <span class="rating-label">
+                    @Html.DisplayNameFor(m => m.Ratings.Communication)
+                </span>
+                <span class="rating-value">
+                    @Html.DisplayFor(m => m.Ratings.Communication)
+                </span>
+            </span>
+            <span class="rating-progress-bar"><span class="rating-progress-bar-active" style="width:@((Model.Ratings.Communication / 5.0f) * 100)%;"></span></span>
+        </span>
+        <span class="property-rating">
+            <span class="review">
+                <span class="rating-label">
+                    @Html.DisplayNameFor(m => m.Ratings.CheckIn)
+                </span>
+                <span class="rating-value">
+                    @Html.DisplayFor(m => m.Ratings.CheckIn)
+                </span>
+            </span>
+            <span class="rating-progress-bar"><span class="rating-progress-bar-active" style="width:@((Model.Ratings.CheckIn / 5.0f) * 100)%;"></span></span>
+        </span>
+    </div>
+    <div class="d-inline-flex flex-column justify-content-between col col-6">
+        <span class="property-rating">
+            <span class="review">
+                <span class="rating-label">
+                    @Html.DisplayNameFor(m => m.Ratings.Accuracy)
+                </span>
+                <span class="rating-value">
+                    @Html.DisplayFor(m => m.Ratings.Accuracy)
+                </span>
+            </span>
+            <span class="rating-progress-bar"><span class="rating-progress-bar-active" style="width:@((Model.Ratings.Accuracy / 5.0f) * 100)%;"></span></span>
+        </span>
+        <span class="property-rating">
+            <span class="review">
+                <span class="rating-label">
+                    @Html.DisplayNameFor(m => m.Ratings.Location)
+                </span>
+                <span class="rating-value">
+                    @Html.DisplayFor(m => m.Ratings.Location)
+                </span>
+            </span>
+            <span class="rating-progress-bar"><span class="rating-progress-bar-active" style="width:@((Model.Ratings.Location / 5.0f) * 100)%;"></span></span>
+        </span>
+        <span class="property-rating">
+            <span class="review">
+                <span class="rating-label">
+                    @Html.DisplayNameFor(m => m.Ratings.Value)
+                </span>
+                <span class="rating-value">
+                    @Html.DisplayFor(m => m.Ratings.Value)
+                </span>
+            </span>
+            <span class="rating-progress-bar"><span class="rating-progress-bar-active" style="width:@((Model.Ratings.Value / 5.0f) * 100)%;"></span></span>
+        </span>
+    </div>
+</div>
 <div class="col-sm-12">
     <h4>Coments:</h4>
 </div>
