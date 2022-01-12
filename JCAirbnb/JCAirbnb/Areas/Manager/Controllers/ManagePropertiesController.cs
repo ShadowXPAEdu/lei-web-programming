@@ -8,6 +8,9 @@ using JCAirbnb.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using JCAirbnb.Areas.Manager.Models;
+using Microsoft.AspNetCore.Http;
+using System.Collections.Generic;
+using System.IO;
 
 namespace JCAirbnb.Areas.Manager.Controllers
 {
@@ -42,7 +45,7 @@ namespace JCAirbnb.Areas.Manager.Controllers
 
             var @property = await _context.Properties.
                 Include(p => p.Divisions).Include(p => p.Commodities).ThenInclude(c => c.Commodity).Include(p => p.PropertyType)
-                .Include(p => p.Reviews).ThenInclude(r => r.User)
+                .Include(p => p.Reviews).ThenInclude(r => r.User).Include(p => p.Ratings)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
             if (@property == null) return NotFound();
@@ -97,6 +100,91 @@ namespace JCAirbnb.Areas.Manager.Controllers
             }
             return View(viewModel);
         }
+
+        [HttpPost]
+        public ActionResult UploadPhotos(HttpPostedFileBase file)
+        {
+            if (file != null && file.ContentLength > 0)
+                try
+                {
+                    string path = Path.Combine(Server.MapPath("~/Images"),
+                                               Path.GetFileName(file.FileName));
+                    file.SaveAs(path);
+                    ViewBag.Message = "File uploaded successfully";
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.Message = "ERROR:" + ex.Message.ToString();
+                }
+            else
+            {
+                ViewBag.Message = "You have not specified a file.";
+            }
+            return View();
+        }
+
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> UploadPhotos([FromForm(Name = "ImageData")] string ImageData)
+        //{
+        //    var str = ImageData;
+        //    HttpPostedFileBase file = Request.Files(ImageData);
+        //    //ContentRepository service = new ContentRepository();
+        //    //int i = service.UploadImageInDataBase(file, model);
+        //    //if (i == 1)
+        //    //{
+        //    //    return RedirectToAction("Index");
+        //    //}
+        //    Image image = Image.FromFile(@"~\Content\img\toendra.JPG");
+        //    return View();
+        //}
+
+        //public async Task<IActionResult> OnPostUploadAsync(List<IFormFile> files)
+        //{
+        //    long size = files.Sum(f => f.Length);
+
+        //    foreach (var formFile in files)
+        //    {
+        //        if (formFile.Length > 0)
+        //        {
+        //            var filePath = Path.GetTempFileName();
+
+        //            using (var stream = System.IO.File.Create(filePath))
+        //            {
+        //                await formFile.CopyToAsync(stream);
+        //            }
+        //        }
+        //    }
+
+        //    // Process uploaded files
+        //    // Don't rely on or trust the FileName property without validation.
+
+        //    return Ok(new { count = files.Count, size });
+        //}
+
+        //public ActionResult FileUpload(HttpPostedFileBase file)
+        //{
+        //    if (file != null)
+        //    {
+        //        string pic = System.IO.Path.GetFileName(file.FileName);
+        //        string path = System.IO.Path.Combine(
+        //                               Server.MapPath("~/images/profile"), pic);
+        //        // file is uploaded
+        //        file.SaveAs(path);
+
+        //        // save the image path path to the database or you can send image 
+        //        // directly to database
+        //        // in-case if you want to store byte[] ie. for DB
+        //        using (MemoryStream ms = new MemoryStream())
+        //        {
+        //            file.InputStream.CopyTo(ms);
+        //            byte[] array = ms.GetBuffer();
+        //        }
+
+        //    }
+        //    // after successfully uploading redirect the user
+        //    return RedirectToAction("actionname", "controller name");
+        //}
 
         // GET: Manager/ManageProperties/Edit/5
         public async Task<IActionResult> Edit(string id)

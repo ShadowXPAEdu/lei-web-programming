@@ -4,9 +4,31 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@*<script>
+        async function AJAXSubmit(oFormElement) {
+            var resultElement = oFormElement.elements.namedItem("result");
+            const formData = new FormData(oFormElement);
+
+            try {
+                const response = await fetch(oFormElement.action, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (response.ok) {
+                    window.location.href = '/';
+                }
+
+                resultElement.value = 'Result: ' + response.status + ' ' +
+                    response.statusText;
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+    </script>*@
+
 <h1>Create</h1>
 <hr />
-
 <form asp-action="Create">
     <div class="row">
         <div class="col-md-6">
@@ -80,15 +102,115 @@
             </div>
         </div>
     </div>
+
     <div class="form-group d-inline-block">
         <input type="submit" value="Add Property" class="btn btn-primary" />
     </div>
 </form>
+<h2>Basic File Upload</h2>
+@using (Html.BeginForm("UploadPhotos", "UploadPhotos", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <label for="file">Upload Image:</label>
+    <input type="file" name="file" id="file" />
+    <br>
+    <br>
+
+    <input type="submit" value="Upload Image" />
+
+    <br>
+    <br>
+
+    @ViewBag.Message
+}
+@*<form asp-action="UploadPhotos">
+        <div class="col-md-12">
+            <input type="file" name="ImageData" id="ImageData" multiple="" accept="image/*" onchange="fileCheck(this);" />
+        </div>
+        <div class="form-group d-inline-block">
+            <input type="submit" value="Upload Images" class="btn btn-primary" />
+        </div>
+    </form>*@
 
 <div>
     <a asp-action="">Back to List</a>
 </div>
-
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+@*@using (Html.BeginForm("UploadFiles", "FileUpload", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.Property.Photos, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Property.Photos, new { htmlAttributes = new { @class = "form-control", @type = "file" } })
+                    @Html.ValidationMessageFor(model => model.Property.Photos, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Upload" class="btn btn-primary" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10 text-success">
+                    @ViewBag.FileStatus
+                </div>
+            </div>
+        </div>
+    }*@
+
+
+@*<form action="BufferedSingleFileUploadPhysical/?handler=Upload"
+          enctype="multipart/form-data" onsubmit="AJAXSubmit(this);return false;"
+          method="post">
+        <dl>
+            <dt>
+                <label for="FileUpload_FormFile">File</label>
+            </dt>
+            <dd>
+                <input id="FileUpload_FormFile" type="file"
+                       name="FileUpload.FormFile" multiple accept="image/*" />
+            </dd>
+        </dl>
+
+        <input class="btn" type="submit" value="Upload" />
+
+        <div style="margin-top:15px">
+            <output name="result"></output>
+        </div>
+    </form>*@
+
+
+@*@using (Html.BeginForm("Create", "Image", null, FormMethod.Post,
+                                 new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+        <fieldset>
+            <legend>Image</legend>
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Property.Photos)
+            </div>
+            <div class="editor-field">
+                <input id="ImagePath" title="Upload a product image"
+                       type="file" name="file" />
+            </div>
+            <p><input type="submit" value="Create" /></p>
+        </fieldset>
+    }*@
+@*@using (Html.BeginForm("FileUpload", "Home", FormMethod.Post,
+                              new { enctype = "multipart/form-data" }))
+    {
+        <label for="file">Upload Image:</label>
+        <input type="file" name="file" id="file" style="width: 100%;" />
+
+        <input type="submit" value="Upload" class="submit" />
+
+    }*@
+

@@ -6,6 +6,18 @@
 }
 @section CSS {
     <style>
+        .review > span {
+            margin: 0.2rem;
+        }
+
+            .review > span::after {
+                content: '•';
+            }
+
+            .review > span:last-child::after {
+                content: '';
+            }
+
         .review-image > img {
             width: 50px;
             height: 50px;
@@ -39,6 +51,11 @@
 
         .property-rating > span {
             margin: 0.2rem;
+        }
+
+        .property-review {
+            font-size: 1.2rem;
+            font-weight: bold;
         }
     </style>
 }
@@ -150,96 +167,112 @@
         <dt class="col-sm-2">
             <h4>Commodities:</h4>
         </dt>
-        <div class="col-sm-12"></div>
-        <dd class="property-commodities d-inline-flex flex-wrap">
-            <div class="tutorial">
-                <span class="p-2">Included</span><p class="btn btn-sm btn-primary">&nbsp;</p>
-                <span class="p-2">Not included</span><p class="btn btn-sm btn-danger">&nbsp;</p>
-            </div>
-            <div class="col-sm-12"></div>
-            @foreach (var commodity in Model.Commodities)
-            {
-                <span class="btn btn-sm btn-@(commodity.Included ? "primary" : "danger")">
-                    @Html.DisplayFor(m => commodity.Commodity.Title)
-                </span>
-            }
-        </dd>
+        <div class="row">
+            <dd class="property-commodities d-inline-flex flex-wrap">
+                <div class="tutorial">
+                    <span class="p-2">Included</span><p class="btn btn-sm btn-primary">&nbsp;</p>
+                    <span class="p-2">Not included</span><p class="btn btn-sm btn-danger">&nbsp;</p>
+                </div>
+                <div class="col-sm-12"></div>
+                @foreach (var commodity in Model.Commodities)
+                {
+                    <span class="btn btn-sm btn-@(commodity.Included ? "primary" : "danger")">
+                        @Html.DisplayFor(m => commodity.Commodity.Title)
+                    </span>
+                }
+            </dd>
+        </div>
     </dl>
 </dt>
-<div class="ratings d-flex justify-content-between">
-    <div class="d-inline-flex flex-column col col-6">
-        <span class="property-rating">
-            <span class="review">
-                <span class="rating-label">
-                    @Html.DisplayNameFor(m => m.Ratings.Cleanliness)
-                </span>
-                <span class="rating-value">
-                    @Html.DisplayFor(m => m.Ratings.Cleanliness)
-                </span>
+<div id="reviews" class="reviews">
+    <div class="reviews-header">
+        <div class="review d-inline-flex property-review ">
+            <span>
+                @{var avg = Model.Ratings.GetAverage();}
+                @avg.ToString("F2")
             </span>
-            <span class="rating-progress-bar"><span class="rating-progress-bar-active" style="width:@((Model.Ratings.Cleanliness / 5.0f) * 100)%;"></span></span>
-        </span>
-        <span class="property-rating">
-            <span class="review">
-                <span class="rating-label">
-                    @Html.DisplayNameFor(m => m.Ratings.Communication)
-                </span>
-                <span class="rating-value">
-                    @Html.DisplayFor(m => m.Ratings.Communication)
-                </span>
+            <span>
+                @Model.Reviews.Count Reviews
             </span>
-            <span class="rating-progress-bar"><span class="rating-progress-bar-active" style="width:@((Model.Ratings.Communication / 5.0f) * 100)%;"></span></span>
-        </span>
-        <span class="property-rating">
-            <span class="review">
-                <span class="rating-label">
-                    @Html.DisplayNameFor(m => m.Ratings.CheckIn)
+        </div>
+        <div class="ratings d-flex justify-content-between">
+            <div class="d-inline-flex flex-column col col-6">
+                <span class="property-rating">
+                    <span class="review">
+                        <span class="rating-label">
+                            @Html.DisplayNameFor(m => m.Ratings.Cleanliness)
+                        </span>
+                        <span class="rating-value">
+                            @Html.DisplayFor(m => m.Ratings.Cleanliness)
+                        </span>
+                    </span>
+                    <span class="rating-progress-bar"><span class="rating-progress-bar-active" style="width:@((Model.Ratings.Cleanliness / 5.0f) * 100)%;"></span></span>
                 </span>
-                <span class="rating-value">
-                    @Html.DisplayFor(m => m.Ratings.CheckIn)
+                <span class="property-rating">
+                    <span class="review">
+                        <span class="rating-label">
+                            @Html.DisplayNameFor(m => m.Ratings.Communication)
+                        </span>
+                        <span class="rating-value">
+                            @Html.DisplayFor(m => m.Ratings.Communication)
+                        </span>
+                    </span>
+                    <span class="rating-progress-bar"><span class="rating-progress-bar-active" style="width:@((Model.Ratings.Communication / 5.0f) * 100)%;"></span></span>
                 </span>
-            </span>
-            <span class="rating-progress-bar"><span class="rating-progress-bar-active" style="width:@((Model.Ratings.CheckIn / 5.0f) * 100)%;"></span></span>
-        </span>
-    </div>
-    <div class="d-inline-flex flex-column justify-content-between col col-6">
-        <span class="property-rating">
-            <span class="review">
-                <span class="rating-label">
-                    @Html.DisplayNameFor(m => m.Ratings.Accuracy)
+                <span class="property-rating">
+                    <span class="review">
+                        <span class="rating-label">
+                            @Html.DisplayNameFor(m => m.Ratings.CheckIn)
+                        </span>
+                        <span class="rating-value">
+                            @Html.DisplayFor(m => m.Ratings.CheckIn)
+                        </span>
+                    </span>
+                    <span class="rating-progress-bar"><span class="rating-progress-bar-active" style="width:@((Model.Ratings.CheckIn / 5.0f) * 100)%;"></span></span>
                 </span>
-                <span class="rating-value">
-                    @Html.DisplayFor(m => m.Ratings.Accuracy)
+            </div>
+            <div class="d-inline-flex flex-column justify-content-between col col-6">
+                <span class="property-rating">
+                    <span class="review">
+                        <span class="rating-label">
+                            @Html.DisplayNameFor(m => m.Ratings.Accuracy)
+                        </span>
+                        <span class="rating-value">
+                            @Html.DisplayFor(m => m.Ratings.Accuracy)
+                        </span>
+                    </span>
+                    <span class="rating-progress-bar"><span class="rating-progress-bar-active" style="width:@((Model.Ratings.Accuracy / 5.0f) * 100)%;"></span></span>
                 </span>
-            </span>
-            <span class="rating-progress-bar"><span class="rating-progress-bar-active" style="width:@((Model.Ratings.Accuracy / 5.0f) * 100)%;"></span></span>
-        </span>
-        <span class="property-rating">
-            <span class="review">
-                <span class="rating-label">
-                    @Html.DisplayNameFor(m => m.Ratings.Location)
+                <span class="property-rating">
+                    <span class="review">
+                        <span class="rating-label">
+                            @Html.DisplayNameFor(m => m.Ratings.Location)
+                        </span>
+                        <span class="rating-value">
+                            @Html.DisplayFor(m => m.Ratings.Location)
+                        </span>
+                    </span>
+                    <span class="rating-progress-bar"><span class="rating-progress-bar-active" style="width:@((Model.Ratings.Location / 5.0f) * 100)%;"></span></span>
                 </span>
-                <span class="rating-value">
-                    @Html.DisplayFor(m => m.Ratings.Location)
+                <span class="property-rating">
+                    <span class="review">
+                        <span class="rating-label">
+                            @Html.DisplayNameFor(m => m.Ratings.Value)
+                        </span>
+                        <span class="rating-value">
+                            @Html.DisplayFor(m => m.Ratings.Value)
+                        </span>
+                    </span>
+                    <span class="rating-progress-bar"><span class="rating-progress-bar-active" style="width:@((Model.Ratings.Value / 5.0f) * 100)%;"></span></span>
                 </span>
-            </span>
-            <span class="rating-progress-bar"><span class="rating-progress-bar-active" style="width:@((Model.Ratings.Location / 5.0f) * 100)%;"></span></span>
-        </span>
-        <span class="property-rating">
-            <span class="review">
-                <span class="rating-label">
-                    @Html.DisplayNameFor(m => m.Ratings.Value)
-                </span>
-                <span class="rating-value">
-                    @Html.DisplayFor(m => m.Ratings.Value)
-                </span>
-            </span>
-            <span class="rating-progress-bar"><span class="rating-progress-bar-active" style="width:@((Model.Ratings.Value / 5.0f) * 100)%;"></span></span>
-        </span>
+            </div>
+        </div>
     </div>
 </div>
-<div class="col-sm-12">
-    <h4>Coments:</h4>
+<div class="row">
+    <div class="col-sm-12">
+        <h4>Coments:</h4>
+    </div>
 </div>
 <div class="reviews-comments d-flex justify-content-between flex-wrap">
     @foreach (var review in Model.Reviews.OrderByDescending(r => r.Date))
@@ -260,6 +293,7 @@
         </div>
     }
 </div>
+
 <div>
     <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>
