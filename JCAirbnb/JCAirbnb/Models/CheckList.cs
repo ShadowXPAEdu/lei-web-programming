@@ -15,5 +15,8 @@ namespace JCAirbnb.Models
         [Required]
         [Display(Name = "Title")]
         public string Title { get; set; }
+
+        [Display(Name = "Company")]
+        public virtual Company Company { get; set; }
     }
 }

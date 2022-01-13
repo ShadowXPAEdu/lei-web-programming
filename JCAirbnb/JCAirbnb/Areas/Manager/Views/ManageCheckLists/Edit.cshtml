@@ -1,0 +1,85 @@
+﻿@model JCAirbnb.Areas.Manager.Models.ManageCheckListEditViewModel
+
+@{
+    ViewData["Title"] = "Edit check list";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<h4>CheckList</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="CheckList.Id" />
+            <div class="form-group">
+                <label asp-for="CheckList.Title" class="control-label"></label>
+                <input asp-for="CheckList.Title" class="form-control" />
+                <span asp-validation-for="CheckList.Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+    <div class="col-md-8">
+        <form asp-action="AddCheckListItem">
+            <input type="hidden" asp-for="CheckList.Id" />
+            <input asp-for="AddingItem" type="hidden" value="true" />
+            <div class="flex-fill">
+                <div class="form-group d-inline-block">
+                    <label asp-for="CheckListItemDescription" class="control-label"></label>
+                    <input class="form-control" asp-for="CheckListItemDescription" />
+                    <span asp-validation-for="CheckListItemDescription" class="text-danger"></span>
+                </div>
+                <div class="form-group d-inline-block">
+                    <input type="submit" value="Add check list item" class="btn btn-primary" />
+                </div>
+            </div>
+        </form>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(m => m.CheckListItems)
+                    </th>
+                    <th>Verified</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.CheckListItems)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(m => item.Description)
+                        </td>
+                        <td>
+                            <p class="btn btn-sm btn-@(item.Verified ? "primary" : "danger")">&nbsp;</p>
+                        </td>
+                        <td>
+                            <form asp-action="AddCheckListItem">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <input type="hidden" asp-for="CheckList.Id" />
+                                <input type="hidden" asp-for="CheckListItemId" value="@item.Id" />
+                                <input asp-for="AddingItem" value="false" type="hidden" />
+                                <div class="form-group">
+                                    <input type="submit" value="Remove check list item" class="btn btn-danger" />
+                                </div>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div>
+    <a asp-action="">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
