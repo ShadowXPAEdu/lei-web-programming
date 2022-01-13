@@ -1,8 +1,10 @@
 ﻿using JCAirbnb.Areas.Client.Models;
 using JCAirbnb.Data;
+using JCAirbnb.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -75,6 +77,26 @@ namespace JCAirbnb.Areas.Client.Controllers
                 // Check if client has another reservation during that time
                 // Add reservation if successful
 
+                var user = await _userManager.GetUserAsync(User);
+
+                var reservations = _context.Reservations.Include(r => r.Property).Where(r => r.Property.Id == id || r.User.Id == user.Id);
+
+                if (reservations.Any(r => viewModel.CheckIn >= r.CheckIn && viewModel.CheckIn <= r.CheckOut
+                                    || viewModel.CheckOut >= r.CheckIn && viewModel.CheckOut <= r.CheckOut)) return BadRequest("There is a reservation for that date already or you already have a reservation on that date!");
+
+                _context.Reservations.Add(new Reservation()
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    CheckIn = viewModel.CheckIn,
+                    CheckOut = viewModel.CheckOut,
+                    Property = viewModel.Property,
+                    User = user,
+                    ReservationState = await _context.ReservationStates.FirstOrDefaultAsync(rs => rs.Title == "Pending")
+                });
+
+                await _context.SaveChangesAsync();
+
+                return RedirectToAction(nameof(Index));
             }
 
             return View(viewModel);

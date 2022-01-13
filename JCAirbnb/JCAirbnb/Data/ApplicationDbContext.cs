@@ -30,5 +30,7 @@ namespace JCAirbnb.Data
         public DbSet<Reservation> Reservations { get; set; }
 
         public DbSet<CheckListItem> CheckListItems { get; set; }
+
+        public DbSet<CheckList> CheckLists { get; set; }
     }
 }
