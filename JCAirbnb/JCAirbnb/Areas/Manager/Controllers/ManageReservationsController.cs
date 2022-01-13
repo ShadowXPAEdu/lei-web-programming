@@ -30,9 +30,18 @@ namespace JCAirbnb.Areas.Manager.Controllers
         // GET: Manager/ManageReservations
         public async Task<IActionResult> Index()
         {
-            var manager = (await _userManager.GetUserAsync(User));
-            return View(await _context.Reservations.Include(r => r.Property).ThenInclude(p => p.Manager)
-                .Include(r => r.ReservationState).Where(r => r.Property.Manager.Id == manager.Id).ToListAsync());
+            var manager = await _userManager.GetUserAsync(User);
+
+            var reservationStates = _context.ReservationStates.Where(rs => rs.Title == "Pending" || rs.Title == "Finalized");
+
+            var reservations = _context.Reservations
+                .Include(r => r.Property)
+                    .ThenInclude(p => p.Manager)
+                .Include(r => r.ReservationState)
+                .Include(r => r.User)
+                .Where(r => r.Property.Manager.Id == manager.Id && reservationStates.Contains(r.ReservationState));
+
+            return View(await reservations.ToListAsync());
         }
 
         // GET: Manager/ManageReservations/Details/5
@@ -43,9 +52,12 @@ namespace JCAirbnb.Areas.Manager.Controllers
                 return NotFound();
             }
 
+            var manager = await _userManager.GetUserAsync(User);
             var reservation = await _context.Reservations
+                .Include(r => r.Property)
+                    .ThenInclude(p => p.Manager)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (reservation == null)
+            if (reservation == null || reservation.Property.Manager.Id == manager.Id)
             {
                 return NotFound();
             }
@@ -61,8 +73,13 @@ namespace JCAirbnb.Areas.Manager.Controllers
                 return NotFound();
             }
 
-            var reservation = await _context.Reservations.Include(r => r.ReservationState).FirstOrDefaultAsync(r => r.Id == id);
-            if (reservation == null)
+            var manager = await _userManager.GetUserAsync(User);
+            var reservation = await _context.Reservations
+                .Include(r => r.Property)
+                    .ThenInclude(p => p.Manager)
+                .Include(r => r.ReservationState)
+                .FirstOrDefaultAsync(r => r.Id == id);
+            if (reservation == null || reservation.Property.Manager.Id == manager.Id)
             {
                 return NotFound();
             }
@@ -112,9 +129,12 @@ namespace JCAirbnb.Areas.Manager.Controllers
                 return NotFound();
             }
 
+            var manager = await _userManager.GetUserAsync(User);
             var reservation = await _context.Reservations
+                .Include(r => r.Property)
+                    .ThenInclude(p => p.Manager)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (reservation == null)
+            if (reservation == null || reservation.Property.Manager.Id == manager.Id)
             {
                 return NotFound();
             }
