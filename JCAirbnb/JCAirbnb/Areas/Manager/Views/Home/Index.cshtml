@@ -2,5 +2,16 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
-
+    ViewData["Title"] = "Manager area";
 }
+
+<h1>@ViewData["Title"]</h1>
+
+<p>Welcome @User.Identity.Name!</p>
+
+<div class="">
+    <div class="form-group"><a class="btn btn-primary" asp-area="Manager" asp-controller="ManageEmployees" asp-action="">Manage employees</a></div>
+    <div class="form-group"><a class="btn btn-primary" asp-area="Manager" asp-controller="ManageProperties" asp-action="">Manage properties</a></div>
+    <div class="form-group"><a class="btn btn-primary" asp-area="Manager" asp-controller="ManageCheckLists" asp-action="">Manage checklists</a></div>
+    <div class="form-group"><a class="btn btn-primary" asp-area="Manager" asp-controller="ManageReservations" asp-action="">Manage reservations</a></div>
+</div>

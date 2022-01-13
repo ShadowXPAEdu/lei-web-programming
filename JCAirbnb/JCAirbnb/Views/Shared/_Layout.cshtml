@@ -74,8 +74,11 @@
                         }
                         @if (User.IsInRole("Manager") || User.IsInRole("Employee"))
                         {
-                            <li class="nav-item">
+                            <li class="nav-item dropdown">
                                 <a class="nav-link text-dark" asp-area="Employee" asp-controller="Home" asp-action="">Employee area<i class="fas fa-caret-down"></i></a>
+                                <ul class="dropdown-menu clearfix">
+                                    <li><a class="nav-link text-dark" asp-area="Employee" asp-controller="ManageReservations" asp-action="">Manage reservations</a></li>
+                                </ul>
                             </li>
                         }
                         @if (User.Identity.IsAuthenticated)

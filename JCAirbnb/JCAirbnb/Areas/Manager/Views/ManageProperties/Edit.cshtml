@@ -90,12 +90,8 @@
                         }
                     </select>
                 </div>
-                <div class="form-group d-inline-block">
-                    <input name="files" type="file" multiple accept="image/*" />
-                </div>
             </div>
         </div>
-        
     </div>
 </form>
 <div class="row">
@@ -157,6 +153,47 @@
         </table>
     </div>
 </div>
+
+<form asp-action="AddPhotos" asp-route-id="@Model.Property.Id" enctype="multipart/form-data">
+    <h4>Add photos</h4>
+    <div class="form-group d-inline-block">
+        <input name="filesToAdd" type="file" multiple accept="image/*" />
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Add photos" class="btn btn-primary" />
+    </div>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Images
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Property.Photos)
+        {
+            <tr>
+                <td>
+                    <img src="~/img/photos/@item.Path" width="300" height="300" />
+                </td>
+                <td>
+                    <form asp-action="Removephoto" asp-route-id="@Model.Property.Id">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" name="photoId" value="@item.Id" />
+                        <div class="form-group">
+                            <input type="submit" value="Remove Image" class="btn btn-danger" />
+                        </div>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
 <div>
     <a asp-action="">Back to List</a>
 </div>

@@ -71,7 +71,7 @@ namespace JCAirbnb.Areas.Manager.Controllers
         [FromForm(Name = "bath")] int bath, [FromForm(Name = "privateBath")] int privateBath,
         [FromForm(Name = "propTypeId")] string propTypeId, [FromForm(Name = "files")] IEnumerable<IFormFile> files)
         {
-            string[] permittedExtensions = { ".jpg", ".jpeg", "png" };
+            string[] permittedExtensions = { ".jpg", ".jpeg", ".png" };
             if (ModelState.IsValid)
             {
                 viewModel.Property.Id = Guid.NewGuid().ToString();
@@ -119,7 +119,6 @@ namespace JCAirbnb.Areas.Manager.Controllers
                             });
                         }
                     }
-
                 }
 
                 _context.Properties.Add(viewModel.Property);
@@ -129,25 +128,25 @@ namespace JCAirbnb.Areas.Manager.Controllers
             return View(viewModel);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> UploadPhotos([FromForm(Name = "files")] IEnumerable<IFormFile> files)
-        {
-            if (files == null) return NotFound();
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> UploadPhotos([FromForm(Name = "files")] IEnumerable<IFormFile> files)
+        //{
+        //    if (files == null) return NotFound();
 
-            foreach (var file in files)
-            {
-                if (file.Length > 0)
-                {
-                    var filePath = $"wwwroot/img/photos/{Guid.NewGuid()}{file.FileName[file.FileName.LastIndexOf(".")..]}";
+        //    foreach (var file in files)
+        //    {
+        //        if (file.Length > 0)
+        //        {
+        //            var filePath = $"wwwroot/img/photos/{Guid.NewGuid()}{file.FileName[file.FileName.LastIndexOf(".")..]}";
 
-                    using var stream = System.IO.File.Create(filePath);
-                    await file.CopyToAsync(stream);
-                }
-            }
+        //            using var stream = System.IO.File.Create(filePath);
+        //            await file.CopyToAsync(stream);
+        //        }
+        //    }
 
-            return RedirectToAction(nameof(Index));
-        }
+        //    return RedirectToAction(nameof(Index));
+        //}
 
         // GET: Manager/ManageProperties/Edit/5
         public async Task<IActionResult> Edit(string id)
@@ -156,6 +155,7 @@ namespace JCAirbnb.Areas.Manager.Controllers
 
             var property = await _context.Properties
                 .Include(p => p.Divisions)
+                .Include(p => p.Photos)
                 .Include(p => p.Commodities)
                 .ThenInclude(c => c.Commodity)
                 .Include(pt => pt.PropertyType)
@@ -299,18 +299,6 @@ namespace JCAirbnb.Areas.Manager.Controllers
             {
                 return NotFound();
             }
-            //var commo = _context.Commodities.FirstOrDefault(c => c.Id == commodity);
-            //if (commo == null)
-            //{
-            //    return NotFound();
-            //}
-
-            //var com = _context.Properties.FirstOrDefault(p => p.Id == id).Commodities.Find(c => c.Id == commodity);
-            ////var com = prop.Commodities.FirstOrDefault(c => c.Commodity.Id == commodity);
-            //if (com == null)
-            //{
-            //    return NotFound();
-            //}
 
             var propCom = await _context.PropertyCommodities.Include(pc => pc.Commodity).FirstOrDefaultAsync(pc => pc.Commodity.Id == commodity);
             if (propCom == null)
@@ -324,6 +312,83 @@ namespace JCAirbnb.Areas.Manager.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Edit", new { id });
             }
+            return RedirectToAction("Edit", new { id });
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddPhotos(string id, [FromForm(Name = "filesToAdd")] IEnumerable<IFormFile> files)
+        {
+            string[] permittedExtensions = { ".jpg", ".jpeg", ".png" };
+            if (ModelState.IsValid)
+            {
+                var property = await _context.Properties.Include(p => p.Photos).FirstOrDefaultAsync(p => p.Id == id);
+                if (property == null)
+                {
+                    return NotFound();
+                }
+
+                foreach (var file in files)
+                {
+                    var ext = Path.GetExtension(file.FileName).ToLowerInvariant();
+                    if (!(string.IsNullOrEmpty(ext) || !permittedExtensions.Contains(ext)))
+                    {
+                        if (file.Length > 0)
+                        {
+                            var fileGuid = Guid.NewGuid();
+                            var fileExtension = file.FileName[file.FileName.LastIndexOf(".")..];
+
+                            var filePath = $"wwwroot/img/photos/{fileGuid}{fileExtension}";
+
+                            using var stream = System.IO.File.Create(filePath);
+                            await file.CopyToAsync(stream);
+
+                            //viewModel.Property.Photos.Add(new()
+                            //{
+                            //    Id = fileGuid.ToString(),
+                            //    Path = $"{fileGuid}{fileExtension}"
+                            //});
+                            property.Photos.Add(new()
+                            {
+                                Id = fileGuid.ToString(),
+                                Path = $"{fileGuid}{fileExtension}"
+                            });
+                            await _context.SaveChangesAsync();
+                        }
+                    }
+                }
+                return RedirectToAction("Edit", new { id });
+            }
+            return RedirectToAction("Edit", new { id });
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> RemovePhoto(string id, string photoId)
+        {
+            if (ModelState.IsValid)
+            {
+                var property = await _context.Properties.Include(p => p.Photos).FirstOrDefaultAsync(p => p.Id == id);
+                if (property == null)
+                {
+                    return NotFound();
+                }
+
+                var photo = property.Photos.FirstOrDefault(p => p.Id == photoId);
+                if (photo == null)
+                {
+                    return NotFound();
+                }
+                var removedPhoto = property.Photos.Remove(photo);
+                if (removedPhoto)
+                {
+                    var filePath = $"wwwroot/img/photos/{photo.Path}";
+                    System.IO.File.Delete(filePath);
+                }
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Edit", new { id });
+            }
+
             return RedirectToAction("Edit", new { id });
         }
 
