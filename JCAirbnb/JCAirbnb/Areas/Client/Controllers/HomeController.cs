@@ -72,11 +72,6 @@ namespace JCAirbnb.Areas.Client.Controllers
             {
                 if (viewModel.CheckIn >= viewModel.CheckOut) return BadRequest("Check-out date can not be before check-in date.");
 
-                // TODO: check reservations
-                // Check if property has another reservation during that time
-                // Check if client has another reservation during that time
-                // Add reservation if successful
-
                 var user = await _userManager.GetUserAsync(User);
 
                 var reservations = _context.Reservations.Include(r => r.Property).Where(r => r.Property.Id == id || r.User.Id == user.Id);
