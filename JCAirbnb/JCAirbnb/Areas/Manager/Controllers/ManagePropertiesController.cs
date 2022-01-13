@@ -149,69 +149,6 @@ namespace JCAirbnb.Areas.Manager.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> UploadPhotos([FromForm(Name = "ImageData")] string ImageData)
-        //{
-        //    var str = ImageData;
-        //    HttpPostedFileBase file = Request.Files(ImageData);
-        //    //ContentRepository service = new ContentRepository();
-        //    //int i = service.UploadImageInDataBase(file, model);
-        //    //if (i == 1)
-        //    //{
-        //    //    return RedirectToAction("Index");
-        //    //}
-        //    Image image = Image.FromFile(@"~\Content\img\toendra.JPG");
-        //    return View();
-        //}
-
-        //public async Task<IActionResult> OnPostUploadAsync(List<IFormFile> files)
-        //{
-        //    long size = files.Sum(f => f.Length);
-
-        //    foreach (var formFile in files)
-        //    {
-        //        if (formFile.Length > 0)
-        //        {
-        //            var filePath = Path.GetTempFileName();
-
-        //            using (var stream = System.IO.File.Create(filePath))
-        //            {
-        //                await formFile.CopyToAsync(stream);
-        //            }
-        //        }
-        //    }
-
-        //    // Process uploaded files
-        //    // Don't rely on or trust the FileName property without validation.
-
-        //    return Ok(new { count = files.Count, size });
-        //}
-
-        //public ActionResult FileUpload(HttpPostedFileBase file)
-        //{
-        //    if (file != null)
-        //    {
-        //        string pic = System.IO.Path.GetFileName(file.FileName);
-        //        string path = System.IO.Path.Combine(
-        //                               Server.MapPath("~/images/profile"), pic);
-        //        // file is uploaded
-        //        file.SaveAs(path);
-
-        //        // save the image path path to the database or you can send image 
-        //        // directly to database
-        //        // in-case if you want to store byte[] ie. for DB
-        //        using (MemoryStream ms = new MemoryStream())
-        //        {
-        //            file.InputStream.CopyTo(ms);
-        //            byte[] array = ms.GetBuffer();
-        //        }
-
-        //    }
-        //    // after successfully uploading redirect the user
-        //    return RedirectToAction("actionname", "controller name");
-        //}
-
         // GET: Manager/ManageProperties/Edit/5
         public async Task<IActionResult> Edit(string id)
         {
