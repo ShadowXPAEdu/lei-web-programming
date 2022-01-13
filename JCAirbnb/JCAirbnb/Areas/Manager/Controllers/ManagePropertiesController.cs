@@ -71,6 +71,7 @@ namespace JCAirbnb.Areas.Manager.Controllers
         [FromForm(Name = "bath")] int bath, [FromForm(Name = "privateBath")] int privateBath,
         [FromForm(Name = "propTypeId")] string propTypeId, [FromForm(Name = "files")] IEnumerable<IFormFile> files)
         {
+            string[] permittedExtensions = { ".jpg", ".jpeg", "png" };
             if (ModelState.IsValid)
             {
                 viewModel.Property.Id = Guid.NewGuid().ToString();
@@ -98,22 +99,27 @@ namespace JCAirbnb.Areas.Manager.Controllers
 
                 foreach (var file in files)
                 {
-                    if (file.Length > 0)
+                    var ext = Path.GetExtension(file.FileName).ToLowerInvariant();
+                    if (!(string.IsNullOrEmpty(ext) || !permittedExtensions.Contains(ext)))
                     {
-                        var fileGuid = Guid.NewGuid();
-                        var fileExtension = file.FileName[file.FileName.LastIndexOf(".")..];
-
-                        var filePath = $"wwwroot/img/photos/{fileGuid}{fileExtension}";
-
-                        using var stream = System.IO.File.Create(filePath);
-                        await file.CopyToAsync(stream);
-
-                        viewModel.Property.Photos.Add(new()
+                        if (file.Length > 0)
                         {
-                            Id = fileGuid.ToString(),
-                            Path = $"{fileGuid}{fileExtension}"
-                        });
+                            var fileGuid = Guid.NewGuid();
+                            var fileExtension = file.FileName[file.FileName.LastIndexOf(".")..];
+
+                            var filePath = $"wwwroot/img/photos/{fileGuid}{fileExtension}";
+
+                            using var stream = System.IO.File.Create(filePath);
+                            await file.CopyToAsync(stream);
+
+                            viewModel.Property.Photos.Add(new()
+                            {
+                                Id = fileGuid.ToString(),
+                                Path = $"{fileGuid}{fileExtension}"
+                            });
+                        }
                     }
+
                 }
 
                 _context.Properties.Add(viewModel.Property);
