@@ -31,19 +31,19 @@ namespace JCAirbnb.Areas.Employee.Controllers
         public async Task<IActionResult> Index()
         {
             var user = await _userManager.GetUserAsync(User);
-            var employees = await _context.Employees.Where(e => e.User == user).ToListAsync();
-            
 
             var reservationStates = _context.ReservationStates.Where(rs => rs.Title == "Reserved" || rs.Title == "CheckedOut");
 
-            var companies = _context.Companies.Include(c => c.Employees).Where(c => c.Employees.Contains(employees));
+            var allCompanies = await _context.Companies.Include(c => c.Employees).ToListAsync();
+            //var employees = await _context.Employees.Where(e => e.User == user).ToListAsync();
+            var companies = await _context.Employees.Select(e => allCompanies.FirstOrDefault(c => c.Employees.Contains(e))).ToListAsync();
 
             var reservations = _context.Reservations
                 .Include(r => r.Property)
                     .ThenInclude(p => p.Manager)
                 .Include(r => r.ReservationState)
                 .Include(r => r.User)
-                .Where(r => r.Property.Manager.Id == employee.Id && reservationStates.Contains(r.ReservationState));
+                .Where(r => reservationStates.Contains(r.ReservationState) && companies.Select(c => c.Manager.Id).Contains(r.Property.Manager.Id));
 
             return View(await _context.Reservations.ToListAsync());
         }
