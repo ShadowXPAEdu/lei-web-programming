@@ -79,7 +79,7 @@ namespace JCAirbnb.Areas.Manager.Controllers
             {
                 //verificar se o user ja esta nesta empresa
                 //_context.Companies.FirstOrDefault(c => c.Manager.Id == );
-                var employee = new Employee()
+                var employee = new JCAirbnb.Models.Employee()
                 {
                     User = await _context.Users.FindAsync(identityUser.Id)
                 };

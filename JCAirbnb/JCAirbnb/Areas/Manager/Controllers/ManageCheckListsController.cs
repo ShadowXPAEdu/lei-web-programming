@@ -111,7 +111,7 @@ namespace JCAirbnb.Areas.Manager.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("CheckList.Id,CheckList.Title")] ManageCheckListEditViewModel viewModel)
+        public async Task<IActionResult> Edit(string id, [Bind("CheckList")] ManageCheckListEditViewModel viewModel)
         {
             if (id != viewModel.CheckList.Id)
             {

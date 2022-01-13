@@ -5,14 +5,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace JCAirbnb.Areas.Manager.Controllers
+namespace JCAirbnb.Areas.Employee.Controllers
 {
-    [Area("Manager")]
-    [Route("{area}/{controller}/{action}/{id?}")]
-    [Authorize(Roles = "Manager")]
-    public class ManageListingController : Controller
+    [Area("Employee")]
+    [Route("{area}/{action}/{id?}")]
+    [Authorize(Roles = "Manager,Employee")]
+    public class HomeController : Controller
     {
-        [Route("/{area}/{controller}/{id?}")]
+        [Route("/{area}/{id?}")]
         public IActionResult Index()
         {
             return View();
