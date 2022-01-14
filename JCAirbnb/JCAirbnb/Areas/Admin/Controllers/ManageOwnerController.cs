@@ -35,16 +35,10 @@ namespace JCAirbnb.Areas.Admin.Controllers
 
         public async Task<IActionResult> Details(string id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
             var manager = await _context.Users.FindAsync(id);
-            if (manager == null)
-            {
-                return NotFound();
-            }
+            if (manager == null) return NotFound();
 
             var properties = _context.Properties.Include(p => p.Manager).Where(p => p.Manager.Id == manager.Id);
 

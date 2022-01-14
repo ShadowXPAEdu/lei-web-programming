@@ -33,17 +33,11 @@ namespace JCAirbnb.Areas.Admin.Controllers
         // GET: Admin/ManageCommodities/Details/5
         public async Task<IActionResult> Details(string id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
             var commodity = await _context.Commodities
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (commodity == null)
-            {
-                return NotFound();
-            }
+            if (commodity == null) return NotFound();
 
             return View(commodity);
         }
@@ -74,16 +68,10 @@ namespace JCAirbnb.Areas.Admin.Controllers
         // GET: Admin/ManageCommodities/Edit/5
         public async Task<IActionResult> Edit(string id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
             var commodity = await _context.Commodities.FindAsync(id);
-            if (commodity == null)
-            {
-                return NotFound();
-            }
+            if (commodity == null) return NotFound();
             return View(commodity);
         }
 
@@ -94,10 +82,7 @@ namespace JCAirbnb.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(string id, [Bind("Id,Title,Description")] Commodity commodity)
         {
-            if (id != commodity.Id)
-            {
-                return NotFound();
-            }
+            if (id != commodity.Id) return NotFound();
 
             if (ModelState.IsValid)
             {

@@ -1,5 +1,56 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model IEnumerable<Reservation>
+
 @{
+    ViewData["Title"] = "Reservations";
 }
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Property</th>
+            <th>Property type</th>
+            <th>Location</th>
+            <th>Current Price</th>
+            <th>Check-in</th>
+            <th>Check-out</th>
+            <th>Reservation state</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(m => item.Property.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.Property.PropertyType.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.Property.Location)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.Property.Price)
+                </td>
+                <td>
+                    @item.CheckIn.ToLongDateString()
+                </td>
+                <td>
+                    @item.CheckOut.ToLongDateString()
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.ReservationState.Title)
+                </td>
+                <td>
+                    @if (item.ReservationState.Title == "Checked in")
+                    {
+                        <div class="minWidthMaxContent">
+                            <a asp-area="Client" asp-controller="Home" asp-action="CheckOut" asp-route-id="@item.Id" class="btn btn-primary">Check-out</a>
+                        </div>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

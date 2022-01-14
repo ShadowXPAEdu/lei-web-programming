@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 namespace JCAirbnb.Areas.Client.Controllers
 {
     [Area("Client")]
-    [Route("{area}/{controller}/{action}/{id?}")]
+    [Route("{area}/{action}/{id?}")]
     [Authorize]
     public class HomeController : Controller
     {
@@ -27,9 +27,79 @@ namespace JCAirbnb.Areas.Client.Controllers
         }
 
         [Route("/{area}/{id?}")]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var client = await _userManager.GetUserAsync(User);
+
+            var reservations = _context.Reservations
+                .Include(r => r.User)
+                .Include(r => r.ReservationState)
+                .Include(r => r.Property).ThenInclude(p => p.Manager)
+                .Include(r => r.Property).ThenInclude(p => p.PropertyType)
+                .Where(r => r.User.Id == client.Id);
+
+            return View(await reservations.OrderBy(r => r.CheckIn).ToListAsync());
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> CheckOut(string id)
+        {
+            if (id == null) return NotFound();
+
+            var reservation = await _context.Reservations
+                .Include(r => r.User)
+                .Include(r => r.ReservationState)
+                .Include(r => r.Property).ThenInclude(p => p.Manager)
+                .Include(r => r.Property).ThenInclude(p => p.PropertyType)
+                .FirstOrDefaultAsync(r => r.Id == id);
+            var client = await _userManager.GetUserAsync(User);
+
+            if (reservation == null || reservation.User.Id != client.Id || reservation.ReservationState.Title != "Checked in") return NotFound();
+
+            // TODO: CheckOut page with rating and review
+
+            return View(reservation);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CheckOut(string id, string Id, int Cleanliness, int Communication, int CheckIn,
+            int Accuracy, int Location, int Value, string Comment)
+        {
+            if (id == null || id != Id) return NotFound();
+
+            var reservation = await _context.Reservations
+                .Include(r => r.User)
+                .Include(r => r.Property)
+                .FirstOrDefaultAsync(r => r.Id == id);
+            var client = await _userManager.GetUserAsync(User);
+
+            if (reservation == null || reservation.User.Id == client.Id) return NotFound();
+
+            var property = await _context.Properties
+                .Include(p => p.Ratings)
+                .Include(p => p.Reviews)
+                .FirstOrDefaultAsync(p => p.Id == reservation.Property.Id);
+
+            property.Ratings.Cleanliness += Cleanliness;
+            property.Ratings.Cleanliness /= 2.0f;
+            property.Ratings.Communication += Communication;
+            property.Ratings.Communication /= 2.0f;
+            property.Ratings.CheckIn += CheckIn;
+            property.Ratings.CheckIn /= 2.0f;
+            property.Ratings.Accuracy += Accuracy;
+            property.Ratings.Accuracy /= 2.0f;
+            property.Ratings.Location += Location;
+            property.Ratings.Location /= 2.0f;
+            property.Ratings.Value += Value;
+            property.Ratings.Value /= 2.0f;
+
+
+
+            _context.Reservations.Update(reservation);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
         }
 
         public async Task<IActionResult> Reserve(string id, string checkIn, string checkOut)

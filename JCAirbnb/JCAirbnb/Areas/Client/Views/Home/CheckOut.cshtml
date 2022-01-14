@@ -1,0 +1,163 @@
+﻿@model JCAirbnb.Models.Reservation
+
+@{
+    ViewData["Title"] = "Check-out";
+}
+
+@section CSS {
+    <style type="text/css">
+        input[type="radio"] {
+            margin: 0 0.2rem;
+        }
+    </style>
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div>
+    <h4>Reservation @Model.Id</h4>
+    <hr />
+    <div class="row">
+        <div class="col-6">
+            <h4>Property</h4>
+            <hr />
+            <dl class="row">
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.Property.Title)
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.Property.Title)
+                </dd>
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.Property.PropertyType)
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.Property.PropertyType.Title)
+                </dd>
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.Property.Location)
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.Property.Location)
+                </dd>
+                <dt class="col-sm-4">
+                    Current price
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.Property.Price)
+                </dd>
+            </dl>
+        </div>
+        <div class="col-6">
+            <h4>Details</h4>
+            <hr />
+            <dl class="row">
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.CheckIn)
+                </dt>
+                <dd class="col-sm-8">
+                    @Model.CheckIn.ToLongDateString()
+                </dd>
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.CheckOut)
+                </dt>
+                <dd class="col-sm-8">
+                    @Model.CheckOut.ToLongDateString()
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <hr />
+    <h4>Rate your stay!</h4>
+    <hr />
+    <form asp-action="CheckOut" class="col-12">
+        <input asp-for="Id" type="hidden" />
+        <div>
+            <h4>Rating</h4>
+            <hr />
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        @{
+                            var c = nameof(Model.Property.Ratings.Cleanliness);
+                            <h5>@c</h5>
+                            @for (int i = 0; i < 6; i++)
+                            {
+                                <input type="radio" id="C@(i)" name="@c" value="@(i)" @if (i == 0) { @("checked") } />
+                                <label for="C@(i)" class="control-label">@(i)</label>
+                            }
+                        }
+                    </div>
+                    <div class="form-group">
+                        @{
+                            c = nameof(Model.Property.Ratings.Communication);
+                            <h5>@c</h5>
+                            @for (int i = 0; i < 6; i++)
+                            {
+                                <input type="radio" id="C@(i)" name="@c" value="@(i)" @if (i == 0) { @("checked") } />
+                                <label for="C@(i)" class="control-label">@(i)</label>
+                            }
+                        }
+                    </div>
+                    <div class="form-group">
+                        @{
+                            c = nameof(Model.Property.Ratings.CheckIn);
+                            <h5>@c</h5>
+                            @for (int i = 0; i < 6; i++)
+                            {
+                                <input type="radio" id="C@(i)" name="@c" value="@(i)" @if (i == 0) { @("checked") } />
+                                <label for="C@(i)" class="control-label">@(i)</label>
+                            }
+                        }
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        @{
+                            c = nameof(Model.Property.Ratings.Accuracy);
+                            <h5>@c</h5>
+                            @for (int i = 0; i < 6; i++)
+                            {
+                                <input type="radio" id="C@(i)" name="@c" value="@(i)" @if (i == 0) { @("checked") } />
+                                <label for="C@(i)" class="control-label">@(i)</label>
+                            }
+                        }
+                    </div>
+                    <div class="form-group">
+                        @{
+                            c = nameof(Model.Property.Ratings.Location);
+                            <h5>@c</h5>
+                            @for (int i = 0; i < 6; i++)
+                            {
+                                <input type="radio" id="C@(i)" name="@c" value="@(i)" @if (i == 0) { @("checked") } />
+                                <label for="C@(i)" class="control-label">@(i)</label>
+                            }
+                        }
+                    </div>
+                    <div class="form-group">
+                        @{
+                            c = nameof(Model.Property.Ratings.Value);
+                            <h5>@c</h5>
+                            @for (int i = 0; i < 6; i++)
+                            {
+                                <input type="radio" id="C@(i)" name="@c" value="@(i)" @if (i == 0) { @("checked") } />
+                                <label for="C@(i)" class="control-label">@(i)</label>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <h4>Comments</h4>
+            <hr />
+            <div class="form-group">
+                <label for="Comment">Leave us a comment</label>
+                <textarea id="Comment" name="Comment" class="form-control"></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Check-out" class="btn btn-success" />
+        </div>
+    </form>
+</div>
