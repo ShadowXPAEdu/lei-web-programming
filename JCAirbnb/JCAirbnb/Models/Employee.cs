@@ -18,7 +18,7 @@ namespace JCAirbnb.Models
         public override bool Equals(object obj)
         {
             return obj is Employee employee &&
-                   EqualityComparer<IdentityUser>.Default.Equals(User, employee.User);
+                   Id == employee.Id;
         }
 
         public override int GetHashCode()

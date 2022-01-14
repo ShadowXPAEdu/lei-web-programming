@@ -34,13 +34,13 @@ namespace JCAirbnb.Areas.Employee.Controllers
 
             var reservationStates = _context.ReservationStates.Where(rs => rs.Title == "Reserved" || rs.Title == "CheckedOut");
 
-            var allCompanies = await _context.Companies.Include(c => c.Employees).ToListAsync();
-            var allEmployees = await _context.Employees.Include(e => e.User).ToListAsync();
+            var allCompanies = await _context.Companies.Include(c => c.Manager).Include(c => c.Employees).ToListAsync();
+            var allUserEmployees = await _context.Employees.Include(e => e.User).Where(e => e.User.Id == user.Id).ToListAsync();
 
             var companies = new List<Company>();
 
-            foreach (var employee in allEmployees)
-                foreach (var company in allCompanies)
+            foreach (var company in allCompanies)
+                foreach (var employee in allUserEmployees)
                     if (company.Employees.Contains(employee))
                         companies.Add(company);
 
@@ -49,7 +49,8 @@ namespace JCAirbnb.Areas.Employee.Controllers
                     .ThenInclude(p => p.Manager)
                 .Include(r => r.ReservationState)
                 .Include(r => r.User)
-                .Where(r => reservationStates.Contains(r.ReservationState) && (r.Property.Manager.Id == user.Id || companies.Select(c => c.Manager).Contains(r.Property.Manager)));
+                .Where(r => reservationStates.Contains(r.ReservationState)
+                         && (r.Property.Manager.Id == user.Id || companies.Select(c => c.Manager).Contains(r.Property.Manager)));
 
             return View(await reservations.ToListAsync());
         }
