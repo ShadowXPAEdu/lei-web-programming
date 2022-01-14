@@ -49,10 +49,14 @@
         .carousel-control {
             background: rgba(22,22,22,0.1);
         }
+
+        .properties > div {
+            padding: 1.2rem;
+        }
     </style>
 }
 
-<div class="d-flex flex-row flex-wrap justify-content-around">
+<div class="d-flex flex-row flex-wrap justify-content-around properties">
     @for (int i = 0; i < Model.Properties.Count; i++)
     {
         var property = Model.Properties[i];
