@@ -373,13 +373,13 @@ namespace JCAirbnb.Areas.Manager.Controllers
                 {
                     return NotFound();
                 }
-
                 var photo = property.Photos.FirstOrDefault(p => p.Id == photoId);
                 if (photo == null)
                 {
                     return NotFound();
                 }
                 var removedPhoto = property.Photos.Remove(photo);
+                //await _context.Photos.Remove(photo);
                 if (removedPhoto)
                 {
                     var filePath = $"wwwroot/img/photos/{photo.Path}";
@@ -415,12 +415,14 @@ namespace JCAirbnb.Areas.Manager.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            //first delete all PropertyCommodities with the same ID
-            var @property = await _context.Properties.Include(p => p.Commodities)
+            var @property = await _context.Properties.Include(p => p.Photos).Include(p => p.Commodities)
                 .ThenInclude(c => c.Commodity).FirstOrDefaultAsync(p => p.Id == id);
-            //@property.Commodities.RemoveAll(c => c.Id = id);
             property.Commodities.Clear();
-            //await _context.SaveChangesAsync();
+            foreach(var item in property.Photos)
+            {
+                var filePath = $"wwwroot/img/photos/{item.Path}";
+                System.IO.File.Delete(filePath);
+            }
             _context.Properties.Remove(@property);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
