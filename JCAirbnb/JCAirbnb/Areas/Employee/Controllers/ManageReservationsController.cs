@@ -35,17 +35,23 @@ namespace JCAirbnb.Areas.Employee.Controllers
             var reservationStates = _context.ReservationStates.Where(rs => rs.Title == "Reserved" || rs.Title == "CheckedOut");
 
             var allCompanies = await _context.Companies.Include(c => c.Employees).ToListAsync();
-            //var employees = await _context.Employees.Where(e => e.User == user).ToListAsync();
-            var companies = await _context.Employees.Select(e => allCompanies.FirstOrDefault(c => c.Employees.Contains(e))).ToListAsync();
+            var allEmployees = await _context.Employees.Include(e => e.User).ToListAsync();
+
+            var companies = new List<Company>();
+
+            foreach (var employee in allEmployees)
+                foreach (var company in allCompanies)
+                    if (company.Employees.Contains(employee))
+                        companies.Add(company);
 
             var reservations = _context.Reservations
                 .Include(r => r.Property)
                     .ThenInclude(p => p.Manager)
                 .Include(r => r.ReservationState)
                 .Include(r => r.User)
-                .Where(r => reservationStates.Contains(r.ReservationState) && companies.Select(c => c.Manager.Id).Contains(r.Property.Manager.Id));
+                .Where(r => reservationStates.Contains(r.ReservationState) && (r.Property.Manager.Id == user.Id || companies.Select(c => c.Manager.Id).Contains(r.Property.Manager.Id)));
 
-            return View(await _context.Reservations.ToListAsync());
+            return View(await reservations.ToListAsync());
         }
 
         // GET: Employee/ManageReservations/Details/5

@@ -41,7 +41,7 @@ namespace JCAirbnb.Areas.Manager.Controllers
                 .Include(r => r.ReservationState)
                 .Include(r => r.User)
                 .Where(r => r.Property.Manager.Id == manager.Id && reservationStates.Contains(r.ReservationState));
-            
+
             return View(await reservations.ToListAsync());
         }
 
