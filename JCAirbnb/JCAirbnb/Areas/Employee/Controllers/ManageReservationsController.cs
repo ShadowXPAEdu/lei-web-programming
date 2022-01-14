@@ -49,9 +49,7 @@ namespace JCAirbnb.Areas.Employee.Controllers
                     .ThenInclude(p => p.Manager)
                 .Include(r => r.ReservationState)
                 .Include(r => r.User)
-                .Where(r => reservationStates.Contains(r.ReservationState) && (r.Property.Manager.Id == user.Id || companies.Select(c => c.Manager.Id).Contains(r.Property.Manager.Id)));
-
-            if (reservations == null) reservations = new List<Reservation>().AsQueryable();
+                .Where(r => reservationStates.Contains(r.ReservationState) && (r.Property.Manager.Id == user.Id || companies.Select(c => c.Manager).Contains(r.Property.Manager)));
 
             return View(await reservations.ToListAsync());
         }
