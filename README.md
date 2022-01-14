@@ -214,9 +214,11 @@ Estados:
 
  - CheckedIn (Vai para o cliente - Entregar chaves)
 
- - CheckedOut (Volta para o Funcionário - Cliente devolve as chaves e o Funcionário verifica o estado)
+ - CheckedOut (Volta para o Funcionário - Cliente devolve as chaves e o Funcionário verifica o estado, Upload de fotos de eventuais danos / situações a reportar, e outras observações)
 
- - Finalized (Finalmente devolve ao Owner - Upload de fotos de eventuais danos / situações a reportar, e outras observações)
+ - Verifying (Finalmente devolve ao Owner - Avalia o cliente...)
+ 
+ - Completed (No action needed)
 
 ---
 
