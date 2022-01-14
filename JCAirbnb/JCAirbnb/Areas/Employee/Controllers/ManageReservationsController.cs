@@ -9,6 +9,7 @@ using JCAirbnb.Data;
 using JCAirbnb.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using JCAirbnb.Areas.Employee.Models;
 
 namespace JCAirbnb.Areas.Employee.Controllers
 {
@@ -55,46 +56,6 @@ namespace JCAirbnb.Areas.Employee.Controllers
             return View(await reservations.ToListAsync());
         }
 
-        // GET: Employee/ManageReservations/Details/5
-        public async Task<IActionResult> Details(string id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var reservation = await _context.Reservations
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (reservation == null)
-            {
-                return NotFound();
-            }
-
-            return View(reservation);
-        }
-
-        // GET: Employee/ManageReservations/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Employee/ManageReservations/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,CheckIn,CheckOut")] Reservation reservation)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(reservation);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(reservation);
-        }
-
         // GET: Employee/ManageReservations/Edit/5
         public async Task<IActionResult> Edit(string id)
         {
@@ -103,12 +64,22 @@ namespace JCAirbnb.Areas.Employee.Controllers
                 return NotFound();
             }
 
-            var reservation = await _context.Reservations.FindAsync(id);
-            if (reservation == null)
+            var manager = await _userManager.GetUserAsync(User);
+            var reservation = await _context.Reservations
+                .Include(r => r.Property).ThenInclude(p => p.Manager)
+                .Include(r => r.Property).ThenInclude(p => p.PropertyType)
+                .Include(r => r.ReservationState)
+                .FirstOrDefaultAsync(r => r.Id == id);
+            //var reservation = await _context.Reservations.FindAsync(id);
+            if (reservation == null || reservation.Property.Manager.Id != manager.Id)
             {
                 return NotFound();
             }
-            return View(reservation);
+            return View(new ManageReservationsEditViewModel()
+            {
+                Reservation = reservation,
+                CheckLists = await _context.CheckLists.Include(cl => cl.Company).Where(cl => cl.Company.Id == manager.Id).ToListAsync()
+            });
         }
 
         // POST: Employee/ManageReservations/Edit/5
@@ -116,9 +87,9 @@ namespace JCAirbnb.Areas.Employee.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("Id,CheckIn,CheckOut")] Reservation reservation)
+        public async Task<IActionResult> Edit(string id, [Bind("Reservation,CheckListId")] ManageReservationsEditViewModel viewModel)
         {
-            if (id != reservation.Id)
+            if (id != viewModel.Reservation.Id)
             {
                 return NotFound();
             }
@@ -127,12 +98,17 @@ namespace JCAirbnb.Areas.Employee.Controllers
             {
                 try
                 {
+                    var reservation = await _context.Reservations.FindAsync(id);
+                    reservation.CheckList = await _context.CheckLists.FindAsync(viewModel.CheckListId);
+                    //if(reservation.ReservationState == "Reserved"){}
+                    //if (reservation.ReservationState == "CheckedOut"){}
+                    reservation.ReservationState = await _context.ReservationStates.FirstOrDefaultAsync(rs => rs.Title == "Checked in");
                     _context.Update(reservation);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ReservationExists(reservation.Id))
+                    if (!ReservationExists(viewModel.Reservation.Id))
                     {
                         return NotFound();
                     }
@@ -143,7 +119,7 @@ namespace JCAirbnb.Areas.Employee.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(reservation);
+            return View(viewModel);
         }
 
         // GET: Employee/ManageReservations/Delete/5
@@ -154,9 +130,12 @@ namespace JCAirbnb.Areas.Employee.Controllers
                 return NotFound();
             }
 
+            var manager = await _userManager.GetUserAsync(User);
             var reservation = await _context.Reservations
+                .Include(r => r.Property)
+                    .ThenInclude(p => p.Manager)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (reservation == null)
+            if (reservation == null || reservation.Property.Manager.Id != manager.Id)
             {
                 return NotFound();
             }

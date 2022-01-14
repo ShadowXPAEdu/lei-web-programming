@@ -6,17 +6,26 @@
 
 <h1>@ViewData["Title"]</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Property)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User.UserName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Property.Price)
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.CheckIn)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.CheckOut)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReservationState.Title)
             </th>
             <th></th>
         </tr>
@@ -25,14 +34,25 @@
 @foreach (var item in Model) {
         <tr>
             <td>
+                @Html.DisplayFor(modelItem => item.Property.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Property.Price)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.CheckIn)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CheckOut)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.ReservationState.Title)
+            </td>
+            <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>
