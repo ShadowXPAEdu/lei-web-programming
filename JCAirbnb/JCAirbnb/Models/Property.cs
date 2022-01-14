@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace JCAirbnb.Models
 {
@@ -31,18 +29,15 @@ namespace JCAirbnb.Models
         [Display(Name = "Price")]
         public int Price { get; set; }
 
-        //[Required]
         [Display(Name = "Ratings")]
         public virtual Ratings Ratings { get; set; }
 
-        //[Required]
         [Display(Name = "Divisions")]
         public virtual Divisions Divisions { get; set; }
 
         [Display(Name = "Photos")]
         public virtual List<Photo> Photos { get; set; } = new();
 
-        //[Required]
         [Display(Name = "Host")]
         public virtual IdentityUser Manager { get; set; }
 

@@ -3,5 +3,6 @@
   { "Title": "Pending" },
   { "Title": "Checked in" },
   { "Title": "Checked out" },
-  { "Title": "Finalized" }
+  { "Title": "Verifying" },
+  { "Title": "Completed" }
 ]

@@ -94,7 +94,15 @@ namespace JCAirbnb.Areas.Client.Controllers
             property.Ratings.Value += Value;
             property.Ratings.Value /= 2.0f;
 
+            property.Reviews.Add(new Review()
+            {
+                Id = Guid.NewGuid().ToString(),
+                Date = DateTime.UtcNow,
+                Text = Comment,
+                User = client
+            });
 
+            reservation.ReservationState = await _context.ReservationStates.FirstOrDefaultAsync(rs => rs.Title == "Verifying");
 
             _context.Reservations.Update(reservation);
             await _context.SaveChangesAsync();

@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace JCAirbnb.Data.Migrations
+namespace JCAirbnb.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220114123624_photos")]
-    partial class photos
+    [Migration("20220114220007_First")]
+    partial class First
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -156,9 +156,14 @@ namespace JCAirbnb.Data.Migrations
                     b.Property<string>("PropertyId")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("ReportId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("PropertyId");
+
+                    b.HasIndex("ReportId");
 
                     b.ToTable("Photos");
                 });
@@ -280,6 +285,19 @@ namespace JCAirbnb.Data.Migrations
                     b.ToTable("Ratings");
                 });
 
+            modelBuilder.Entity("JCAirbnb.Models.Report", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Observations")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Reports");
+                });
+
             modelBuilder.Entity("JCAirbnb.Models.Reservation", b =>
                 {
                     b.Property<string>("Id")
@@ -288,13 +306,19 @@ namespace JCAirbnb.Data.Migrations
                     b.Property<DateTime>("CheckIn")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("CheckListId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<DateTime>("CheckOut")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("DeliveryCheckListId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("PropertyId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ReportId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ReservationCheckListId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ReservationStateId")
@@ -305,9 +329,13 @@ namespace JCAirbnb.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CheckListId");
+                    b.HasIndex("DeliveryCheckListId");
 
                     b.HasIndex("PropertyId");
+
+                    b.HasIndex("ReportId");
+
+                    b.HasIndex("ReservationCheckListId");
 
                     b.HasIndex("ReservationStateId");
 
@@ -620,6 +648,10 @@ namespace JCAirbnb.Data.Migrations
                     b.HasOne("JCAirbnb.Models.Property", null)
                         .WithMany("Photos")
                         .HasForeignKey("PropertyId");
+
+                    b.HasOne("JCAirbnb.Models.Report", null)
+                        .WithMany("Photos")
+                        .HasForeignKey("ReportId");
                 });
 
             modelBuilder.Entity("JCAirbnb.Models.Property", b =>
@@ -664,13 +696,21 @@ namespace JCAirbnb.Data.Migrations
 
             modelBuilder.Entity("JCAirbnb.Models.Reservation", b =>
                 {
-                    b.HasOne("JCAirbnb.Models.CheckList", "CheckList")
+                    b.HasOne("JCAirbnb.Models.CheckList", "DeliveryCheckList")
                         .WithMany()
-                        .HasForeignKey("CheckListId");
+                        .HasForeignKey("DeliveryCheckListId");
 
                     b.HasOne("JCAirbnb.Models.Property", "Property")
                         .WithMany()
                         .HasForeignKey("PropertyId");
+
+                    b.HasOne("JCAirbnb.Models.Report", "Report")
+                        .WithMany()
+                        .HasForeignKey("ReportId");
+
+                    b.HasOne("JCAirbnb.Models.CheckList", "ReservationCheckList")
+                        .WithMany()
+                        .HasForeignKey("ReservationCheckListId");
 
                     b.HasOne("JCAirbnb.Models.ReservationState", "ReservationState")
                         .WithMany()
@@ -680,9 +720,13 @@ namespace JCAirbnb.Data.Migrations
                         .WithMany()
                         .HasForeignKey("UserId");
 
-                    b.Navigation("CheckList");
+                    b.Navigation("DeliveryCheckList");
 
                     b.Navigation("Property");
+
+                    b.Navigation("Report");
+
+                    b.Navigation("ReservationCheckList");
 
                     b.Navigation("ReservationState");
 
@@ -774,6 +818,11 @@ namespace JCAirbnb.Data.Migrations
                     b.Navigation("Photos");
 
                     b.Navigation("Reviews");
+                });
+
+            modelBuilder.Entity("JCAirbnb.Models.Report", b =>
+                {
+                    b.Navigation("Photos");
                 });
 #pragma warning restore 612, 618
         }

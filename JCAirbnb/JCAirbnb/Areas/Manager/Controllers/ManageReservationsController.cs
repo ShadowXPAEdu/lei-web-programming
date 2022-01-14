@@ -87,7 +87,7 @@ namespace JCAirbnb.Areas.Manager.Controllers
                 try
                 {
                     var reservation = await _context.Reservations.FindAsync(id);
-                    reservation.CheckList = await _context.CheckLists.FindAsync(viewModel.CheckListId);
+                    reservation.ReservationCheckList = await _context.CheckLists.FindAsync(viewModel.CheckListId);
                     reservation.ReservationState = await _context.ReservationStates.FirstOrDefaultAsync(rs => rs.Title == "Reserved");
                     _context.Update(reservation);
                     await _context.SaveChangesAsync();

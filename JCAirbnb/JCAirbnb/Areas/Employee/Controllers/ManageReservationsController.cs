@@ -99,7 +99,7 @@ namespace JCAirbnb.Areas.Employee.Controllers
                 try
                 {
                     var reservation = await _context.Reservations.FindAsync(id);
-                    reservation.CheckList = await _context.CheckLists.FindAsync(viewModel.CheckListId);
+                    reservation.ReservationCheckList = await _context.CheckLists.FindAsync(viewModel.CheckListId);
                     //if(reservation.ReservationState == "Reserved"){}
                     //if (reservation.ReservationState == "CheckedOut"){}
                     reservation.ReservationState = await _context.ReservationStates.FirstOrDefaultAsync(rs => rs.Title == "Checked in");

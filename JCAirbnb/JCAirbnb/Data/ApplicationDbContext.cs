@@ -34,5 +34,7 @@ namespace JCAirbnb.Data
         public DbSet<CheckList> CheckLists { get; set; }
 
         public DbSet<Photo> Photos { get; set; }
+
+        public DbSet<Report> Reports { get; set; }
     }
 }

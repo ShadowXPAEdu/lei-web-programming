@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace JCAirbnb.Data.Migrations
+namespace JCAirbnb.Migrations
 {
     public partial class First : Migration
     {
@@ -103,6 +103,18 @@ namespace JCAirbnb.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Ratings", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Reports",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Observations = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Reports", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -302,6 +314,25 @@ namespace JCAirbnb.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "CheckLists",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CompanyId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CheckLists", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CheckLists_Companies_CompanyId",
+                        column: x => x.CompanyId,
+                        principalTable: "Companies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Employees",
                 columns: table => new
                 {
@@ -327,20 +358,27 @@ namespace JCAirbnb.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Photo",
+                name: "Photos",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Path = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PropertyId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    PropertyId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    ReportId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Photo", x => x.Id);
+                    table.PrimaryKey("PK_Photos", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Photo_Properties_PropertyId",
+                        name: "FK_Photos_Properties_PropertyId",
                         column: x => x.PropertyId,
                         principalTable: "Properties",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Photos_Reports_ReportId",
+                        column: x => x.ReportId,
+                        principalTable: "Reports",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -405,6 +443,81 @@ namespace JCAirbnb.Data.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "CheckListItems",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Verified = table.Column<bool>(type: "bit", nullable: false),
+                    CheckListId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CheckListItems", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CheckListItems_CheckLists_CheckListId",
+                        column: x => x.CheckListId,
+                        principalTable: "CheckLists",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Reservations",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    CheckIn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CheckOut = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ReservationStateId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    PropertyId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    ReservationCheckListId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    DeliveryCheckListId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    ReportId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Reservations", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Reservations_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Reservations_CheckLists_DeliveryCheckListId",
+                        column: x => x.DeliveryCheckListId,
+                        principalTable: "CheckLists",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Reservations_CheckLists_ReservationCheckListId",
+                        column: x => x.ReservationCheckListId,
+                        principalTable: "CheckLists",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Reservations_Properties_PropertyId",
+                        column: x => x.PropertyId,
+                        principalTable: "Properties",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Reservations_Reports_ReportId",
+                        column: x => x.ReportId,
+                        principalTable: "Reports",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Reservations_ReservationStates_ReservationStateId",
+                        column: x => x.ReservationStateId,
+                        principalTable: "ReservationStates",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -445,6 +558,16 @@ namespace JCAirbnb.Data.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_CheckListItems_CheckListId",
+                table: "CheckListItems",
+                column: "CheckListId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CheckLists_CompanyId",
+                table: "CheckLists",
+                column: "CompanyId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Employees_CompanyId",
                 table: "Employees",
                 column: "CompanyId");
@@ -455,9 +578,14 @@ namespace JCAirbnb.Data.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Photo_PropertyId",
-                table: "Photo",
+                name: "IX_Photos_PropertyId",
+                table: "Photos",
                 column: "PropertyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Photos_ReportId",
+                table: "Photos",
+                column: "ReportId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Properties_DivisionsId",
@@ -488,6 +616,36 @@ namespace JCAirbnb.Data.Migrations
                 name: "IX_PropertyCommodities_PropertyId",
                 table: "PropertyCommodities",
                 column: "PropertyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Reservations_DeliveryCheckListId",
+                table: "Reservations",
+                column: "DeliveryCheckListId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Reservations_PropertyId",
+                table: "Reservations",
+                column: "PropertyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Reservations_ReportId",
+                table: "Reservations",
+                column: "ReportId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Reservations_ReservationCheckListId",
+                table: "Reservations",
+                column: "ReservationCheckListId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Reservations_ReservationStateId",
+                table: "Reservations",
+                column: "ReservationStateId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Reservations_UserId",
+                table: "Reservations",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Review_ClientId",
@@ -523,16 +681,19 @@ namespace JCAirbnb.Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "CheckListItems");
+
+            migrationBuilder.DropTable(
                 name: "Employees");
 
             migrationBuilder.DropTable(
-                name: "Photo");
+                name: "Photos");
 
             migrationBuilder.DropTable(
                 name: "PropertyCommodities");
 
             migrationBuilder.DropTable(
-                name: "ReservationStates");
+                name: "Reservations");
 
             migrationBuilder.DropTable(
                 name: "Review");
@@ -541,10 +702,16 @@ namespace JCAirbnb.Data.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "Companies");
+                name: "Commodities");
 
             migrationBuilder.DropTable(
-                name: "Commodities");
+                name: "CheckLists");
+
+            migrationBuilder.DropTable(
+                name: "Reports");
+
+            migrationBuilder.DropTable(
+                name: "ReservationStates");
 
             migrationBuilder.DropTable(
                 name: "Clients");
@@ -553,7 +720,7 @@ namespace JCAirbnb.Data.Migrations
                 name: "Properties");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
+                name: "Companies");
 
             migrationBuilder.DropTable(
                 name: "Divisions");
@@ -563,6 +730,9 @@ namespace JCAirbnb.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Ratings");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUsers");
         }
     }
 }
