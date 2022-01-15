@@ -368,7 +368,7 @@
         </div>
     </div>
     <div class="reviews-comments d-flex justify-content-between flex-wrap">
-        @foreach (var review in Model.Reviews.OrderByDescending(r => r.Date))
+        @foreach (var review in Model.Reviews.Where(r => !string.IsNullOrWhiteSpace(r.Text)).OrderByDescending(r => r.Date))
         {
             <div class="comment col col-6">
                 <a asp-area="Client" asp-controller="Home" asp-action="Profile" asp-route-id="@review.User.Id">

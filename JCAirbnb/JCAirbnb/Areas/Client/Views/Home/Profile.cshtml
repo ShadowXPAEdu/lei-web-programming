@@ -43,24 +43,24 @@
     </div>
     <div class="col-9">
         <div class="reviews-comments d-flex justify-content-between flex-wrap">
-            @foreach (var review in Model.Reviews.OrderByDescending(r => r.Date))
+            @foreach (var review in Model.Reviews.Where(r => !string.IsNullOrWhiteSpace(r.Text)).OrderByDescending(r => r.Date))
             {
-                <div class="comment col col-6">
-                    <a asp-area="Client" asp-controller="Home" asp-action="Profile" asp-route-id="@review.User.Id">
-                        <div class="comment-header d-flex flex-row">
-                            <div class="review-image">
-                                <img src="~/img/avatar.webp" />
-                            </div>
-                            <div class="d-flex flex-column">
-                                <div class="review-reviewer">@review.User.UserName</div>
-                                <div class="review-date">@review.Date.ToLongDateString()</div>
-                            </div>
+            <div class="comment col col-6">
+                <a asp-area="Client" asp-controller="Home" asp-action="Profile" asp-route-id="@review.User.Id">
+                    <div class="comment-header d-flex flex-row">
+                        <div class="review-image">
+                            <img src="~/img/avatar.webp" />
                         </div>
-                    </a>
-                    <div class="review-text">
-                        @review.Text
+                        <div class="d-flex flex-column">
+                            <div class="review-reviewer">@review.User.UserName</div>
+                            <div class="review-date">@review.Date.ToLongDateString()</div>
+                        </div>
                     </div>
+                </a>
+                <div class="review-text">
+                    @review.Text
                 </div>
+            </div>
             }
         </div>
     </div>
