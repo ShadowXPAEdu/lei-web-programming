@@ -78,11 +78,11 @@ namespace JCAirbnb.Areas.Employee.Controllers
                 return NotFound();
             }
             //return View(reservation);
-            List<CheckListItem> clitóris = null;
+            List<CheckListItem> clitems = null;
 
             if (reservation.ReservationCheckList != null)
             {
-                clitóris = await _context.CheckListItems.Include(cli => cli.CheckList)
+                clitems = await _context.CheckListItems.Include(cli => cli.CheckList)
                                             .Where(cli => cli.CheckList.Id == reservation.ReservationCheckList.Id)
                                             .OrderBy(r => r.Description).ToListAsync();
             }
@@ -90,7 +90,7 @@ namespace JCAirbnb.Areas.Employee.Controllers
             return View(new ManageReservationsModel()
             {
                 Reservation = reservation,
-                CheckListItems = clitóris
+                CheckListItems = clitems
             });
         }
 
