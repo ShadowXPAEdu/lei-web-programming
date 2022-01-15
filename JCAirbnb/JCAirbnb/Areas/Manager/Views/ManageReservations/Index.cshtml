@@ -10,7 +10,7 @@
     <thead>
         <tr>
             <th>
-               @Html.DisplayNameFor(model => model.Property)
+                @Html.DisplayNameFor(model => model.Property)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.User.UserName)
@@ -53,8 +53,15 @@
                     @Html.DisplayFor(modelItem => item.ReservationState.Title)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    @if (item.ReservationState.Title == "Pending")
+                    {
+                        <a asp-action="Pending" asp-route-id="@item.Id">Pending</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    }
+                    @if (item.ReservationState.Title == "Verifying")
+                    {
+                        <a asp-action="Verifying" asp-route-id="@item.Id">Verifying</a>
+                    }
                 </td>
             </tr>
         }

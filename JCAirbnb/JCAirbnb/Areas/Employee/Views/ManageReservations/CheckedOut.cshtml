@@ -1,4 +1,4 @@
-﻿@model JCAirbnb.Areas.Employee.Models.ManageReservationsEditViewModel
+﻿@model JCAirbnb.Areas.Employee.Models.ManageReservationsModel
 
 @{
     ViewData["Title"] = "Edit";
@@ -102,13 +102,13 @@
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <input type="hidden" asp-for="Reservation.Id" />
     <div class="form-group">
-        <select asp-for="CheckListId">
+        @*<select asp-for="CheckListId">
             <option value="" selected>Select check list</option>
             @foreach (var checklist in Model.CheckLists)
             {
                 <option value="@checklist.Id">@checklist.Title</option>
             }
-        </select>
+        </select>*@
     </div>
     <div class="form-group">
         <input type="submit" value="Accept reservation" class="btn btn-primary" />

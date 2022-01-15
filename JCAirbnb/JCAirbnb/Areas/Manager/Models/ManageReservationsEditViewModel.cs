@@ -12,6 +12,8 @@ namespace JCAirbnb.Areas.Manager.Models
 
         public List<CheckList> CheckLists { get; set; }
 
-        public string CheckListId { get; set; }
+        public string ReservationCheckListId { get; set; }
+
+        public string DeliveryCheckListId { get; set; }
     }
 }
