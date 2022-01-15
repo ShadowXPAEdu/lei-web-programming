@@ -9,6 +9,8 @@
         .property-image, .property-image img {
             width: 300px;
             height: 300px;
+            display: block;
+            margin: 0 auto;
         }
 
         .property-title {
@@ -55,6 +57,17 @@
         }
     </style>
 }
+
+<div class="property-search">
+    <form class="row justify-content-center">
+        <div class="form-group col-6">
+            <input type="text" name="q" class="form-control" />
+        </div>
+        <div class="form-group col-2">
+            <button type="submit" class="form-control search-btn btn btn-primary"><i class="fas fa-search"></i> Search</button>
+        </div>
+    </form>
+</div>
 
 <div class="d-flex flex-row flex-wrap justify-content-around properties">
     @for (int i = 0; i < Model.Properties.Count; i++)

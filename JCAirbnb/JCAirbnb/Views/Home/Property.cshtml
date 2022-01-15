@@ -18,8 +18,18 @@
                 content: '';
             }
 
-        .property-images {
+        .property-image, .property-image img {
             height: 450px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .property-images {
+            margin: 1.2rem;
+        }
+
+        .carousel-control {
+            background: rgba(22,22,22,0.1);
         }
 
         .property-body {
@@ -142,7 +152,33 @@
     </div>
 
     <div class="property-images">
+        <div class="container">
+            <div id="carousel" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    @for (int j = 0; j < Model.Photos.Count; j++)
+                    {
+                        <li data-target="#carousel" data-slide-to="@j" class="@(j == 0 ? "active" : "")"></li>
+                    }
+                </ol>
 
+                <div class="carousel-inner property-image">
+                    @for (int j = 0; j < Model.Photos.Count; j++)
+                    {
+                        var photo = Model.Photos[j];
+                        <div class="carousel-item @(j == 0 ? "active" : "")">
+                            <img src="~/img/photos/@photo.Path" />
+                        </div>
+                    }
+                </div>
+
+                <a class="carousel-control carousel-control-prev" href="#carousel" data-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                </a>
+                <a class="carousel-control carousel-control-next" href="#carousel" data-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                </a>
+            </div>
+        </div>
     </div>
 
     <div class="d-flex property-body">
