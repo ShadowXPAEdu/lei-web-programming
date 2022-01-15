@@ -1,15 +1,32 @@
-﻿@model JCAirbnb.Areas.Manager.Models.ManageReservationsEditViewModel
+﻿@model JCAirbnb.Areas.Manager.Models.ManageReservationsVerifyingViewModel
 
 @{
     ViewData["Title"] = "Edit";
+}
+@section CSS {
+    <style type="text/css">
+        .property-image, .property-image img {
+            height: 450px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .property-images {
+            margin: 1.2rem;
+        }
+
+        .carousel-control {
+            background: rgba(22,22,22,0.1);
+        }
+
+    </style>
 }
 
 <h1>Edit</h1>
 
 <h4>Reservation</h4>
 <hr />
-
-@*<div class="row">
+<div class="row">
     <div class="col-6">
         <div class="row">
             <div class="col-4">
@@ -98,36 +115,70 @@
         </dl>
     </div>
 </div>
-<form asp-action="Edit">
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    <input type="hidden" asp-for="Reservation.Id" />
-    <div class="row">
-        <div class="form-group col-6">
-            <select asp-for="ReservationCheckListId" class="form-control">
-                <option value="" selected>Select check list</option>
-                @foreach (var checklist in Model.CheckLists)
+<div class="row">
+    <div class="form-group col-6">
+        <h4>Reservation check list</h4>
+        @foreach (var item in Model.ReservationCheckLists)
+        {
+            <div class="col-12">
+                @Html.DisplayFor(m => item.Description)
+                <input type="checkbox" @(item.Verified ? "checked" : "") disabled name="values" class="btn btn-primary" />
+            </div>
+        }
+    </div>
+    <div class="form-group col-6">
+        <h4>Delivery check list</h4>
+        @foreach (var item2 in Model.DeliveryCheckLists)
+        {
+            <div class="col-12">
+                @Html.DisplayFor(m => item2.Description)
+                <input type="checkbox" @(item2.Verified ? "checked" : "") disabled name="values" class="btn btn-primary" />
+            </div>
+        }
+    </div>
+</div>
+
+@if (Model.Reservation.Report.Photos.Count != 0)
+{
+<div class="property-images">
+    <div class="container">
+        <div id="carousel" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                @for (int j = 0; j < Model.Reservation.Report.Photos.Count; j++)
                 {
-                    <option value="@checklist.Id">@checklist.Title</option>
+                    <li data-target="#carousel" data-slide-to="@j" class="@(j == 0 ? "active" : "")"></li>
                 }
-            </select>
-        </div>
-        <div class="form-group col-6">
-            <select asp-for="DeliveryCheckListId" class="form-control">
-                <option value="" selected>Select check list</option>
-                @foreach (var checklist in Model.CheckLists)
+            </ol>
+
+            <div class="carousel-inner property-image">
+                @for (int j = 0; j < Model.Reservation.Report.Photos.Count; j++)
                 {
-                    <option value="@checklist.Id">@checklist.Title</option>
+                    var photo = Model.Reservation.Report.Photos[j];
+                    <div class="carousel-item @(j == 0 ? "active" : "")">
+                        <img src="~/img/report/@photo.Path" />
+                    </div>
                 }
-            </select>
+            </div>
+
+            <a class="carousel-control carousel-control-prev" href="#carousel" data-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+            </a>
+            <a class="carousel-control carousel-control-next" href="#carousel" data-slide="next">
+                <span class="carousel-control-next-icon"></span>
+            </a>
         </div>
     </div>
+</div>
+}
+
+<form asp-action="Verifying">
+    <input asp-for="Reservation.Id" type="hidden"/>
     <div class="form-group">
-        <input type="submit" value="Accept reservation" class="btn btn-primary" />
+        <textarea class="form-control" name="comment"></textarea>
     </div>
-    <div class="form-group">
-        <a asp-action="Delete" asp-route-id="@Model.Reservation.Id" class="btn btn-danger">Cancel reservation</a>
-    </div>
-</form>*@
+    <input type="submit" value="Save" class="btn btn-primary"/>
+</form>
+
 
 <div>
     <a asp-action="">Back to List</a>

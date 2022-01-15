@@ -111,8 +111,8 @@ namespace JCAirbnb.Areas.Manager.Controllers
             return View(viewModel);
         }
 
-        // GET: Manager/ManageReservations/Veryfing/5
-        public async Task<IActionResult> Veryfing(string id)
+        // GET: Manager/ManageReservations/Verifying/5
+        public async Task<IActionResult> Verifying(string id)
         {
             if (id == null)
             {
@@ -123,6 +123,7 @@ namespace JCAirbnb.Areas.Manager.Controllers
             var reservation = await _context.Reservations
                 .Include(r => r.ReservationCheckList)
                 .Include(r => r.DeliveryCheckList)
+                .Include(r => r.Report).ThenInclude(rr => rr.Photos)
                 .Include(r => r.Property).ThenInclude(p => p.Manager)
                 .Include(r => r.Property).ThenInclude(p => p.PropertyType)
                 .Include(r => r.ReservationState)
@@ -131,19 +132,31 @@ namespace JCAirbnb.Areas.Manager.Controllers
             {
                 return NotFound();
             }
-            return View(new ManageReservationsEditViewModel()
+
+            List<CheckListItem> rcli = new();
+            List<CheckListItem> dcli = new();
+
+            if (reservation.ReservationCheckList != null) rcli = await _context.CheckListItems.Include(cli => cli.CheckList)
+                                            .Where(cli => cli.CheckList.Id == reservation.ReservationCheckList.Id).ToListAsync();
+
+            if (reservation.DeliveryCheckList != null) dcli = await _context.CheckListItems.Include(cli => cli.CheckList)
+                                            .Where(cli => cli.CheckList.Id == reservation.DeliveryCheckList.Id).ToListAsync();
+
+            return View(new ManageReservationsVerifyingViewModel()
             {
                 Reservation = reservation,
-                CheckLists = await _context.CheckLists.Include(cl => cl.Company).Where(cl => cl.Company.Id == manager.Id).ToListAsync()
+                ReservationCheckLists = rcli,
+                DeliveryCheckLists = dcli
             });
         }
 
-        // POST: Manager/ManageReservations/Veryfing/5
+        // POST: Manager/ManageReservations/Verifying/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Veryfing(string id, [Bind("Reservation,ReservationCheckListId,DeliveryCheckListId")] ManageReservationsEditViewModel viewModel)
+        public async Task<IActionResult> Verifying(string id, 
+            [Bind("Reservation")] ManageReservationsEditViewModel viewModel, string comment)
         {
             if (id != viewModel.Reservation.Id)
             {
@@ -154,10 +167,21 @@ namespace JCAirbnb.Areas.Manager.Controllers
             {
                 try
                 {
-                    var reservation = await _context.Reservations.FindAsync(id);
-                    reservation.ReservationCheckList = await _context.CheckLists.FindAsync(viewModel.ReservationCheckListId);
-                    reservation.DeliveryCheckList = await _context.CheckLists.FindAsync(viewModel.DeliveryCheckListId);
-                    reservation.ReservationState = await _context.ReservationStates.FirstOrDefaultAsync(rs => rs.Title == "Reserved");
+                    var reservation = await _context.Reservations
+                                        .Include(r => r.User).FirstOrDefaultAsync( r => r.Id == id);
+                    reservation.ReservationState = await _context.ReservationStates.FirstOrDefaultAsync(rs => rs.Title == "Completed");
+
+                    var client = await _context.Clients.Include(c => c.Reviews)
+                                    .Include(c => c.User).FirstOrDefaultAsync(c => c.Id == reservation.User.Id);
+
+                    client.Reviews.Add(new Review()
+                    {
+                        Id = Guid.NewGuid().ToString(),
+                        Date = DateTime.UtcNow,
+                        Text  = comment,
+                        User = await _userManager.GetUserAsync(User)
+                    }) ;
+
                     _context.Update(reservation);
                     await _context.SaveChangesAsync();
                 }
@@ -187,10 +211,11 @@ namespace JCAirbnb.Areas.Manager.Controllers
 
             var manager = await _userManager.GetUserAsync(User);
             var reservation = await _context.Reservations
+                .Include(r => r.ReservationState)
                 .Include(r => r.Property)
                     .ThenInclude(p => p.Manager)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (reservation == null || reservation.Property.Manager.Id != manager.Id)
+            if (reservation == null || reservation.Property.Manager.Id != manager.Id || reservation.ReservationState.Title != "Pending")
             {
                 return NotFound();
             }

@@ -210,7 +210,7 @@ Estados:
 
  - Pending (Owner - precisa de fazer a checklist e enviar para o Funcionário)
 
- - Reserved (Vai para o Funcionário - validar a checklist e entregar ao cliente caso esteja pronto, se não devolve ao Owner)
+ - Reserved (Vai para o Funcionário - validar a checklist e entregar ao cliente caso esteja pronto, se não devolve ao Owner, /*botao para o perfil do cliente....*/)
 
  - CheckedIn (Vai para o cliente - Entregar chaves)
 

@@ -10,7 +10,6 @@ namespace JCAirbnb.Models
         [Display(Name = "Id")]
         public string Id { get; set; }
 
-        [Required]
         [Display(Name = "Review")]
         public string Text { get; set; }
 

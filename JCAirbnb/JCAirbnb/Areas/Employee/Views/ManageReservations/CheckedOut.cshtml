@@ -99,28 +99,43 @@
         </dl>
     </div>
 </div>
-<form asp-action="Reserved">
+<form asp-action="CheckedOut" enctype="multipart/form-data">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <input type="hidden" asp-for="Reservation.Id" />
-    <input type="hidden" />
-    <h4>Reservations List Items</h4>
-    <div class="row">
-        <div class="col-12">
-            @Html.DisplayFor(m => Model.Reservation.ReservationCheckList.Title)
-        </div>
-        @foreach (var item in Model.CheckListItems)
-        {
+    @if (Model.Reservation.DeliveryCheckList != null)
+    {
+        <h4>Delivery List Items</h4>
+        <div class="row">
             <div class="col-12">
-                @Html.DisplayFor(m => item.Description)
-                <input type="checkbox" value="@item.Verified" name="values" class="btn btn-primary" />
+                @Html.DisplayFor(m => Model.Reservation.DeliveryCheckList.Title)
             </div>
-        }
+            @foreach (var item in Model.CheckListItems)
+            {
+                <div class="col-12">
+                    @Html.DisplayFor(m => item.Description)
+                    <input type="checkbox" value="@item.Id" name="values" class="btn btn-primary" />
+                </div>
+            }
+        </div>
+    }
+    <div class="form-group d-inline-block">
+        <input name="files" type="file" multiple accept="image/*" />
     </div>
-    <div class="form-group">
-        <input type="submit" value="Accept reservation" class="btn btn-primary" />
+    <div>
+        <h4>Comments</h4>
+        <div class="form-group">
+            <label for="Comment">Leave us a comment</label>
+            <textarea id="Comment" asp-for="Reservation.Report.Observations" class="form-control"></textarea>
+        </div>
     </div>
-    <div class="form-group">
-        <a asp-action="Delete" asp-route-id="@Model.Reservation.Id" class="btn btn-danger">Cancel reservation</a>
+    <hr />
+    <div class="row">
+        <div class="form-group col-2">
+            <input type="submit" value="Accept reservation" class="btn btn-primary" />
+        </div>
+        <div class="form-group col-2">
+            <a asp-action="Delete" asp-route-id="@Model.Reservation.Id" class="btn btn-danger">Cancel reservation</a>
+        </div>
     </div>
 </form>
 
