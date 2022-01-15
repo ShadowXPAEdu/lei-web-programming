@@ -56,17 +56,17 @@ namespace JCAirbnb.Areas.Client.Controllers
 
             if (reservation == null || reservation.User.Id != client.Id || reservation.ReservationState.Title != "Checked in") return NotFound();
 
-            // TODO: CheckOut page with rating and review
-
-            return View(reservation);
+            return View(new CheckOutViewModel()
+            {
+                Reservation = reservation
+            });
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CheckOut(string id, string Id, int Cleanliness, int Communication, int CheckIn,
-            int Accuracy, int Location, int Value, string Comment)
+        public async Task<IActionResult> CheckOut(string id, [Bind("Reservation,Ratings,Comment")] CheckOutViewModel viewModel)
         {
-            if (id == null || id != Id) return NotFound();
+            if (id == null || id != viewModel.Reservation.Id) return NotFound();
 
             var reservation = await _context.Reservations
                 .Include(r => r.User)
@@ -74,37 +74,26 @@ namespace JCAirbnb.Areas.Client.Controllers
                 .FirstOrDefaultAsync(r => r.Id == id);
             var client = await _userManager.GetUserAsync(User);
 
-            if (reservation == null || reservation.User.Id == client.Id) return NotFound();
+            if (reservation == null || reservation.User.Id != client.Id) return NotFound();
 
             var property = await _context.Properties
                 .Include(p => p.Ratings)
                 .Include(p => p.Reviews)
                 .FirstOrDefaultAsync(p => p.Id == reservation.Property.Id);
 
-            property.Ratings.Cleanliness += Cleanliness;
-            property.Ratings.Cleanliness /= 2.0f;
-            property.Ratings.Communication += Communication;
-            property.Ratings.Communication /= 2.0f;
-            property.Ratings.CheckIn += CheckIn;
-            property.Ratings.CheckIn /= 2.0f;
-            property.Ratings.Accuracy += Accuracy;
-            property.Ratings.Accuracy /= 2.0f;
-            property.Ratings.Location += Location;
-            property.Ratings.Location /= 2.0f;
-            property.Ratings.Value += Value;
-            property.Ratings.Value /= 2.0f;
+            property.Ratings += viewModel.Ratings;
 
             property.Reviews.Add(new Review()
             {
                 Id = Guid.NewGuid().ToString(),
                 Date = DateTime.UtcNow,
-                Text = Comment,
+                Text = viewModel.Comment,
                 User = client
             });
 
-            reservation.ReservationState = await _context.ReservationStates.FirstOrDefaultAsync(rs => rs.Title == "Verifying");
+            reservation.ReservationState = await _context.ReservationStates.FirstOrDefaultAsync(rs => rs.Title == "Checked out");
 
-            _context.Reservations.Update(reservation);
+            //_context.Update(reservation);
             await _context.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));

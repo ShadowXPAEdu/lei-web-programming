@@ -22,6 +22,8 @@ namespace JCAirbnb.Areas.Manager.Controllers
         private readonly ApplicationDbContext _context;
         private readonly UserManager<IdentityUser> _userManager;
 
+        private static readonly string[] PERMITTED_EXTENSIONS = { ".jpg", ".jpeg", ".png", ".webp" };
+
         public ManagePropertiesController(ApplicationDbContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
@@ -71,7 +73,6 @@ namespace JCAirbnb.Areas.Manager.Controllers
         [FromForm(Name = "bath")] int bath, [FromForm(Name = "privateBath")] int privateBath,
         [FromForm(Name = "propTypeId")] string propTypeId, [FromForm(Name = "files")] IEnumerable<IFormFile> files)
         {
-            string[] permittedExtensions = { ".jpg", ".jpeg", ".png" };
             if (ModelState.IsValid)
             {
                 viewModel.Property.Id = Guid.NewGuid().ToString();
@@ -100,7 +101,7 @@ namespace JCAirbnb.Areas.Manager.Controllers
                 foreach (var file in files)
                 {
                     var ext = Path.GetExtension(file.FileName).ToLowerInvariant();
-                    if (!(string.IsNullOrEmpty(ext) || !permittedExtensions.Contains(ext)))
+                    if (!(string.IsNullOrEmpty(ext) || !PERMITTED_EXTENSIONS.Contains(ext)))
                     {
                         if (file.Length > 0)
                         {
@@ -319,7 +320,6 @@ namespace JCAirbnb.Areas.Manager.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddPhotos(string id, [FromForm(Name = "filesToAdd")] IEnumerable<IFormFile> files)
         {
-            string[] permittedExtensions = { ".jpg", ".jpeg", ".png" };
             if (ModelState.IsValid)
             {
                 var property = await _context.Properties.Include(p => p.Photos).FirstOrDefaultAsync(p => p.Id == id);
@@ -331,7 +331,7 @@ namespace JCAirbnb.Areas.Manager.Controllers
                 foreach (var file in files)
                 {
                     var ext = Path.GetExtension(file.FileName).ToLowerInvariant();
-                    if (!(string.IsNullOrEmpty(ext) || !permittedExtensions.Contains(ext)))
+                    if (!(string.IsNullOrEmpty(ext) || !PERMITTED_EXTENSIONS.Contains(ext)))
                     {
                         if (file.Length > 0)
                         {
@@ -418,7 +418,7 @@ namespace JCAirbnb.Areas.Manager.Controllers
             var @property = await _context.Properties.Include(p => p.Photos).Include(p => p.Commodities)
                 .ThenInclude(c => c.Commodity).FirstOrDefaultAsync(p => p.Id == id);
             property.Commodities.Clear();
-            foreach(var item in property.Photos)
+            foreach (var item in property.Photos)
             {
                 var filePath = $"wwwroot/img/photos/{item.Path}";
                 System.IO.File.Delete(filePath);

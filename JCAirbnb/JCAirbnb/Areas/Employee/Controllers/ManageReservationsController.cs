@@ -67,7 +67,7 @@ namespace JCAirbnb.Areas.Employee.Controllers
             var manager = await _userManager.GetUserAsync(User);
             var reservation = await _context.Reservations
                 .Include(r => r.ReservationCheckList)
-                //.Include(r => r.DeliveryCheckList)
+                .Include(r => r.User)
                 .Include(r => r.Property).ThenInclude(p => p.Manager)
                 .Include(r => r.Property).ThenInclude(p => p.PropertyType)
                 .Include(r => r.ReservationState)
@@ -78,12 +78,19 @@ namespace JCAirbnb.Areas.Employee.Controllers
                 return NotFound();
             }
             //return View(reservation);
+            List<CheckListItem> clitóris = null;
+
+            if (reservation.ReservationCheckList != null)
+            {
+                clitóris = await _context.CheckListItems.Include(cli => cli.CheckList)
+                                            .Where(cli => cli.CheckList.Id == reservation.ReservationCheckList.Id)
+                                            .OrderBy(r => r.Description).ToListAsync();
+            }
+
             return View(new ManageReservationsModel()
             {
                 Reservation = reservation,
-                CheckListItems = await _context.CheckListItems.Include(cli => cli.CheckList)
-                                        .Where(cli => cli.CheckList.Id == reservation.ReservationCheckList.Id)
-                                        .OrderBy(r => r.Description).ToListAsync()
+                CheckListItems = clitóris
             });
         }
 
@@ -95,30 +102,21 @@ namespace JCAirbnb.Areas.Employee.Controllers
         public async Task<IActionResult> Reserved(string id,
             [Bind("Reservation")] ManageReservationsModel viewModel, string[] values)
         {
-            if (id != viewModel.Reservation.Id)
-            {
-                return NotFound();
-            }
+            if (id != viewModel.Reservation.Id) return NotFound();
 
             if (ModelState.IsValid)
             {
                 try
                 {
                     var reservation = await _context.Reservations.FindAsync(id);
-                    var checkListItems = await _context.CheckListItems.Include(cli => cli.CheckList)
-                                         .Where(cli => cli.CheckList.Id == reservation.ReservationCheckList.Id)
-                                         .OrderBy(r => r.Description).ToListAsync();
-                    
-                    for(int i =0; i < checkListItems.Count(); i++)
+                    if (reservation.ReservationCheckList != null)
                     {
-                        if(values[i] == "On")
-                        {
-                            checkListItems[i].Verified = true;
-                        }
-                        else
-                        {
-                            checkListItems[i].Verified = false;
-                        }
+                        var checkListItems = await _context.CheckListItems.Include(cli => cli.CheckList)
+                                             .Where(cli => cli.CheckList.Id == reservation.ReservationCheckList.Id)
+                                             .OrderBy(r => r.Description).ToListAsync();
+
+                        for (int i = 0; i < checkListItems.Count; i++)
+                            checkListItems[i].Verified = values[i] == "On";
                     }
 
                     reservation.ReservationState = await _context.ReservationStates.FirstOrDefaultAsync(rs => rs.Title == "Checked in");
@@ -151,7 +149,7 @@ namespace JCAirbnb.Areas.Employee.Controllers
 
             var manager = await _userManager.GetUserAsync(User);
             var reservation = await _context.Reservations
-                 //.Include(r => r.ReservationCheckList)
+                //.Include(r => r.ReservationCheckList)
                 .Include(r => r.DeliveryCheckList)
                 .Include(r => r.Report).ThenInclude(rr => rr.Photos)
                 .Include(r => r.Property).ThenInclude(p => p.Manager)

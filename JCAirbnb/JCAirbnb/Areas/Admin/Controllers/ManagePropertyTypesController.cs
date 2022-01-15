@@ -92,10 +92,7 @@ namespace JCAirbnb.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(string id, [Bind("Id,Title,Description")] PropertyType propertyType)
         {
-            if (id != propertyType.Id)
-            {
-                return NotFound();
-            }
+            if (id != propertyType.Id) return NotFound();
 
             if (ModelState.IsValid)
             {
