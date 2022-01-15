@@ -83,8 +83,12 @@
                         }
                         @if (User.Identity.IsAuthenticated)
                         {
-                            <li class="nav-item">
+                            <li class="nav-item dropdown">
                                 <a class="nav-link text-dark" asp-area="Client" asp-controller="Home" asp-action="">Client area<i class="fas fa-caret-down"></i></a>
+                                <ul class="dropdown-menu clearfix">
+                                    <li><a class="nav-link text-dark" asp-area="Client" asp-controller="Home" asp-action="">Reservations</a></li>
+                                    <li><a class="nav-link text-dark" asp-area="Client" asp-controller="Home" asp-action="Profile">Profile</a></li>
+                                </ul>
                             </li>
                         }
                     </ul>

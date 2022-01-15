@@ -163,5 +163,20 @@ namespace JCAirbnb.Areas.Client.Controllers
 
             return View(viewModel);
         }
+
+        public async Task<IActionResult> Profile(string id)
+        {
+            var user = await _userManager.GetUserAsync(User);
+
+            id ??= user.Id;
+
+            var client = await _context.Clients
+                .Include(c => c.User)
+                .Include(c => c.Reviews)
+                    .ThenInclude(r => r.User)
+                .FirstOrDefaultAsync(c => c.User.Id == id);
+
+            return View(client);
+        }
     }
 }

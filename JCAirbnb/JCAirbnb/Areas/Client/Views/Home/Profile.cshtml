@@ -1,0 +1,67 @@
+﻿@model JCAirbnb.Models.Client
+
+@{
+    ViewData["Title"] = "Profile";
+}
+
+@section CSS {
+    <style type="text/css">
+        .comment-header > * {
+            margin: 0.4rem;
+        }
+
+        .review-image > img {
+            width: 50px;
+            height: 50px;
+        }
+
+        .review-date {
+            font-size: 0.8rem;
+            color: gray;
+        }
+
+        .profile .review-image, .profile .review-image img {
+            width: 100px;
+            height: 100px;
+        }
+    </style>
+}
+
+<div class="row">
+    <div class="col-3">
+        <div class="profile">
+            <div class="comment-header d-flex flex-row">
+                <div class="review-image">
+                    <img src="~/img/avatar.webp" />
+                </div>
+                <div class="d-flex flex-column">
+                    <div class="review-reviewer">@Model.User.UserName</div>
+                    <div class="review-date">@Model.User.Email</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-9">
+        <div class="reviews-comments d-flex justify-content-between flex-wrap">
+            @foreach (var review in Model.Reviews.OrderByDescending(r => r.Date))
+            {
+                <div class="comment col col-6">
+                    <a asp-area="Client" asp-controller="Home" asp-action="Profile" asp-route-id="@review.User.Id">
+                        <div class="comment-header d-flex flex-row">
+                            <div class="review-image">
+                                <img src="~/img/avatar.webp" />
+                            </div>
+                            <div class="d-flex flex-column">
+                                <div class="review-reviewer">@review.User.UserName</div>
+                                <div class="review-date">@review.Date.ToLongDateString()</div>
+                            </div>
+                        </div>
+                    </a>
+                    <div class="review-text">
+                        @review.Text
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
