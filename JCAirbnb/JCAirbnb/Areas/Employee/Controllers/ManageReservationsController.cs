@@ -151,6 +151,9 @@ namespace JCAirbnb.Areas.Employee.Controllers
 
             var manager = await _userManager.GetUserAsync(User);
             var reservation = await _context.Reservations
+                 //.Include(r => r.ReservationCheckList)
+                .Include(r => r.DeliveryCheckList)
+                .Include(r => r.Report).ThenInclude(rr => rr.Photos)
                 .Include(r => r.Property).ThenInclude(p => p.Manager)
                 .Include(r => r.Property).ThenInclude(p => p.PropertyType)
                 .Include(r => r.ReservationState)
@@ -163,8 +166,64 @@ namespace JCAirbnb.Areas.Employee.Controllers
             return View(new ManageReservationsModel()
             {
                 Reservation = reservation,
-                CheckListItems = await _context.CheckListItems.Include(cli => cli.CheckList).Where(cli => cli.CheckList.Id == id).ToListAsync()
+                CheckListItems = await _context.CheckListItems.Include(cli => cli.CheckList)
+                                        .Where(cli => cli.CheckList.Id == reservation.DeliveryCheckList.Id)
+                                        .OrderBy(r => r.Description).ToListAsync()
             });
+        }
+
+        // POST: Employee/ManageReservations/CheckedOut/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CheckedOut(string id,
+            [Bind("Reservation")] ManageReservationsModel viewModel, string[] values)
+        {
+            if (id != viewModel.Reservation.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var reservation = await _context.Reservations.FindAsync(id);
+                    var checkListItems = await _context.CheckListItems.Include(cli => cli.CheckList)
+                                         .Where(cli => cli.CheckList.Id == reservation.ReservationCheckList.Id)
+                                         .OrderBy(r => r.Description).ToListAsync();
+
+                    for (int i = 0; i < checkListItems.Count(); i++)
+                    {
+                        if (values[i] == "On")
+                        {
+                            checkListItems[i].Verified = true;
+                        }
+                        else
+                        {
+                            checkListItems[i].Verified = false;
+                        }
+                    }
+
+                    reservation.ReservationState = await _context.ReservationStates.FirstOrDefaultAsync(rs => rs.Title == "Checked in");
+                    _context.Update(reservation);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!ReservationExists(viewModel.Reservation.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(viewModel);
         }
 
         // GET: Employee/ManageReservations/Delete/5
