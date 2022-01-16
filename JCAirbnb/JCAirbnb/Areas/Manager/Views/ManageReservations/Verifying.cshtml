@@ -1,7 +1,7 @@
 ﻿@model JCAirbnb.Areas.Manager.Models.ManageReservationsVerifyingViewModel
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Reservation";
 }
 @section CSS {
     <style type="text/css">
@@ -21,9 +21,8 @@
     </style>
 }
 
-<h1>Edit</h1>
+<h1>@ViewData["Title"]</h1>
 
-<h4>Reservation</h4>
 <hr />
 <div class="row">
     <div class="col-6">
@@ -114,6 +113,7 @@
         </dl>
     </div>
 </div>
+<hr />
 <div class="row">
     <div class="form-group col-6">
         <h4>Reservation check list</h4>
@@ -136,12 +136,10 @@
         }
     </div>
 </div>
-
+<hr />
+<h4>Observations</h4>
 <div>
     @Model.Reservation.Report.Observations
-    @*
-      TODO: FIX THIS....
-    *@
 </div>
 
 @if (Model.Reservation.Report.Photos.Count != 0)
@@ -176,10 +174,8 @@
         </div>
     </div>
 }
-
-@*
- TODO: ADD A TITLE HERE... WE NEED TO KNOW THIS A COMMENT ON THE RESERVATION USER'S PAGE
-*@
+<hr />
+<h4>Review the client</h4>
 
 <form asp-action="Verifying">
     <input asp-for="Reservation.Id" type="hidden" />
@@ -188,8 +184,7 @@
     </div>
     <input type="submit" value="Save" class="btn btn-primary" />
 </form>
-
-
+<br />
 <div>
     <a asp-action="">Back to List</a>
 </div>

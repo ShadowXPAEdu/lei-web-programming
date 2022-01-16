@@ -2,14 +2,11 @@
 @*@model JCAirbnb.Models.Reservation*@
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Reservation";
 }
 
-<h1>Edit</h1>
-
-<h4>Reservation</h4>
+<h1>@ViewData["Title"]</h1>
 <hr />
-
 <div class="row">
     <div class="col-6">
         <div class="row">
@@ -99,6 +96,7 @@
         </dl>
     </div>
 </div>
+<hr />
 <form asp-action="CheckedOut" enctype="multipart/form-data">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <input type="hidden" asp-for="Reservation.Id" />
@@ -118,13 +116,14 @@
             }
         </div>
     }
+    <hr />
+    <h4>Report possible damages / situations to report</h4>
     <div class="form-group d-inline-block">
         <input name="files" type="file" multiple accept="image/*" />
     </div>
     <div>
-        <h4>Comments</h4>
         <div class="form-group">
-            <label for="Comment">Leave us a comment</label>
+            <label for="Comment">Report some observation</label>
             <textarea id="Comment" asp-for="Reservation.Report.Observations" class="form-control"></textarea>
         </div>
     </div>
@@ -138,7 +137,7 @@
         </div>
     </div>
 </form>
-
+<br />
 <div>
     <a asp-action="">Back to List</a>
 </div>

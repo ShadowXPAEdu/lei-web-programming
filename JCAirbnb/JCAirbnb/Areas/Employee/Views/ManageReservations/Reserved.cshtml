@@ -2,12 +2,11 @@
 @*@model JCAirbnb.Models.Reservation*@
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Reservation";
 }
 
-<h1>Edit</h1>
+<h1>@ViewData["Title"]</h1>
 
-<h4>Reservation</h4>
 <hr />
 
 <div class="row">
@@ -104,6 +103,7 @@
         </div>
     </div>
 </div>
+<hr />
 <form asp-action="Reserved">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <input type="hidden" asp-for="Reservation.Id" />
@@ -133,7 +133,7 @@
         </div>
     </div>
 </form>
-
+<br />
 <div>
     <a asp-action="">Back to List</a>
 </div>
