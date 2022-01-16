@@ -18,7 +18,6 @@
         .carousel-control {
             background: rgba(22,22,22,0.1);
         }
-
     </style>
 }
 
@@ -138,45 +137,56 @@
     </div>
 </div>
 
+<div>
+    @Model.Reservation.Report.Observations
+    @*
+      TODO: FIX THIS....
+    *@
+</div>
+
 @if (Model.Reservation.Report.Photos.Count != 0)
 {
-<div class="property-images">
-    <div class="container">
-        <div id="carousel" class="carousel slide" data-ride="carousel">
-            <ol class="carousel-indicators">
-                @for (int j = 0; j < Model.Reservation.Report.Photos.Count; j++)
-                {
-                    <li data-target="#carousel" data-slide-to="@j" class="@(j == 0 ? "active" : "")"></li>
-                }
-            </ol>
+    <div class="property-images">
+        <div class="container">
+            <div id="carousel" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    @for (int j = 0; j < Model.Reservation.Report.Photos.Count; j++)
+                    {
+                        <li data-target="#carousel" data-slide-to="@j" class="@(j == 0 ? "active" : "")"></li>
+                    }
+                </ol>
 
-            <div class="carousel-inner property-image">
-                @for (int j = 0; j < Model.Reservation.Report.Photos.Count; j++)
-                {
-                    var photo = Model.Reservation.Report.Photos[j];
-                    <div class="carousel-item @(j == 0 ? "active" : "")">
-                        <img src="~/img/report/@photo.Path" />
-                    </div>
-                }
+                <div class="carousel-inner property-image">
+                    @for (int j = 0; j < Model.Reservation.Report.Photos.Count; j++)
+                    {
+                        var photo = Model.Reservation.Report.Photos[j];
+                        <div class="carousel-item @(j == 0 ? "active" : "")">
+                            <img src="~/img/report/@photo.Path" />
+                        </div>
+                    }
+                </div>
+
+                <a class="carousel-control carousel-control-prev" href="#carousel" data-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                </a>
+                <a class="carousel-control carousel-control-next" href="#carousel" data-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                </a>
             </div>
-
-            <a class="carousel-control carousel-control-prev" href="#carousel" data-slide="prev">
-                <span class="carousel-control-prev-icon"></span>
-            </a>
-            <a class="carousel-control carousel-control-next" href="#carousel" data-slide="next">
-                <span class="carousel-control-next-icon"></span>
-            </a>
         </div>
     </div>
-</div>
 }
 
+@*
+ TODO: ADD A TITLE HERE... WE NEED TO KNOW THIS A COMMENT ON THE RESERVATION USER'S PAGE
+*@
+
 <form asp-action="Verifying">
-    <input asp-for="Reservation.Id" type="hidden"/>
+    <input asp-for="Reservation.Id" type="hidden" />
     <div class="form-group">
         <textarea class="form-control" name="comment"></textarea>
     </div>
-    <input type="submit" value="Save" class="btn btn-primary"/>
+    <input type="submit" value="Save" class="btn btn-primary" />
 </form>
 
 

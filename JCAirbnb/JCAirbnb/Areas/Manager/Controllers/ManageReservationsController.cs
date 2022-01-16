@@ -60,6 +60,7 @@ namespace JCAirbnb.Areas.Manager.Controllers
                 .Include(r => r.Property).ThenInclude(p => p.Manager)
                 .Include(r => r.Property).ThenInclude(p => p.PropertyType)
                 .Include(r => r.ReservationState)
+                .Include(r => r.User)
                 .FirstOrDefaultAsync(r => r.Id == id);
             if (reservation == null || reservation.Property.Manager.Id != manager.Id)
             {
@@ -121,6 +122,7 @@ namespace JCAirbnb.Areas.Manager.Controllers
 
             var manager = await _userManager.GetUserAsync(User);
             var reservation = await _context.Reservations
+                .Include(r => r.User)
                 .Include(r => r.ReservationCheckList)
                 .Include(r => r.DeliveryCheckList)
                 .Include(r => r.Report).ThenInclude(rr => rr.Photos)
@@ -155,7 +157,7 @@ namespace JCAirbnb.Areas.Manager.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Verifying(string id, 
+        public async Task<IActionResult> Verifying(string id,
             [Bind("Reservation")] ManageReservationsEditViewModel viewModel, string comment)
         {
             if (id != viewModel.Reservation.Id)
@@ -168,7 +170,7 @@ namespace JCAirbnb.Areas.Manager.Controllers
                 try
                 {
                     var reservation = await _context.Reservations
-                                        .Include(r => r.User).FirstOrDefaultAsync( r => r.Id == id);
+                                        .Include(r => r.User).FirstOrDefaultAsync(r => r.Id == id);
                     reservation.ReservationState = await _context.ReservationStates.FirstOrDefaultAsync(rs => rs.Title == "Completed");
 
                     var client = await _context.Clients.Include(c => c.Reviews)
@@ -178,9 +180,9 @@ namespace JCAirbnb.Areas.Manager.Controllers
                     {
                         Id = Guid.NewGuid().ToString(),
                         Date = DateTime.UtcNow,
-                        Text  = comment,
+                        Text = comment,
                         User = await _userManager.GetUserAsync(User)
-                    }) ;
+                    });
 
                     _context.Update(reservation);
                     await _context.SaveChangesAsync();

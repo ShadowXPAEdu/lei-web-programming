@@ -82,6 +82,7 @@ namespace JCAirbnb.Areas.Client.Controllers
                 .FirstOrDefaultAsync(p => p.Id == reservation.Property.Id);
 
             property.Ratings += viewModel.Ratings;
+            property.Ratings /= property.Reviews.Count;
 
             property.Reviews.Add(new Review()
             {

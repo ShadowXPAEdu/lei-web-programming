@@ -34,9 +34,15 @@ namespace JCAirbnb.Areas.Manager.Controllers
         [Route("/{area}/{controller}/{id?}")]
         public async Task<IActionResult> Index()
         {
-            var manager = (await _userManager.GetUserAsync(User));
-            var aux = _context.Properties.Where(p => p.Manager.Id == manager.Id);
-            aux = aux.Include(p => p.Divisions).Include(p => p.Commodities).ThenInclude(c => c.Commodity).Include(p => p.PropertyType);
+            var manager = await _userManager.GetUserAsync(User);
+            var aux = _context.Properties
+                .Include(p => p.Manager)
+                .Include(p => p.Divisions)
+                .Include(p => p.Commodities)
+                    .ThenInclude(c => c.Commodity)
+                .Include(p => p.PropertyType)
+                .Where(p => p.Manager.Id == manager.Id);
+
             return View(await aux.ToListAsync());
         }
 
