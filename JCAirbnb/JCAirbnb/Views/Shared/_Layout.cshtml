@@ -11,7 +11,7 @@
 
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
 
-    <style>
+    <style type="text/css">
         a > i {
             padding: 0.2rem;
             top: 0.1rem;
@@ -84,10 +84,10 @@
                         @if (User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item dropdown">
-                                <a class="nav-link text-dark" asp-area="Client" asp-controller="Home" asp-action="">Client area<i class="fas fa-caret-down"></i></a>
+                                <a class="nav-link text-dark" asp-area="Client" asp-controller="Home" asp-action="Profile">Client area<i class="fas fa-caret-down"></i></a>
                                 <ul class="dropdown-menu clearfix">
-                                    <li><a class="nav-link text-dark" asp-area="Client" asp-controller="Home" asp-action="">Reservations</a></li>
                                     <li><a class="nav-link text-dark" asp-area="Client" asp-controller="Home" asp-action="Profile">Profile</a></li>
+                                    <li><a class="nav-link text-dark" asp-area="Client" asp-controller="Home" asp-action="">Reservations</a></li>
                                 </ul>
                             </li>
                         }

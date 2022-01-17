@@ -145,7 +145,8 @@ namespace JCAirbnb.Areas.Client.Controllers
                 var reservations = _context.Reservations.Include(r => r.Property).Where(r => r.Property.Id == id || r.User.Id == user.Id);
 
                 if (reservations.Any(r => viewModel.CheckIn >= r.CheckIn && viewModel.CheckIn <= r.CheckOut
-                                    || viewModel.CheckOut >= r.CheckIn && viewModel.CheckOut <= r.CheckOut)) return BadRequest("There is a reservation for that date already or you already have a reservation on that date!");
+                                    || viewModel.CheckOut >= r.CheckIn && viewModel.CheckOut <= r.CheckOut))
+                    return BadRequest("There is a reservation for that date already or you already have a reservation on that date!");
 
                 _context.Reservations.Add(new Reservation()
                 {
