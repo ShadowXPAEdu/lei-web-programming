@@ -407,31 +407,31 @@
     }
   },
   {
-    "Title": "",
-    "PropertyType": "",
-    "Location": "",
-    "BasePrice": 0,
-    "Price": 0,
-    "Description": "",
+    "Title": "Tiny House Luna",
+    "PropertyType": "Tiny homes",
+    "Location": "Lourinhã, Portugal",
+    "BasePrice": 50,
+    "Price": 50,
+    "Description": "Das Da Silva Surfcamp ist ein typisch portugiesisches Landhaus in ruhiger Lage mit herrlichem Blick über die Landschaft bis zum Meer. Hier kommt zweimal täglich ein Hirte mit seiner Schafherde vorbei, morgens wird man vom Krähen eines Hahns geweckt und sonst hört man nur die Vögel zwitschern. Zum Strand läuft man zu Fuss in 20 Minuten, mit dem Beachcruiser, den man bei uns kostenlos ausleihen kann, dauert es nur 10 Minuten.",
     "Divisions": {
-      "Guest": 0,
-      "Bedroom": 0,
-      "Bed": 0,
-      "Bath": 0,
+      "Guest": 4,
+      "Bedroom": 1,
+      "Bed": 3,
+      "Bath": 1,
       "PrivateBath": 0
     },
     "Photos": [
       {
-        "Id": "",
-        "Path": ""
+        "Id": "97f8a8c4-d982-4c40-882b-a7a606a361a1",
+        "Path": "97f8a8c4-d982-4c40-882b-a7a606a361a1.webp"
       },
       {
-        "Id": "",
-        "Path": ""
+        "Id": "62cb37e2-6a4d-4680-9292-197fd2b3d01b",
+        "Path": "62cb37e2-6a4d-4680-9292-197fd2b3d01b.webp"
       },
       {
-        "Id": "",
-        "Path": ""
+        "Id": "229f4917-1dda-4d64-9359-c74146c42f96",
+        "Path": "229f4917-1dda-4d64-9359-c74146c42f96.webp"
       }
     ],
     "Ratings": {
@@ -444,31 +444,179 @@
     }
   },
   {
-    "Title": "",
-    "PropertyType": "",
-    "Location": "",
-    "BasePrice": 0,
-    "Price": 0,
-    "Description": "",
+    "Title": "Unique eco-friendly cabin surrounded",
+    "PropertyType": "Treehouse",
+    "Location": "Cercal do Alentejo, Setubal, Portugal",
+    "BasePrice": 75,
+    "Price": 68,
+    "Description": "With our cozy wooden cabin, you will feel like in a tree house.Shaded by cork oaks, you can enjoy the serene atmosphere from the deck or in our outdoor lounge where we will serve you a delicious breakfast (local, high quality/organic products). You can also swim in our lake.",
     "Divisions": {
-      "Guest": 0,
-      "Bedroom": 0,
-      "Bed": 0,
-      "Bath": 0,
+      "Guest": 3,
+      "Bedroom": 1,
+      "Bed": 2,
+      "Bath": 1,
       "PrivateBath": 0
     },
     "Photos": [
       {
-        "Id": "",
-        "Path": ""
+        "Id": "9aa5297e-dc7d-4589-95b7-43114f53b910",
+        "Path": "9aa5297e-dc7d-4589-95b7-43114f53b910.webp"
       },
       {
-        "Id": "",
-        "Path": ""
+        "Id": "1bbcec69-939a-4c7c-a6cb-a9864c2265d8",
+        "Path": "1bbcec69-939a-4c7c-a6cb-a9864c2265d8.jpg"
       },
       {
-        "Id": "",
-        "Path": ""
+        "Id": "6b390721-28b2-436a-a594-21225ee6b812",
+        "Path": "6b390721-28b2-436a-a594-21225ee6b812.webp"
+      }
+    ],
+    "Ratings": {
+      "Cleanliness": 5.0,
+      "Communication": 5.0,
+      "CheckIn": 4.9,
+      "Accuracy": 5.0,
+      "Location": 4.9,
+      "Value": 4.9
+    }
+  },
+  {
+    "Title": "Olival e Sobreiro",
+    "PropertyType": "Tiny homes",
+    "Location": "Santiago do Cacém, Setúbal, Portugal",
+    "BasePrice": 149,
+    "Price": 149,
+    "Description": "Perfect for couples or families with up to two children, our comfortable and modern 34 m2 modular wooden houses with an 8 m2 front deck. Our Eco-Suites are set on stakes, with a breath-taking view of the nearby valley and sea horizon.",
+    "Divisions": {
+      "Guest": 4,
+      "Bedroom": 2,
+      "Bed": 2,
+      "Bath": 1,
+      "PrivateBath": 0
+    },
+    "Photos": [
+      {
+        "Id": "0d5d39b0-ae4c-478d-9fa8-f88cd9a1ddd8",
+        "Path": "0d5d39b0-ae4c-478d-9fa8-f88cd9a1ddd8.webp"
+      },
+      {
+        "Id": "764776cf-c14e-4682-9abc-b62658b1cbcb",
+        "Path": "764776cf-c14e-4682-9abc-b62658b1cbcb.webp"
+      },
+      {
+        "Id": "1bee1c58-2def-4185-9b91-e3282f48df1d",
+        "Path": "1bee1c58-2def-4185-9b91-e3282f48df1d.webp"
+      }
+    ],
+    "Ratings": {
+      "Cleanliness": 4.8,
+      "Communication": 4.9,
+      "CheckIn": 4.8,
+      "Accuracy": 4.8,
+      "Location": 4.8,
+      "Value": 4.4
+    }
+  },
+  {
+    "Title": "Chalé de madeira próximo ao Alqueva",
+    "PropertyType": "Chalets",
+    "Location": "Campinho, Évora District, Portugal",
+    "BasePrice": 20,
+    "Price": 20,
+    "Description": "Bangalôs de madeira, com clima aconchegante e familiar, na parte exterior temos um parque infantil.",
+    "Divisions": {
+      "Guest": 2,
+      "Bedroom": 1,
+      "Bed": 1,
+      "Bath": 2,
+      "PrivateBath": 0
+    },
+    "Photos": [
+      {
+        "Id": "f45f2365-c833-4ccd-9045-2ce4976801d6",
+        "Path": "f45f2365-c833-4ccd-9045-2ce4976801d6.webp"
+      },
+      {
+        "Id": "f99751d3-608f-4a40-87ba-900abe4eccb2",
+        "Path": "f99751d3-608f-4a40-87ba-900abe4eccb2.webp"
+      },
+      {
+        "Id": "1ab5ca81-f38d-4c81-9606-b2da21e70c2f",
+        "Path": "1ab5ca81-f38d-4c81-9606-b2da21e70c2f.webp"
+      }
+    ],
+    "Ratings": {
+      "Cleanliness": 5.0,
+      "Communication": 5.0,
+      "CheckIn": 5.0,
+      "Accuracy": 4.8,
+      "Location": 4.8,
+      "Value": 5.0
+    }
+  },
+  {
+    "Title": "TAMANCO TUBISMO",
+    "PropertyType": "Tiny homes",
+    "Location": "Louriçal, Pombal, Portugal",
+    "BasePrice": 32,
+    "Price": 27,
+    "Description": "Sleep in the round, wake up with songbirds and sunshine in our Tubismo Tube. We transformed eight reclaimed, concrete tubes into cosy rooms with a view. Plunge into our saltwater pool, escape to our garden-like campground and embrace the fresh air and a great night’s sleep under a starry night sky. Wether you are seeking refuge, looking to meet other travelers or hang out with friends: we have the right vibe for you!",
+    "Divisions": {
+      "Guest": 2,
+      "Bedroom": 1,
+      "Bed": 1,
+      "Bath": 4,
+      "PrivateBath": 0
+    },
+    "Photos": [
+      {
+        "Id": "e1746de0-acec-4843-afb0-3f183589a592",
+        "Path": "e1746de0-acec-4843-afb0-3f183589a592.webp"
+      },
+      {
+        "Id": "28757d94-0a57-40ed-b1ee-74a0c3340162",
+        "Path": "28757d94-0a57-40ed-b1ee-74a0c3340162.webp"
+      },
+      {
+        "Id": "469be937-0901-47f8-ac73-02c0dc9c397d",
+        "Path": "469be937-0901-47f8-ac73-02c0dc9c397d.webp"
+      }
+    ],
+    "Ratings": {
+      "Cleanliness": 4.8,
+      "Communication": 4.8,
+      "CheckIn": 4.7,
+      "Accuracy": 4.9,
+      "Location": 4.6,
+      "Value": 4.8
+    }
+  },
+  {
+    "Title": "Monte da Casa do João ",
+    "PropertyType": "Farms",
+    "Location": "Grândola, Setúbal, Portugal",
+    "BasePrice": 875,
+    "Price": 613,
+    "Description": "Located in the beautiful hills of Santa Margarida da Serra, in Grândola, the Monte da Casa do João offers all the comfort of a luxury villa in the heart of the Alentejo countryside, surrounded by beautiful gardens, passion fruit orchards and the no less iconic Chaparros (cork oak trees)",
+    "Divisions": {
+      "Guest": 14,
+      "Bedroom": 4,
+      "Bed": 14,
+      "Bath": 4,
+      "PrivateBath": 0
+    },
+    "Photos": [
+      {
+        "Id": "50940b42-b0ef-4699-9a44-83031cf50e76",
+        "Path": "50940b42-b0ef-4699-9a44-83031cf50e76.webp"
+      },
+      {
+        "Id": "6b86e67a-6327-4789-ae44-fcf81e5f805e",
+        "Path": "6b86e67a-6327-4789-ae44-fcf81e5f805e.webp"
+      },
+      {
+        "Id": "2c775972-0a0b-4745-b127-589bbfebc474",
+        "Path": "2c775972-0a0b-4745-b127-589bbfebc474.webp"
       }
     ],
     "Ratings": {
@@ -481,31 +629,31 @@
     }
   },
   {
-    "Title": "",
-    "PropertyType": "",
-    "Location": "",
-    "BasePrice": 0,
-    "Price": 0,
-    "Description": "",
+    "Title": "Amazing house with pool access",
+    "PropertyType": "Earth homes",
+    "Location": "Agueda, Aveiro District, Portugal",
+    "BasePrice": 72,
+    "Price": 72,
+    "Description": "This house, located in Águeda, is ideal for 7 vacationers. It offers 2 bedrooms, a pool access and WiFi.",
     "Divisions": {
-      "Guest": 0,
-      "Bedroom": 0,
-      "Bed": 0,
-      "Bath": 0,
+      "Guest": 7,
+      "Bedroom": 2,
+      "Bed": 5,
+      "Bath": 2,
       "PrivateBath": 0
     },
     "Photos": [
       {
-        "Id": "",
-        "Path": ""
+        "Id": "b4664138-c4bd-4798-8cc0-fc5ee68690bb",
+        "Path": "b4664138-c4bd-4798-8cc0-fc5ee68690bb.webp"
       },
       {
-        "Id": "",
-        "Path": ""
+        "Id": "cd99fbae-7097-4ae4-ac4c-a6895d5d5369",
+        "Path": "cd99fbae-7097-4ae4-ac4c-a6895d5d5369.webp"
       },
       {
-        "Id": "",
-        "Path": ""
+        "Id": "b0426010-356b-41a7-9cf3-79555ae485df",
+        "Path": "b0426010-356b-41a7-9cf3-79555ae485df.webp"
       }
     ],
     "Ratings": {
@@ -518,31 +666,31 @@
     }
   },
   {
-    "Title": "",
-    "PropertyType": "",
-    "Location": "",
-    "BasePrice": 0,
-    "Price": 0,
-    "Description": "",
+    "Title": "Vila Praia",
+    "PropertyType": "Luxe",
+    "Location": "Porches, Algarve, Portugal",
+    "BasePrice": 2400,
+    "Price": 2400,
+    "Description": "Construction Note: Please note that there is construction near to this villa. Please inquire with one of our Villa Specialists for further details.Traditional architecture, chic interiors and breathtaking ocean views are the picture-perfect backdrop to a holiday at Villa Praia. Part of the gorgeous Vila Vita Parc resort—known not just for its charming style but its fine dining and incredible spa—this contemporary vacation rental is close to great beaches, golf courses and more. Invite up to eight friends and family on a warm-weather getaway, or use this luxury residence for a honeymoon-style escape.",
     "Divisions": {
-      "Guest": 0,
-      "Bedroom": 0,
-      "Bed": 0,
-      "Bath": 0,
+      "Guest": 8,
+      "Bedroom": 4,
+      "Bed": 4,
+      "Bath": 4,
       "PrivateBath": 0
     },
     "Photos": [
       {
-        "Id": "",
-        "Path": ""
+        "Id": "14a4dab8-444a-4f56-b346-ff1b63dd62ca",
+        "Path": "14a4dab8-444a-4f56-b346-ff1b63dd62ca.webp"
       },
       {
-        "Id": "",
-        "Path": ""
+        "Id": "31a3afb8-8faf-4137-b590-b62b12067652",
+        "Path": "31a3afb8-8faf-4137-b590-b62b12067652.webp"
       },
       {
-        "Id": "",
-        "Path": ""
+        "Id": "f6f9f21e-2761-451c-857d-3be749ea2d8e",
+        "Path": "f6f9f21e-2761-451c-857d-3be749ea2d8e.webp"
       }
     ],
     "Ratings": {
@@ -555,31 +703,31 @@
     }
   },
   {
-    "Title": "",
-    "PropertyType": "",
-    "Location": "",
-    "BasePrice": 0,
-    "Price": 0,
-    "Description": "",
+    "Title": "Villa Breeze",
+    "PropertyType": "Luxe",
+    "Location": "Marbella, Andalucía, Spain",
+    "BasePrice": 2450,
+    "Price": 2450,
+    "Description": "Follow a wide, cobbled drive to reach the crawling vine-covered façade of this elevated Costa del Sol escape. An intricately carved front door stands tall under the portico. Fragrant fruit and olive trees, sprinkled around the property, lend their unique scents to the fresh breeze. There are 2 world-class golf courses on the resort as well as tennis courts and a peaceful horseback riding centre.",
     "Divisions": {
-      "Guest": 0,
-      "Bedroom": 0,
-      "Bed": 0,
-      "Bath": 0,
+      "Guest": 14,
+      "Bedroom": 7,
+      "Bed": 7,
+      "Bath": 7,
       "PrivateBath": 0
     },
     "Photos": [
       {
-        "Id": "",
-        "Path": ""
+        "Id": "20525b42-2bb4-49cf-9764-2e9731cf0a28",
+        "Path": "20525b42-2bb4-49cf-9764-2e9731cf0a28.webp"
       },
       {
-        "Id": "",
-        "Path": ""
+        "Id": "05b5da94-b029-462d-bfc8-15510ac148c1",
+        "Path": "05b5da94-b029-462d-bfc8-15510ac148c1.webp"
       },
       {
-        "Id": "",
-        "Path": ""
+        "Id": "a1397e5b-bb9a-4863-a41d-82fa2a6f9422",
+        "Path": "a1397e5b-bb9a-4863-a41d-82fa2a6f9422.webp"
       }
     ],
     "Ratings": {
@@ -592,262 +740,114 @@
     }
   },
   {
-    "Title": "",
-    "PropertyType": "",
-    "Location": "",
-    "BasePrice": 0,
-    "Price": 0,
-    "Description": "",
+    "Title": "I TRULLI DI CAROLE",
+    "PropertyType": "Trulli",
+    "Location": "Ostuni (BR), Italy",
+    "BasePrice": 454,
+    "Price": 454,
+    "Description": "Complex of authentic trulli entirely renovated preserving all the characteristics. Trulli Carole are located halfway between Ostuni and Martina Franca, surrounded by centuries-old olive and fruit trees. On the front of the house a stone paved area welcomes the swimming pool (mt 5x8) equipped with sun beds and special straw umbrellas; the outdoor kitchen with hob, barbecue and large table for outdoor dining.",
     "Divisions": {
-      "Guest": 0,
-      "Bedroom": 0,
-      "Bed": 0,
-      "Bath": 0,
+      "Guest": 10,
+      "Bedroom": 3,
+      "Bed": 5,
+      "Bath": 4,
       "PrivateBath": 0
     },
     "Photos": [
       {
-        "Id": "",
-        "Path": ""
+        "Id": "5970b216-cb30-43ce-a54d-6347a2b5231d",
+        "Path": "5970b216-cb30-43ce-a54d-6347a2b5231d.webp"
       },
       {
-        "Id": "",
-        "Path": ""
+        "Id": "a08d1fee-908c-4615-b850-29d547b94d5e",
+        "Path": "a08d1fee-908c-4615-b850-29d547b94d5e.webp"
       },
       {
-        "Id": "",
-        "Path": ""
+        "Id": "9322c8fa-94de-44e8-909e-fb6562358725",
+        "Path": "9322c8fa-94de-44e8-909e-fb6562358725.webp"
       }
     ],
     "Ratings": {
-      "Cleanliness": 0,
-      "Communication": 0,
-      "CheckIn": 0,
-      "Accuracy": 0,
-      "Location": 0,
-      "Value": 0
+      "Cleanliness": 5.0,
+      "Communication": 4.7,
+      "CheckIn": 5.0,
+      "Accuracy": 5.0,
+      "Location": 4.7,
+      "Value": 5.0
     }
   },
   {
-    "Title": "",
-    "PropertyType": "",
-    "Location": "",
-    "BasePrice": 0,
-    "Price": 0,
-    "Description": "",
+    "Title": "CASA CANALS - Villa para 10 personas en Mancor De La Vall.",
+    "PropertyType": "Mansions",
+    "Location": "Mancor De La Vall, Spain",
+    "BasePrice": 376,
+    "Price": 216,
+    "Description": "Lovely mansion in Mancor de la Vall, in the Tramuntana mountain range, with private pool and plenty of space for 10 people.",
     "Divisions": {
-      "Guest": 0,
-      "Bedroom": 0,
-      "Bed": 0,
-      "Bath": 0,
+      "Guest": 10,
+      "Bedroom": 5,
+      "Bed": 10,
+      "Bath": 6,
       "PrivateBath": 0
     },
     "Photos": [
       {
-        "Id": "",
-        "Path": ""
+        "Id": "5ff3cfa7-464c-4095-81c0-268a57eed36a",
+        "Path": "5ff3cfa7-464c-4095-81c0-268a57eed36a.webp"
       },
       {
-        "Id": "",
-        "Path": ""
+        "Id": "f59dca82-ce98-4c76-998c-a46e1d45de66",
+        "Path": "f59dca82-ce98-4c76-998c-a46e1d45de66.webp"
       },
       {
-        "Id": "",
-        "Path": ""
+        "Id": "a8fee53e-0e03-4562-9385-51b0ba599f42",
+        "Path": "a8fee53e-0e03-4562-9385-51b0ba599f42.webp"
       }
     ],
     "Ratings": {
-      "Cleanliness": 0,
-      "Communication": 0,
-      "CheckIn": 0,
-      "Accuracy": 0,
-      "Location": 0,
-      "Value": 0
+      "Cleanliness": 4.5,
+      "Communication": 4.4,
+      "CheckIn": 4.9,
+      "Accuracy": 4.4,
+      "Location": 4.2,
+      "Value": 4.8
     }
   },
   {
-    "Title": "",
-    "PropertyType": "",
-    "Location": "",
-    "BasePrice": 0,
-    "Price": 0,
-    "Description": "",
+    "Title": "PRINCESS V53",
+    "PropertyType": "Boats",
+    "Location": "Spain",
+    "BasePrice": 3000,
+    "Price": 3000,
+    "Description": "Perfecta para disfrutar de las turquesas aguas de Ibiza y Formentera The space Dispone de Zodiac Williams, esquís, Wakeboard, equipo de Snorkeling",
     "Divisions": {
-      "Guest": 0,
-      "Bedroom": 0,
-      "Bed": 0,
-      "Bath": 0,
+      "Guest": 6,
+      "Bedroom": 3,
+      "Bed": 6,
+      "Bath": 2,
       "PrivateBath": 0
     },
     "Photos": [
       {
-        "Id": "",
-        "Path": ""
+        "Id": "dd39585f-892a-41c2-bb7c-e780c271317f",
+        "Path": "dd39585f-892a-41c2-bb7c-e780c271317f.webp"
       },
       {
-        "Id": "",
-        "Path": ""
+        "Id": "9b97ae82-52d9-4078-a7f2-f70fc7203290",
+        "Path": "9b97ae82-52d9-4078-a7f2-f70fc7203290.webp"
       },
       {
-        "Id": "",
-        "Path": ""
+        "Id": "12dc8d46-fb30-438e-8a3c-a341bca35c2f",
+        "Path": "12dc8d46-fb30-438e-8a3c-a341bca35c2f.webp"
       }
     ],
     "Ratings": {
-      "Cleanliness": 0,
-      "Communication": 0,
-      "CheckIn": 0,
-      "Accuracy": 0,
-      "Location": 0,
-      "Value": 0
-    }
-  },
-  {
-    "Title": "",
-    "PropertyType": "",
-    "Location": "",
-    "BasePrice": 0,
-    "Price": 0,
-    "Description": "",
-    "Divisions": {
-      "Guest": 0,
-      "Bedroom": 0,
-      "Bed": 0,
-      "Bath": 0,
-      "PrivateBath": 0
-    },
-    "Photos": [
-      {
-        "Id": "",
-        "Path": ""
-      },
-      {
-        "Id": "",
-        "Path": ""
-      },
-      {
-        "Id": "",
-        "Path": ""
-      }
-    ],
-    "Ratings": {
-      "Cleanliness": 0,
-      "Communication": 0,
-      "CheckIn": 0,
-      "Accuracy": 0,
-      "Location": 0,
-      "Value": 0
-    }
-  },
-  {
-    "Title": "",
-    "PropertyType": "",
-    "Location": "",
-    "BasePrice": 0,
-    "Price": 0,
-    "Description": "",
-    "Divisions": {
-      "Guest": 0,
-      "Bedroom": 0,
-      "Bed": 0,
-      "Bath": 0,
-      "PrivateBath": 0
-    },
-    "Photos": [
-      {
-        "Id": "",
-        "Path": ""
-      },
-      {
-        "Id": "",
-        "Path": ""
-      },
-      {
-        "Id": "",
-        "Path": ""
-      }
-    ],
-    "Ratings": {
-      "Cleanliness": 0,
-      "Communication": 0,
-      "CheckIn": 0,
-      "Accuracy": 0,
-      "Location": 0,
-      "Value": 0
-    }
-  },
-  {
-    "Title": "",
-    "PropertyType": "",
-    "Location": "",
-    "BasePrice": 0,
-    "Price": 0,
-    "Description": "",
-    "Divisions": {
-      "Guest": 0,
-      "Bedroom": 0,
-      "Bed": 0,
-      "Bath": 0,
-      "PrivateBath": 0
-    },
-    "Photos": [
-      {
-        "Id": "",
-        "Path": ""
-      },
-      {
-        "Id": "",
-        "Path": ""
-      },
-      {
-        "Id": "",
-        "Path": ""
-      }
-    ],
-    "Ratings": {
-      "Cleanliness": 0,
-      "Communication": 0,
-      "CheckIn": 0,
-      "Accuracy": 0,
-      "Location": 0,
-      "Value": 0
-    }
-  },
-  {
-    "Title": "",
-    "PropertyType": "",
-    "Location": "",
-    "BasePrice": 0,
-    "Price": 0,
-    "Description": "",
-    "Divisions": {
-      "Guest": 0,
-      "Bedroom": 0,
-      "Bed": 0,
-      "Bath": 0,
-      "PrivateBath": 0
-    },
-    "Photos": [
-      {
-        "Id": "",
-        "Path": ""
-      },
-      {
-        "Id": "",
-        "Path": ""
-      },
-      {
-        "Id": "",
-        "Path": ""
-      }
-    ],
-    "Ratings": {
-      "Cleanliness": 0,
-      "Communication": 0,
-      "CheckIn": 0,
-      "Accuracy": 0,
-      "Location": 0,
-      "Value": 0
+      "Cleanliness": 5.0,
+      "Communication": 5.0,
+      "CheckIn": 5.0,
+      "Accuracy": 5.0,
+      "Location": 5.0,
+      "Value": 4.0
     }
   }
 ]
