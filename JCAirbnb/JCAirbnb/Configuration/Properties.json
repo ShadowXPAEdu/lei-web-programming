@@ -1,30 +1,104 @@
 [
   {
-    "Title": "",
-    "PropertyType": "",
-    "Location": "",
-    "BasePrice": 0,
-    "Price": 0,
-    "Description": "",
+    "Title": "Refúgio das Poldras",
+    "PropertyType": "Treehouse",
+    "Location": "Mondim de Basto, Vila Real District, Portugal",
+    "BasePrice": 119,
+    "Price": 71,
+    "Description": "O Refúgio das Poldras está situado em vilar de viando, mesmo junto ás margens do rio cabril, um dos rios mais limpos da região. Excelente para tomar banho, nadar, ou simplesmente caminhar ao longo de mais de 2km de margens e açudres . Está localizada a cerca de 2km do centro da vila caso pretenda fazer o percurso a pé pelo caminho romano. o bungalow dispõe de uma cama casal com vista única para a açudre, uma kitchenet para refeições ligeiras, casa de banho com chuveiro, e um deck suspenso.",
     "Divisions": {
-      "Guest": 0,
+      "Guest": 2,
       "Bedroom": 0,
-      "Bed": 0,
-      "Bath": 0,
+      "Bed": 1,
+      "Bath": 1,
       "PrivateBath": 0
     },
     "Photos": [
       {
-        "Id": "",
-        "Path": ""
+        "Id": "d3055d58-2070-4cca-bf4a-0c1861c7872f",
+        "Path": "d3055d58-2070-4cca-bf4a-0c1861c7872f.webp"
       },
       {
-        "Id": "",
-        "Path": ""
+        "Id": "2ce8a146-7490-4354-b7d2-f108fa1b535a",
+        "Path": "2ce8a146-7490-4354-b7d2-f108fa1b535a.webp"
       },
       {
-        "Id": "",
-        "Path": ""
+        "Id": "e089e605-3caf-44f8-bc3e-f8f5324445d2",
+        "Path": "e089e605-3caf-44f8-bc3e-f8f5324445d2.webp"
+      }
+    ],
+    "Ratings": {
+      "Cleanliness": 5.0,
+      "Communication": 5.0,
+      "CheckIn": 5.0,
+      "Accuracy": 5.0,
+      "Location": 5.0,
+      "Value": 4.8
+    }
+  },
+  {
+    "Title": "Relax on west slope Penha hill",
+    "PropertyType": "Chalets",
+    "Location": "Abação (São Tomé), Braga, Portugal",
+    "BasePrice": 99,
+    "Price": 99,
+    "Description": "Quinta Milhão is a family farm located in Guimarães, a historical portuguese city considered the cradle of the nation. Surrounded by forest, sculptural granite rocks and blueberry plantation it is the perfect getaway for relaxation. The space Casa Nova is a modern house with one bedroom, one bathroom and one living room with kitchen and open space for more two guests. It can accomodate 4 adults, although it is more indicated for a family with two children or a couple. Our farm has more guesthouses and a beautiful garden with swimming pool, shared by all the guests. Normally swimming pool is open from May to September. Other things to note During blueberry harvesting, Quinta Milhão wakes up with sunrise! Normally, towards end of May and during June occurs the blueberry harvest. Blueberries contain severel nutrients, within which large quantities of antioxidants. Harvesting begins with sunrise, so that the fruit is at its best. It’s an experience! Learning how blueberries grow and go to our table. And of course, you could participate in this, as well as try them. License number 53904/AL",
+    "Divisions": {
+      "Guest": 4,
+      "Bedroom": 1,
+      "Bed": 3,
+      "Bath": 1,
+      "PrivateBath": 0
+    },
+    "Photos": [
+      {
+        "Id": "5be818a3-d9d4-47c6-934f-1eb686305848",
+        "Path": "5be818a3-d9d4-47c6-934f-1eb686305848.webp"
+      },
+      {
+        "Id": "22e8a7df-046e-4315-917e-8bbb06621be6",
+        "Path": "22e8a7df-046e-4315-917e-8bbb06621be6.webp"
+      },
+      {
+        "Id": "47a59d4e-8471-46d2-83e9-841dcfd86d5d",
+        "Path": "47a59d4e-8471-46d2-83e9-841dcfd86d5d.webp"
+      }
+    ],
+    "Ratings": {
+      "Cleanliness": 4.9,
+      "Communication": 5.0,
+      "CheckIn": 5.0,
+      "Accuracy": 5.0,
+      "Location": 4.9,
+      "Value": 4.9
+    }
+  },
+  {
+    "Title": "Unik øy - Solholmen i Alverstraumen",
+    "PropertyType": "Island",
+    "Location": "Alver, Vestland, Norway",
+    "BasePrice": 785,
+    "Price": 487,
+    "Description": "Ærverdige Solholmen i Alverstraumen har en unik historie, og har de siste årene blitt pusset opp og modernisert. 45 minutter nord for Bergen kan du nå leie din egen hytte på en egen øy. I ett av nøstene er det innredet med bord og stoler samt egen, privat pub, og kan derfor benyttes som både kurslokale for bedriftssamlingen og til private selskaper. På sommerstid er det muligheter for å sette opp partytelt i hagen.",
+    "Divisions": {
+      "Guest": 16,
+      "Bedroom": 7,
+      "Bed": 11,
+      "Bath": 5,
+      "PrivateBath": 0
+    },
+    "Photos": [
+      {
+        "Id": "6231fe32-5fe4-42f0-a1b3-0212b88c6dfd",
+        "Path": "6231fe32-5fe4-42f0-a1b3-0212b88c6dfd.webp"
+      },
+      {
+        "Id": "bbff75f6-e71e-4542-a0e5-eec05e266e38",
+        "Path": "bbff75f6-e71e-4542-a0e5-eec05e266e38.webp"
+      },
+      {
+        "Id": "e120196c-4f85-468c-a5ad-0c38f4d22b58",
+        "Path": "e120196c-4f85-468c-a5ad-0c38f4d22b58.webp"
       }
     ],
     "Ratings": {
@@ -37,31 +111,253 @@
     }
   },
   {
-    "Title": "",
-    "PropertyType": "",
-    "Location": "",
-    "BasePrice": 0,
-    "Price": 0,
-    "Description": "",
+    "Title": "Restored Old Barn in a beautiful Galician valley",
+    "PropertyType": "Barn",
+    "Location": "Monfero, Galicia, Spain",
+    "BasePrice": 90,
+    "Price": 72,
+    "Description": "This recently restored Old Barn is located in a green valley in north western Spain, only 7miles to the seaside and 1h. drive to Santiago de Compostela. It’s a unique place to enjoy tranquility, nature and to discover the authentic Galicia; a lush region with a mild climate, offering spectacular sceneries, sandy beaches, good sailing and surf, great hiking, historic gardens, golf, and a famed gastronomy mainly based in seafood, meats and the best white wines of the country.",
     "Divisions": {
-      "Guest": 0,
-      "Bedroom": 0,
-      "Bed": 0,
+      "Guest": 4,
+      "Bedroom": 2,
+      "Bed": 3,
+      "Bath": 2,
+      "PrivateBath": 0
+    },
+    "Photos": [
+      {
+        "Id": "2d6ba67c-f3e6-41c6-88a2-0ae9583b1970",
+        "Path": "2d6ba67c-f3e6-41c6-88a2-0ae9583b1970.jpg"
+      },
+      {
+        "Id": "e78edbbb-b079-460e-be39-1033cd510678",
+        "Path": "e78edbbb-b079-460e-be39-1033cd510678.webp"
+      },
+      {
+        "Id": "f7941222-a6f1-4567-acfe-b958149c177c",
+        "Path": "f7941222-a6f1-4567-acfe-b958149c177c.webp"
+      }
+    ],
+    "Ratings": {
+      "Cleanliness": 4.9,
+      "Communication": 4.9,
+      "CheckIn": 4.9,
+      "Accuracy": 4.9,
+      "Location": 4.7,
+      "Value": 4.9
+    }
+  },
+  {
+    "Title": "Superbe grange prestige",
+    "PropertyType": "Earth homes",
+    "Location": "Grust, Occitanie, France",
+    "BasePrice": 250,
+    "Price": 250,
+    "Description": "Superbe Grange au cœur du village de GRUST. 10 mn station de ski Entièrement refaite: tout confort Salon cuisine de 80m², 2 chambres avec grand lit, 1 chambre avec 2 lits simples. Spa, salon extérieur, lieux magique.",
+    "Divisions": {
+      "Guest": 6,
+      "Bedroom": 3,
+      "Bed": 4,
+      "Bath": 1,
+      "PrivateBath": 0
+    },
+    "Photos": [
+      {
+        "Id": "4be2d8c9-0858-4a8e-9fae-7b851c2cb5d3",
+        "Path": "4be2d8c9-0858-4a8e-9fae-7b851c2cb5d3.webp"
+      },
+      {
+        "Id": "51709871-e834-4bbb-9a52-bc5c1583e72a",
+        "Path": "51709871-e834-4bbb-9a52-bc5c1583e72a.webp"
+      },
+      {
+        "Id": "3a657d9a-47a3-44f1-8576-01ba70ea106b",
+        "Path": "3a657d9a-47a3-44f1-8576-01ba70ea106b.webp"
+      }
+    ],
+    "Ratings": {
+      "Cleanliness": 4.8,
+      "Communication": 4.7,
+      "CheckIn": 4.8,
+      "Accuracy": 4.8,
+      "Location": 4.9,
+      "Value": 4.6
+    }
+  },
+  {
+    "Title": "Yacht AquaMarina La Rochelle",
+    "PropertyType": "Boats",
+    "Location": "La Rochelle, Nouvelle-Aquitaine, France",
+    "BasePrice": 292,
+    "Price": 263,
+    "Description": "Yacht à louer à quai en plein centre ville de La Rochelle. Ce logement insolite se compose d'un beau salon lumineux avec écran plat, un coin repas, une cuisine équipée, deux suites avec lits deux personnes, deux cabines avec deux lits simples. Chaque cabine dispose de sa salle de bain. Une grande terrasse au pont supérieur, et une terrasse extérieure à l'arrière. Pour des raisons de sécurité à bord, la capacité du yacht est de 8 personnes maximum. caution de 5000€ sera demandé à l'arrivée.",
+    "Divisions": {
+      "Guest": 8,
+      "Bedroom": 4,
+      "Bed": 6,
+      "Bath": 4,
+      "PrivateBath": 0
+    },
+    "Photos": [
+      {
+        "Id": "99d9bb05-4d9d-4380-be8b-7ba4d27f42a2",
+        "Path": "99d9bb05-4d9d-4380-be8b-7ba4d27f42a2.webp"
+      },
+      {
+        "Id": "f3744c72-9d0d-4822-9556-a6d5e8bf2d1e",
+        "Path": "f3744c72-9d0d-4822-9556-a6d5e8bf2d1e.webp"
+      },
+      {
+        "Id": "17661e3b-1ceb-4687-8956-c78da32654fa",
+        "Path": "17661e3b-1ceb-4687-8956-c78da32654fa.webp"
+      }
+    ],
+    "Ratings": {
+      "Cleanliness": 5.0,
+      "Communication": 5.0,
+      "CheckIn": 5.0,
+      "Accuracy": 5.0,
+      "Location": 5.0,
+      "Value": 4.8
+    }
+  },
+  {
+    "Title": "Open sky Pyramid",
+    "PropertyType": "Offbeat",
+    "Location": "Maureillas-las-Illas, Languedoc-Roussillon-Midi-Pyrénées, France",
+    "BasePrice": 198,
+    "Price": 198,
+    "Description": "Come to live an incredible experience at Mas Cabanids. Here, you can sleep on a Open Sky Pyramid to see the stars by night. This location is close to Perpignan, Spain, and Argelès sur Mer. The beach is situated at 15 kms. A peaceful area, a romantic moment... The Pyramid is our most incredible location in the Mas Cabanids in Maureillas las Illas.",
+    "Divisions": {
+      "Guest": 2,
+      "Bedroom": 1,
+      "Bed": 1,
       "Bath": 0,
       "PrivateBath": 0
     },
     "Photos": [
       {
-        "Id": "",
-        "Path": ""
+        "Id": "760e2494-805c-4e82-b4f7-8873ce2c2481",
+        "Path": "760e2494-805c-4e82-b4f7-8873ce2c2481.webp"
       },
       {
-        "Id": "",
-        "Path": ""
+        "Id": "1fdf9698-bf22-472d-bd7f-175e04859e61",
+        "Path": "1fdf9698-bf22-472d-bd7f-175e04859e61.webp"
       },
       {
-        "Id": "",
-        "Path": ""
+        "Id": "4e08b892-701a-4862-a4e3-d49598a21429",
+        "Path": "4e08b892-701a-4862-a4e3-d49598a21429.webp"
+      }
+    ],
+    "Ratings": {
+      "Cleanliness": 5.0,
+      "Communication": 4.6,
+      "CheckIn": 5.0,
+      "Accuracy": 5.0,
+      "Location": 4.8,
+      "Value": 4.2
+    }
+  },
+  {
+    "Title": "Lovely Studio",
+    "PropertyType": "Beachfront",
+    "Location": "Nazaré, Leiria, Portugal",
+    "BasePrice": 64,
+    "Price": 64,
+    "Description": "The apartment was designed with all the needs of our guests in mind.",
+    "Divisions": {
+      "Guest": 2,
+      "Bedroom": 0,
+      "Bed": 1,
+      "Bath": 1,
+      "PrivateBath": 0
+    },
+    "Photos": [
+      {
+        "Id": "0aff4622-0121-4796-b223-8c22670b3d32",
+        "Path": "0aff4622-0121-4796-b223-8c22670b3d32.webp"
+      },
+      {
+        "Id": "988229d0-7acc-4c92-91da-1cc182c80898",
+        "Path": "988229d0-7acc-4c92-91da-1cc182c80898.webp"
+      },
+      {
+        "Id": "48d39ed2-0e68-4f1f-b213-610a7b080857",
+        "Path": "48d39ed2-0e68-4f1f-b213-610a7b080857.webp"
+      }
+    ],
+    "Ratings": {
+      "Cleanliness": 4.5,
+      "Communication": 4.5,
+      "CheckIn": 4.2,
+      "Accuracy": 4.8,
+      "Location": 5.0,
+      "Value": 4.7
+    }
+  },
+  {
+    "Title": "Abrigo do Moleiro",
+    "PropertyType": "Windmills",
+    "Location": "Peniche, Leiria, Portugal",
+    "BasePrice": 111,
+    "Price": 111,
+    "Description": "Classificado como monumento nacional, este emblemático moinho de Peniche teve, desde 1895 e durante décadas, utilização agrícola e industrial. Actualmente, completamente renovado e sob o nome “Abrigo do Moleiro” pretende ser um espaço acolhedor para turistas de todo o mundo proporcionando recordações únicas a quem nele pernoita. Para completar a experiência, os hóspedes recebem, ainda, o pequeno-almoço, entregue à porta.",
+    "Divisions": {
+      "Guest": 4,
+      "Bedroom": 2,
+      "Bed": 3,
+      "Bath": 1,
+      "PrivateBath": 0
+    },
+    "Photos": [
+      {
+        "Id": "91362fb1-9c0c-4df3-a1e2-02b28e7ef4d4",
+        "Path": "91362fb1-9c0c-4df3-a1e2-02b28e7ef4d4.webp"
+      },
+      {
+        "Id": "55a30871-f148-4b0e-825c-583c86f0dd4d",
+        "Path": "55a30871-f148-4b0e-825c-583c86f0dd4d.webp"
+      },
+      {
+        "Id": "f84e9775-3903-4e7a-b327-a914493fd192",
+        "Path": "f84e9775-3903-4e7a-b327-a914493fd192.webp"
+      }
+    ],
+    "Ratings": {
+      "Cleanliness": 5.0,
+      "Communication": 5.0,
+      "CheckIn": 5.0,
+      "Accuracy": 5.0,
+      "Location": 4.7,
+      "Value": 4.8
+    }
+  },
+  {
+    "Title": "Lux Mare I",
+    "PropertyType": "Luxe",
+    "Location": "Lagos, Canavial, Portugal",
+    "BasePrice": 1063,
+    "Price": 1063,
+    "Description": "Set over two levels of palatial splendor, this villa offers a breathtaking view of the Algarve coast and the shining Atlantic beyond. A truly magnificent poolside terrace lets guests enjoy Algarve mornings with peace and serenity assured. With room after room of spacious, considered design, this villa provides smart outfitting and deep comfort, plus the charm of nearby Lagos and numerous hidden beaches.",
+    "Divisions": {
+      "Guest": 12,
+      "Bedroom": 6,
+      "Bed": 10,
+      "Bath": 5,
+      "PrivateBath": 0
+    },
+    "Photos": [
+      {
+        "Id": "c99e5b00-a779-40e9-bd0e-5062dfdb7eb8",
+        "Path": "c99e5b00-a779-40e9-bd0e-5062dfdb7eb8.webp"
+      },
+      {
+        "Id": "fa8ebb0a-de96-4ad4-ac4e-307e56f0c589",
+        "Path": "fa8ebb0a-de96-4ad4-ac4e-307e56f0c589.webp"
+      },
+      {
+        "Id": "219be7d5-2c4d-4608-9d08-c5f32f382aa6",
+        "Path": "219be7d5-2c4d-4608-9d08-c5f32f382aa6.webp"
       }
     ],
     "Ratings": {
@@ -74,336 +370,40 @@
     }
   },
   {
-    "Title": "",
-    "PropertyType": "",
-    "Location": "",
-    "BasePrice": 0,
-    "Price": 0,
-    "Description": "",
+    "Title": "Big Yurt Mountain View",
+    "PropertyType": "Yurts",
+    "Location": "Lanjaron, Andalucia, Spain",
+    "BasePrice": 90,
+    "Price": 90,
+    "Description": "Peaceful Armonia Alpujarra Rentals is a truly special place. The location is at the foothills of the beautiful Sierra Nevada Mountains, in Andalucia, Spain, surrounded by olive and almond groves, with spectacular views.",
     "Divisions": {
-      "Guest": 0,
-      "Bedroom": 0,
-      "Bed": 0,
-      "Bath": 0,
+      "Guest": 3,
+      "Bedroom": 1,
+      "Bed": 3,
+      "Bath": 1,
       "PrivateBath": 0
     },
     "Photos": [
       {
-        "Id": "",
-        "Path": ""
+        "Id": "aedc47d5-1c79-4219-b658-1b2982b5e893",
+        "Path": "aedc47d5-1c79-4219-b658-1b2982b5e893.webp"
       },
       {
-        "Id": "",
-        "Path": ""
+        "Id": "2ceac4ad-bb7f-4d14-949b-ab8552acf8c7",
+        "Path": "2ceac4ad-bb7f-4d14-949b-ab8552acf8c7.webp"
       },
       {
-        "Id": "",
-        "Path": ""
+        "Id": "f66d194f-e9f3-4a57-aa68-30fdb5081511",
+        "Path": "f66d194f-e9f3-4a57-aa68-30fdb5081511.webp"
       }
     ],
     "Ratings": {
-      "Cleanliness": 0,
-      "Communication": 0,
-      "CheckIn": 0,
-      "Accuracy": 0,
-      "Location": 0,
-      "Value": 0
-    }
-  },
-  {
-    "Title": "",
-    "PropertyType": "",
-    "Location": "",
-    "BasePrice": 0,
-    "Price": 0,
-    "Description": "",
-    "Divisions": {
-      "Guest": 0,
-      "Bedroom": 0,
-      "Bed": 0,
-      "Bath": 0,
-      "PrivateBath": 0
-    },
-    "Photos": [
-      {
-        "Id": "",
-        "Path": ""
-      },
-      {
-        "Id": "",
-        "Path": ""
-      },
-      {
-        "Id": "",
-        "Path": ""
-      }
-    ],
-    "Ratings": {
-      "Cleanliness": 0,
-      "Communication": 0,
-      "CheckIn": 0,
-      "Accuracy": 0,
-      "Location": 0,
-      "Value": 0
-    }
-  },
-  {
-    "Title": "",
-    "PropertyType": "",
-    "Location": "",
-    "BasePrice": 0,
-    "Price": 0,
-    "Description": "",
-    "Divisions": {
-      "Guest": 0,
-      "Bedroom": 0,
-      "Bed": 0,
-      "Bath": 0,
-      "PrivateBath": 0
-    },
-    "Photos": [
-      {
-        "Id": "",
-        "Path": ""
-      },
-      {
-        "Id": "",
-        "Path": ""
-      },
-      {
-        "Id": "",
-        "Path": ""
-      }
-    ],
-    "Ratings": {
-      "Cleanliness": 0,
-      "Communication": 0,
-      "CheckIn": 0,
-      "Accuracy": 0,
-      "Location": 0,
-      "Value": 0
-    }
-  },
-  {
-    "Title": "",
-    "PropertyType": "",
-    "Location": "",
-    "BasePrice": 0,
-    "Price": 0,
-    "Description": "",
-    "Divisions": {
-      "Guest": 0,
-      "Bedroom": 0,
-      "Bed": 0,
-      "Bath": 0,
-      "PrivateBath": 0
-    },
-    "Photos": [
-      {
-        "Id": "",
-        "Path": ""
-      },
-      {
-        "Id": "",
-        "Path": ""
-      },
-      {
-        "Id": "",
-        "Path": ""
-      }
-    ],
-    "Ratings": {
-      "Cleanliness": 0,
-      "Communication": 0,
-      "CheckIn": 0,
-      "Accuracy": 0,
-      "Location": 0,
-      "Value": 0
-    }
-  },
-  {
-    "Title": "",
-    "PropertyType": "",
-    "Location": "",
-    "BasePrice": 0,
-    "Price": 0,
-    "Description": "",
-    "Divisions": {
-      "Guest": 0,
-      "Bedroom": 0,
-      "Bed": 0,
-      "Bath": 0,
-      "PrivateBath": 0
-    },
-    "Photos": [
-      {
-        "Id": "",
-        "Path": ""
-      },
-      {
-        "Id": "",
-        "Path": ""
-      },
-      {
-        "Id": "",
-        "Path": ""
-      }
-    ],
-    "Ratings": {
-      "Cleanliness": 0,
-      "Communication": 0,
-      "CheckIn": 0,
-      "Accuracy": 0,
-      "Location": 0,
-      "Value": 0
-    }
-  },
-  {
-    "Title": "",
-    "PropertyType": "",
-    "Location": "",
-    "BasePrice": 0,
-    "Price": 0,
-    "Description": "",
-    "Divisions": {
-      "Guest": 0,
-      "Bedroom": 0,
-      "Bed": 0,
-      "Bath": 0,
-      "PrivateBath": 0
-    },
-    "Photos": [
-      {
-        "Id": "",
-        "Path": ""
-      },
-      {
-        "Id": "",
-        "Path": ""
-      },
-      {
-        "Id": "",
-        "Path": ""
-      }
-    ],
-    "Ratings": {
-      "Cleanliness": 0,
-      "Communication": 0,
-      "CheckIn": 0,
-      "Accuracy": 0,
-      "Location": 0,
-      "Value": 0
-    }
-  },
-  {
-    "Title": "",
-    "PropertyType": "",
-    "Location": "",
-    "BasePrice": 0,
-    "Price": 0,
-    "Description": "",
-    "Divisions": {
-      "Guest": 0,
-      "Bedroom": 0,
-      "Bed": 0,
-      "Bath": 0,
-      "PrivateBath": 0
-    },
-    "Photos": [
-      {
-        "Id": "",
-        "Path": ""
-      },
-      {
-        "Id": "",
-        "Path": ""
-      },
-      {
-        "Id": "",
-        "Path": ""
-      }
-    ],
-    "Ratings": {
-      "Cleanliness": 0,
-      "Communication": 0,
-      "CheckIn": 0,
-      "Accuracy": 0,
-      "Location": 0,
-      "Value": 0
-    }
-  },
-  {
-    "Title": "",
-    "PropertyType": "",
-    "Location": "",
-    "BasePrice": 0,
-    "Price": 0,
-    "Description": "",
-    "Divisions": {
-      "Guest": 0,
-      "Bedroom": 0,
-      "Bed": 0,
-      "Bath": 0,
-      "PrivateBath": 0
-    },
-    "Photos": [
-      {
-        "Id": "",
-        "Path": ""
-      },
-      {
-        "Id": "",
-        "Path": ""
-      },
-      {
-        "Id": "",
-        "Path": ""
-      }
-    ],
-    "Ratings": {
-      "Cleanliness": 0,
-      "Communication": 0,
-      "CheckIn": 0,
-      "Accuracy": 0,
-      "Location": 0,
-      "Value": 0
-    }
-  },
-  {
-    "Title": "",
-    "PropertyType": "",
-    "Location": "",
-    "BasePrice": 0,
-    "Price": 0,
-    "Description": "",
-    "Divisions": {
-      "Guest": 0,
-      "Bedroom": 0,
-      "Bed": 0,
-      "Bath": 0,
-      "PrivateBath": 0
-    },
-    "Photos": [
-      {
-        "Id": "",
-        "Path": ""
-      },
-      {
-        "Id": "",
-        "Path": ""
-      },
-      {
-        "Id": "",
-        "Path": ""
-      }
-    ],
-    "Ratings": {
-      "Cleanliness": 0,
-      "Communication": 0,
-      "CheckIn": 0,
-      "Accuracy": 0,
-      "Location": 0,
-      "Value": 0
+      "Cleanliness": 4.2,
+      "Communication": 4.8,
+      "CheckIn": 4.8,
+      "Accuracy": 4.7,
+      "Location": 4.8,
+      "Value": 4.5
     }
   },
   {
