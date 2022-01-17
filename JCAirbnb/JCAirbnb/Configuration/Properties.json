@@ -1,0 +1,853 @@
+[
+  {
+    "Title": "",
+    "PropertyType": "",
+    "Location": "",
+    "BasePrice": 0,
+    "Price": 0,
+    "Description": "",
+    "Divisions": {
+      "Guest": 0,
+      "Bedroom": 0,
+      "Bed": 0,
+      "Bath": 0,
+      "PrivateBath": 0
+    },
+    "Photos": [
+      {
+        "Id": "",
+        "Path": ""
+      },
+      {
+        "Id": "",
+        "Path": ""
+      },
+      {
+        "Id": "",
+        "Path": ""
+      }
+    ],
+    "Ratings": {
+      "Cleanliness": 0,
+      "Communication": 0,
+      "CheckIn": 0,
+      "Accuracy": 0,
+      "Location": 0,
+      "Value": 0
+    }
+  },
+  {
+    "Title": "",
+    "PropertyType": "",
+    "Location": "",
+    "BasePrice": 0,
+    "Price": 0,
+    "Description": "",
+    "Divisions": {
+      "Guest": 0,
+      "Bedroom": 0,
+      "Bed": 0,
+      "Bath": 0,
+      "PrivateBath": 0
+    },
+    "Photos": [
+      {
+        "Id": "",
+        "Path": ""
+      },
+      {
+        "Id": "",
+        "Path": ""
+      },
+      {
+        "Id": "",
+        "Path": ""
+      }
+    ],
+    "Ratings": {
+      "Cleanliness": 0,
+      "Communication": 0,
+      "CheckIn": 0,
+      "Accuracy": 0,
+      "Location": 0,
+      "Value": 0
+    }
+  },
+  {
+    "Title": "",
+    "PropertyType": "",
+    "Location": "",
+    "BasePrice": 0,
+    "Price": 0,
+    "Description": "",
+    "Divisions": {
+      "Guest": 0,
+      "Bedroom": 0,
+      "Bed": 0,
+      "Bath": 0,
+      "PrivateBath": 0
+    },
+    "Photos": [
+      {
+        "Id": "",
+        "Path": ""
+      },
+      {
+        "Id": "",
+        "Path": ""
+      },
+      {
+        "Id": "",
+        "Path": ""
+      }
+    ],
+    "Ratings": {
+      "Cleanliness": 0,
+      "Communication": 0,
+      "CheckIn": 0,
+      "Accuracy": 0,
+      "Location": 0,
+      "Value": 0
+    }
+  },
+  {
+    "Title": "",
+    "PropertyType": "",
+    "Location": "",
+    "BasePrice": 0,
+    "Price": 0,
+    "Description": "",
+    "Divisions": {
+      "Guest": 0,
+      "Bedroom": 0,
+      "Bed": 0,
+      "Bath": 0,
+      "PrivateBath": 0
+    },
+    "Photos": [
+      {
+        "Id": "",
+        "Path": ""
+      },
+      {
+        "Id": "",
+        "Path": ""
+      },
+      {
+        "Id": "",
+        "Path": ""
+      }
+    ],
+    "Ratings": {
+      "Cleanliness": 0,
+      "Communication": 0,
+      "CheckIn": 0,
+      "Accuracy": 0,
+      "Location": 0,
+      "Value": 0
+    }
+  },
+  {
+    "Title": "",
+    "PropertyType": "",
+    "Location": "",
+    "BasePrice": 0,
+    "Price": 0,
+    "Description": "",
+    "Divisions": {
+      "Guest": 0,
+      "Bedroom": 0,
+      "Bed": 0,
+      "Bath": 0,
+      "PrivateBath": 0
+    },
+    "Photos": [
+      {
+        "Id": "",
+        "Path": ""
+      },
+      {
+        "Id": "",
+        "Path": ""
+      },
+      {
+        "Id": "",
+        "Path": ""
+      }
+    ],
+    "Ratings": {
+      "Cleanliness": 0,
+      "Communication": 0,
+      "CheckIn": 0,
+      "Accuracy": 0,
+      "Location": 0,
+      "Value": 0
+    }
+  },
+  {
+    "Title": "",
+    "PropertyType": "",
+    "Location": "",
+    "BasePrice": 0,
+    "Price": 0,
+    "Description": "",
+    "Divisions": {
+      "Guest": 0,
+      "Bedroom": 0,
+      "Bed": 0,
+      "Bath": 0,
+      "PrivateBath": 0
+    },
+    "Photos": [
+      {
+        "Id": "",
+        "Path": ""
+      },
+      {
+        "Id": "",
+        "Path": ""
+      },
+      {
+        "Id": "",
+        "Path": ""
+      }
+    ],
+    "Ratings": {
+      "Cleanliness": 0,
+      "Communication": 0,
+      "CheckIn": 0,
+      "Accuracy": 0,
+      "Location": 0,
+      "Value": 0
+    }
+  },
+  {
+    "Title": "",
+    "PropertyType": "",
+    "Location": "",
+    "BasePrice": 0,
+    "Price": 0,
+    "Description": "",
+    "Divisions": {
+      "Guest": 0,
+      "Bedroom": 0,
+      "Bed": 0,
+      "Bath": 0,
+      "PrivateBath": 0
+    },
+    "Photos": [
+      {
+        "Id": "",
+        "Path": ""
+      },
+      {
+        "Id": "",
+        "Path": ""
+      },
+      {
+        "Id": "",
+        "Path": ""
+      }
+    ],
+    "Ratings": {
+      "Cleanliness": 0,
+      "Communication": 0,
+      "CheckIn": 0,
+      "Accuracy": 0,
+      "Location": 0,
+      "Value": 0
+    }
+  },
+  {
+    "Title": "",
+    "PropertyType": "",
+    "Location": "",
+    "BasePrice": 0,
+    "Price": 0,
+    "Description": "",
+    "Divisions": {
+      "Guest": 0,
+      "Bedroom": 0,
+      "Bed": 0,
+      "Bath": 0,
+      "PrivateBath": 0
+    },
+    "Photos": [
+      {
+        "Id": "",
+        "Path": ""
+      },
+      {
+        "Id": "",
+        "Path": ""
+      },
+      {
+        "Id": "",
+        "Path": ""
+      }
+    ],
+    "Ratings": {
+      "Cleanliness": 0,
+      "Communication": 0,
+      "CheckIn": 0,
+      "Accuracy": 0,
+      "Location": 0,
+      "Value": 0
+    }
+  },
+  {
+    "Title": "",
+    "PropertyType": "",
+    "Location": "",
+    "BasePrice": 0,
+    "Price": 0,
+    "Description": "",
+    "Divisions": {
+      "Guest": 0,
+      "Bedroom": 0,
+      "Bed": 0,
+      "Bath": 0,
+      "PrivateBath": 0
+    },
+    "Photos": [
+      {
+        "Id": "",
+        "Path": ""
+      },
+      {
+        "Id": "",
+        "Path": ""
+      },
+      {
+        "Id": "",
+        "Path": ""
+      }
+    ],
+    "Ratings": {
+      "Cleanliness": 0,
+      "Communication": 0,
+      "CheckIn": 0,
+      "Accuracy": 0,
+      "Location": 0,
+      "Value": 0
+    }
+  },
+  {
+    "Title": "",
+    "PropertyType": "",
+    "Location": "",
+    "BasePrice": 0,
+    "Price": 0,
+    "Description": "",
+    "Divisions": {
+      "Guest": 0,
+      "Bedroom": 0,
+      "Bed": 0,
+      "Bath": 0,
+      "PrivateBath": 0
+    },
+    "Photos": [
+      {
+        "Id": "",
+        "Path": ""
+      },
+      {
+        "Id": "",
+        "Path": ""
+      },
+      {
+        "Id": "",
+        "Path": ""
+      }
+    ],
+    "Ratings": {
+      "Cleanliness": 0,
+      "Communication": 0,
+      "CheckIn": 0,
+      "Accuracy": 0,
+      "Location": 0,
+      "Value": 0
+    }
+  },
+  {
+    "Title": "",
+    "PropertyType": "",
+    "Location": "",
+    "BasePrice": 0,
+    "Price": 0,
+    "Description": "",
+    "Divisions": {
+      "Guest": 0,
+      "Bedroom": 0,
+      "Bed": 0,
+      "Bath": 0,
+      "PrivateBath": 0
+    },
+    "Photos": [
+      {
+        "Id": "",
+        "Path": ""
+      },
+      {
+        "Id": "",
+        "Path": ""
+      },
+      {
+        "Id": "",
+        "Path": ""
+      }
+    ],
+    "Ratings": {
+      "Cleanliness": 0,
+      "Communication": 0,
+      "CheckIn": 0,
+      "Accuracy": 0,
+      "Location": 0,
+      "Value": 0
+    }
+  },
+  {
+    "Title": "",
+    "PropertyType": "",
+    "Location": "",
+    "BasePrice": 0,
+    "Price": 0,
+    "Description": "",
+    "Divisions": {
+      "Guest": 0,
+      "Bedroom": 0,
+      "Bed": 0,
+      "Bath": 0,
+      "PrivateBath": 0
+    },
+    "Photos": [
+      {
+        "Id": "",
+        "Path": ""
+      },
+      {
+        "Id": "",
+        "Path": ""
+      },
+      {
+        "Id": "",
+        "Path": ""
+      }
+    ],
+    "Ratings": {
+      "Cleanliness": 0,
+      "Communication": 0,
+      "CheckIn": 0,
+      "Accuracy": 0,
+      "Location": 0,
+      "Value": 0
+    }
+  },
+  {
+    "Title": "",
+    "PropertyType": "",
+    "Location": "",
+    "BasePrice": 0,
+    "Price": 0,
+    "Description": "",
+    "Divisions": {
+      "Guest": 0,
+      "Bedroom": 0,
+      "Bed": 0,
+      "Bath": 0,
+      "PrivateBath": 0
+    },
+    "Photos": [
+      {
+        "Id": "",
+        "Path": ""
+      },
+      {
+        "Id": "",
+        "Path": ""
+      },
+      {
+        "Id": "",
+        "Path": ""
+      }
+    ],
+    "Ratings": {
+      "Cleanliness": 0,
+      "Communication": 0,
+      "CheckIn": 0,
+      "Accuracy": 0,
+      "Location": 0,
+      "Value": 0
+    }
+  },
+  {
+    "Title": "",
+    "PropertyType": "",
+    "Location": "",
+    "BasePrice": 0,
+    "Price": 0,
+    "Description": "",
+    "Divisions": {
+      "Guest": 0,
+      "Bedroom": 0,
+      "Bed": 0,
+      "Bath": 0,
+      "PrivateBath": 0
+    },
+    "Photos": [
+      {
+        "Id": "",
+        "Path": ""
+      },
+      {
+        "Id": "",
+        "Path": ""
+      },
+      {
+        "Id": "",
+        "Path": ""
+      }
+    ],
+    "Ratings": {
+      "Cleanliness": 0,
+      "Communication": 0,
+      "CheckIn": 0,
+      "Accuracy": 0,
+      "Location": 0,
+      "Value": 0
+    }
+  },
+  {
+    "Title": "",
+    "PropertyType": "",
+    "Location": "",
+    "BasePrice": 0,
+    "Price": 0,
+    "Description": "",
+    "Divisions": {
+      "Guest": 0,
+      "Bedroom": 0,
+      "Bed": 0,
+      "Bath": 0,
+      "PrivateBath": 0
+    },
+    "Photos": [
+      {
+        "Id": "",
+        "Path": ""
+      },
+      {
+        "Id": "",
+        "Path": ""
+      },
+      {
+        "Id": "",
+        "Path": ""
+      }
+    ],
+    "Ratings": {
+      "Cleanliness": 0,
+      "Communication": 0,
+      "CheckIn": 0,
+      "Accuracy": 0,
+      "Location": 0,
+      "Value": 0
+    }
+  },
+  {
+    "Title": "",
+    "PropertyType": "",
+    "Location": "",
+    "BasePrice": 0,
+    "Price": 0,
+    "Description": "",
+    "Divisions": {
+      "Guest": 0,
+      "Bedroom": 0,
+      "Bed": 0,
+      "Bath": 0,
+      "PrivateBath": 0
+    },
+    "Photos": [
+      {
+        "Id": "",
+        "Path": ""
+      },
+      {
+        "Id": "",
+        "Path": ""
+      },
+      {
+        "Id": "",
+        "Path": ""
+      }
+    ],
+    "Ratings": {
+      "Cleanliness": 0,
+      "Communication": 0,
+      "CheckIn": 0,
+      "Accuracy": 0,
+      "Location": 0,
+      "Value": 0
+    }
+  },
+  {
+    "Title": "",
+    "PropertyType": "",
+    "Location": "",
+    "BasePrice": 0,
+    "Price": 0,
+    "Description": "",
+    "Divisions": {
+      "Guest": 0,
+      "Bedroom": 0,
+      "Bed": 0,
+      "Bath": 0,
+      "PrivateBath": 0
+    },
+    "Photos": [
+      {
+        "Id": "",
+        "Path": ""
+      },
+      {
+        "Id": "",
+        "Path": ""
+      },
+      {
+        "Id": "",
+        "Path": ""
+      }
+    ],
+    "Ratings": {
+      "Cleanliness": 0,
+      "Communication": 0,
+      "CheckIn": 0,
+      "Accuracy": 0,
+      "Location": 0,
+      "Value": 0
+    }
+  },
+  {
+    "Title": "",
+    "PropertyType": "",
+    "Location": "",
+    "BasePrice": 0,
+    "Price": 0,
+    "Description": "",
+    "Divisions": {
+      "Guest": 0,
+      "Bedroom": 0,
+      "Bed": 0,
+      "Bath": 0,
+      "PrivateBath": 0
+    },
+    "Photos": [
+      {
+        "Id": "",
+        "Path": ""
+      },
+      {
+        "Id": "",
+        "Path": ""
+      },
+      {
+        "Id": "",
+        "Path": ""
+      }
+    ],
+    "Ratings": {
+      "Cleanliness": 0,
+      "Communication": 0,
+      "CheckIn": 0,
+      "Accuracy": 0,
+      "Location": 0,
+      "Value": 0
+    }
+  },
+  {
+    "Title": "",
+    "PropertyType": "",
+    "Location": "",
+    "BasePrice": 0,
+    "Price": 0,
+    "Description": "",
+    "Divisions": {
+      "Guest": 0,
+      "Bedroom": 0,
+      "Bed": 0,
+      "Bath": 0,
+      "PrivateBath": 0
+    },
+    "Photos": [
+      {
+        "Id": "",
+        "Path": ""
+      },
+      {
+        "Id": "",
+        "Path": ""
+      },
+      {
+        "Id": "",
+        "Path": ""
+      }
+    ],
+    "Ratings": {
+      "Cleanliness": 0,
+      "Communication": 0,
+      "CheckIn": 0,
+      "Accuracy": 0,
+      "Location": 0,
+      "Value": 0
+    }
+  },
+  {
+    "Title": "",
+    "PropertyType": "",
+    "Location": "",
+    "BasePrice": 0,
+    "Price": 0,
+    "Description": "",
+    "Divisions": {
+      "Guest": 0,
+      "Bedroom": 0,
+      "Bed": 0,
+      "Bath": 0,
+      "PrivateBath": 0
+    },
+    "Photos": [
+      {
+        "Id": "",
+        "Path": ""
+      },
+      {
+        "Id": "",
+        "Path": ""
+      },
+      {
+        "Id": "",
+        "Path": ""
+      }
+    ],
+    "Ratings": {
+      "Cleanliness": 0,
+      "Communication": 0,
+      "CheckIn": 0,
+      "Accuracy": 0,
+      "Location": 0,
+      "Value": 0
+    }
+  },
+  {
+    "Title": "",
+    "PropertyType": "",
+    "Location": "",
+    "BasePrice": 0,
+    "Price": 0,
+    "Description": "",
+    "Divisions": {
+      "Guest": 0,
+      "Bedroom": 0,
+      "Bed": 0,
+      "Bath": 0,
+      "PrivateBath": 0
+    },
+    "Photos": [
+      {
+        "Id": "",
+        "Path": ""
+      },
+      {
+        "Id": "",
+        "Path": ""
+      },
+      {
+        "Id": "",
+        "Path": ""
+      }
+    ],
+    "Ratings": {
+      "Cleanliness": 0,
+      "Communication": 0,
+      "CheckIn": 0,
+      "Accuracy": 0,
+      "Location": 0,
+      "Value": 0
+    }
+  },
+  {
+    "Title": "",
+    "PropertyType": "",
+    "Location": "",
+    "BasePrice": 0,
+    "Price": 0,
+    "Description": "",
+    "Divisions": {
+      "Guest": 0,
+      "Bedroom": 0,
+      "Bed": 0,
+      "Bath": 0,
+      "PrivateBath": 0
+    },
+    "Photos": [
+      {
+        "Id": "",
+        "Path": ""
+      },
+      {
+        "Id": "",
+        "Path": ""
+      },
+      {
+        "Id": "",
+        "Path": ""
+      }
+    ],
+    "Ratings": {
+      "Cleanliness": 0,
+      "Communication": 0,
+      "CheckIn": 0,
+      "Accuracy": 0,
+      "Location": 0,
+      "Value": 0
+    }
+  },
+  {
+    "Title": "",
+    "PropertyType": "",
+    "Location": "",
+    "BasePrice": 0,
+    "Price": 0,
+    "Description": "",
+    "Divisions": {
+      "Guest": 0,
+      "Bedroom": 0,
+      "Bed": 0,
+      "Bath": 0,
+      "PrivateBath": 0
+    },
+    "Photos": [
+      {
+        "Id": "",
+        "Path": ""
+      },
+      {
+        "Id": "",
+        "Path": ""
+      },
+      {
+        "Id": "",
+        "Path": ""
+      }
+    ],
+    "Ratings": {
+      "Cleanliness": 0,
+      "Communication": 0,
+      "CheckIn": 0,
+      "Accuracy": 0,
+      "Location": 0,
+      "Value": 0
+    }
+  }
+]
