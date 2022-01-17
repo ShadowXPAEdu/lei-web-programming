@@ -16,7 +16,7 @@ namespace JCAirbnb.Controllers
         private readonly ApplicationDbContext _context;
         private readonly UserManager<IdentityUser> _userManager;
 
-        private const int DEFAULT_ITEMS_PER_PAGE = 20;
+        private const int DEFAULT_ITEMS_PER_PAGE = 21;
 
         public HomeController(ApplicationDbContext context, UserManager<IdentityUser> userManager)
         {

@@ -15,14 +15,62 @@ namespace JCAirbnb.Data
     {
         public static void InitializeDatabase(this IServiceProvider serviceProvider)
         {
+            Random rand = new();
             var context = serviceProvider.GetRequiredService<ApplicationDbContext>();
             var passwordHasher = serviceProvider.GetRequiredService<IPasswordHasher<IdentityUser>>();
             context.Database.EnsureCreated();
             AddRoles(context);
-            AddUsers(context, passwordHasher);
+            var rolesByName = AddUsers(context, passwordHasher, rand);
             AddReservationStates(context);
             AddCommodities(context);
             AddPropertyTypes(context);
+            AddProperties(rand, context, rolesByName);
+        }
+
+        private static void AddProperties(Random rand, ApplicationDbContext context, Dictionary<string, string> rolesByName)
+        {
+            if (!context.Properties.Any())
+            {
+                var managers = context.UserRoles.Where(ur => ur.RoleId == rolesByName["Manager"]).ToList();
+
+                var config = File.ReadAllText($@"Configuration\Properties.json");
+                var obj = JsonConvert.DeserializeObject<List<PropertiesConfig>>(config);
+                foreach (var o in obj)
+                {
+                    var propId = Guid.NewGuid().ToString();
+                    o.Divisions.Id = propId;
+                    o.Ratings.Id = propId;
+
+                    var propType = context.PropertyTypes.FirstOrDefault(pt => pt.Title == o.PropertyType);
+                    var next = rand.Next(managers.Count);
+                    var manager = context.Users.FirstOrDefault(m => m.Id == managers[next].UserId);
+
+                    Property p = new()
+                    {
+                        Id = propId,
+                        Title = o.Title,
+                        Description = o.Description,
+                        BasePrice = o.BasePrice,
+                        Price = o.Price,
+                        Location = o.Location,
+                        Divisions = o.Divisions,
+                        Ratings = o.Ratings,
+                        PropertyType = propType,
+                        Manager = manager,
+                        Photos = new(),
+                        Commodities = new(),
+                        Reviews = new(),
+                    };
+
+                    foreach (var photo in o.Photos)
+                    {
+                        p.Photos.Add(photo);
+                    }
+
+                    context.Properties.Add(p);
+                }
+                context.SaveChanges();
+            }
         }
 
         private static void AddPropertyTypes(ApplicationDbContext context)
@@ -67,19 +115,19 @@ namespace JCAirbnb.Data
             }
         }
 
-        private static void AddUsers(ApplicationDbContext context, IPasswordHasher<IdentityUser> passwordHasher)
+        private static Dictionary<string, string> AddUsers(ApplicationDbContext context, IPasswordHasher<IdentityUser> passwordHasher, Random rand)
         {
+            Dictionary<string, string> rolesByName = new();
+            foreach (var role in context.Roles)
+            {
+                rolesByName.Add(role.Name, role.Id);
+            }
+
             if (!context.Users.Any())
             {
                 var configUsers = File.ReadAllText($@"Configuration\Users.json");
                 var users = JsonConvert.DeserializeObject<List<UserConfig>>(configUsers);
 
-                Random rand = new();
-                Dictionary<string, string> rolesByName = new();
-                foreach (var role in context.Roles)
-                {
-                    rolesByName.Add(role.Name, role.Id);
-                }
 
                 foreach (var u in users)
                 {
@@ -103,6 +151,8 @@ namespace JCAirbnb.Data
                     context.SaveChanges();
                 }
             }
+
+            return rolesByName;
         }
 
         private static void AddUserToRole(ApplicationDbContext context, Random rand, Dictionary<string, string> rolesByName, UserConfig u, IdentityUser user)
