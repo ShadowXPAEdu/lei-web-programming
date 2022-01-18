@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace JCAirbnb.Models
 {
@@ -18,6 +19,9 @@ namespace JCAirbnb.Models
         [Display(Name = "Review date")]
         public DateTime Date { get; set; }
 
+        public string UserId { get; set; }
+
+        [ForeignKey("UserId")]
         [Display(Name = "Reviewer")]
         public virtual IdentityUser User { get; set; }
     }

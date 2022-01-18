@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using JCAirbnb.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace JCAirbnb.Data
 {
@@ -36,5 +37,35 @@ namespace JCAirbnb.Data
         public DbSet<Photo> Photos { get; set; }
 
         public DbSet<Report> Reports { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Report>(e =>
+            {
+                e.HasMany(r => r.Photos).WithOne().OnDelete(DeleteBehavior.Cascade);
+            });
+
+            modelBuilder.Entity<Property>(e =>
+            {
+                e.HasOne(p => p.Ratings).WithOne().OnDelete(DeleteBehavior.Cascade);
+                e.HasOne(p => p.Divisions).WithOne().OnDelete(DeleteBehavior.Cascade);
+
+                e.HasMany(p => p.Photos).WithOne().OnDelete(DeleteBehavior.Cascade);
+                e.HasMany(p => p.Reviews).WithOne().OnDelete(DeleteBehavior.Cascade);
+                e.HasMany(p => p.Commodities).WithOne().OnDelete(DeleteBehavior.Cascade);
+            });
+
+            modelBuilder.Entity<Company>(e =>
+            {
+                e.HasMany(c => c.Employees).WithOne().OnDelete(DeleteBehavior.Cascade);
+            });
+
+            modelBuilder.Entity<Client>(e =>
+            {
+                e.HasMany(c => c.Reviews).WithOne().OnDelete(DeleteBehavior.Cascade);
+            });
+        }
     }
 }

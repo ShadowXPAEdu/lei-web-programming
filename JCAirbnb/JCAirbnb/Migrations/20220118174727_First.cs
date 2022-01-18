@@ -298,7 +298,7 @@ namespace JCAirbnb.Migrations
                         column: x => x.DivisionsId,
                         principalTable: "Divisions",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Properties_PropertyTypes_PropertyTypeId",
                         column: x => x.PropertyTypeId,
@@ -310,7 +310,7 @@ namespace JCAirbnb.Migrations
                         column: x => x.RatingsId,
                         principalTable: "Ratings",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -354,7 +354,7 @@ namespace JCAirbnb.Migrations
                         column: x => x.CompanyId,
                         principalTable: "Companies",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -374,13 +374,13 @@ namespace JCAirbnb.Migrations
                         column: x => x.PropertyId,
                         principalTable: "Properties",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Photos_Reports_ReportId",
                         column: x => x.ReportId,
                         principalTable: "Reports",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -406,7 +406,7 @@ namespace JCAirbnb.Migrations
                         column: x => x.PropertyId,
                         principalTable: "Properties",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -434,13 +434,13 @@ namespace JCAirbnb.Migrations
                         column: x => x.ClientId,
                         principalTable: "Clients",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Review_Properties_PropertyId",
                         column: x => x.PropertyId,
                         principalTable: "Properties",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -590,7 +590,9 @@ namespace JCAirbnb.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Properties_DivisionsId",
                 table: "Properties",
-                column: "DivisionsId");
+                column: "DivisionsId",
+                unique: true,
+                filter: "[DivisionsId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Properties_ManagerId",
@@ -605,7 +607,9 @@ namespace JCAirbnb.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Properties_RatingsId",
                 table: "Properties",
-                column: "RatingsId");
+                column: "RatingsId",
+                unique: true,
+                filter: "[RatingsId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PropertyCommodities_CommodityId",

@@ -86,7 +86,7 @@ namespace JCAirbnb.Areas.Manager.Controllers
 
                 viewModel.Property.Divisions = new()
                 {
-                    Id = viewModel.Property.Id,
+                    //Id = viewModel.Property.Id,
                     Guest = guest,
                     Bedroom = bedroom,
                     Bed = bed,

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -19,6 +20,9 @@ namespace JCAirbnb.Models
         [Display(Name = "Verified")]
         public bool Verified { get; set; } = false;
 
+        public string CheckListId { get; set; }
+
+        [ForeignKey("CheckListId")]
         [Display(Name = "Check list")]
         public virtual CheckList CheckList { get; set; }
     }

@@ -170,6 +170,8 @@ namespace JCAirbnb.Areas.Client.Controllers
         {
             var user = await _userManager.GetUserAsync(User);
 
+            if (user == null) return NotFound();
+
             id ??= user.Id;
 
             var client = await _context.Clients

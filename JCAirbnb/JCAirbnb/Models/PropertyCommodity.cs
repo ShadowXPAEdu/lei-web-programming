@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace JCAirbnb.Models
 {
@@ -10,7 +11,10 @@ namespace JCAirbnb.Models
         [Display(Name = "Id")]
         public string Id { get; set; }
 
+        //public string CommodityId { get; set; }
+
         [Required]
+        //[ForeignKey("CommodityId")]
         [Display(Name = "Commodity")]
         public virtual Commodity Commodity { get; set; }
 

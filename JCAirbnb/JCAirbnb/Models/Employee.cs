@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace JCAirbnb.Models
 {
@@ -11,7 +12,10 @@ namespace JCAirbnb.Models
         [Display(Name = "Id")]
         public string Id { get; set; } = Guid.NewGuid().ToString();
 
+        //public string UserId { get; set; }
+
         [Required]
+        //[ForeignKey("UserId")]
         [Display(Name = "User")]
         public virtual IdentityUser User { get; set; }
 

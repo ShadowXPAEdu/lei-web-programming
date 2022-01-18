@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace JCAirbnb.Models
 {
@@ -7,6 +8,9 @@ namespace JCAirbnb.Models
         [Key]
         [Display(Name = "Id")]
         public string Id { get; set; }
+
+        //[ForeignKey("Id")]
+        //public virtual Property Property { get; set; }
 
         [Display(Name = "Cleanliness")]
         public float Cleanliness { get; set; }

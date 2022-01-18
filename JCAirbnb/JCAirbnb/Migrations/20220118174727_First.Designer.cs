@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JCAirbnb.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220115182840_First")]
+    [Migration("20220118174727_First")]
     partial class First
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -205,13 +205,17 @@ namespace JCAirbnb.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DivisionsId");
+                    b.HasIndex("DivisionsId")
+                        .IsUnique()
+                        .HasFilter("[DivisionsId] IS NOT NULL");
 
                     b.HasIndex("ManagerId");
 
                     b.HasIndex("PropertyTypeId");
 
-                    b.HasIndex("RatingsId");
+                    b.HasIndex("RatingsId")
+                        .IsUnique()
+                        .HasFilter("[RatingsId] IS NOT NULL");
 
                     b.ToTable("Properties");
                 });
@@ -633,7 +637,8 @@ namespace JCAirbnb.Migrations
                 {
                     b.HasOne("JCAirbnb.Models.Company", null)
                         .WithMany("Employees")
-                        .HasForeignKey("CompanyId");
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
                         .WithMany()
@@ -646,18 +651,21 @@ namespace JCAirbnb.Migrations
                 {
                     b.HasOne("JCAirbnb.Models.Property", null)
                         .WithMany("Photos")
-                        .HasForeignKey("PropertyId");
+                        .HasForeignKey("PropertyId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("JCAirbnb.Models.Report", null)
                         .WithMany("Photos")
-                        .HasForeignKey("ReportId");
+                        .HasForeignKey("ReportId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("JCAirbnb.Models.Property", b =>
                 {
                     b.HasOne("JCAirbnb.Models.Divisions", "Divisions")
-                        .WithMany()
-                        .HasForeignKey("DivisionsId");
+                        .WithOne()
+                        .HasForeignKey("JCAirbnb.Models.Property", "DivisionsId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "Manager")
                         .WithMany()
@@ -668,8 +676,9 @@ namespace JCAirbnb.Migrations
                         .HasForeignKey("PropertyTypeId");
 
                     b.HasOne("JCAirbnb.Models.Ratings", "Ratings")
-                        .WithMany()
-                        .HasForeignKey("RatingsId");
+                        .WithOne()
+                        .HasForeignKey("JCAirbnb.Models.Property", "RatingsId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Divisions");
 
@@ -688,7 +697,8 @@ namespace JCAirbnb.Migrations
 
                     b.HasOne("JCAirbnb.Models.Property", null)
                         .WithMany("Commodities")
-                        .HasForeignKey("PropertyId");
+                        .HasForeignKey("PropertyId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Commodity");
                 });
@@ -736,11 +746,13 @@ namespace JCAirbnb.Migrations
                 {
                     b.HasOne("JCAirbnb.Models.Client", null)
                         .WithMany("Reviews")
-                        .HasForeignKey("ClientId");
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("JCAirbnb.Models.Property", null)
                         .WithMany("Reviews")
-                        .HasForeignKey("PropertyId");
+                        .HasForeignKey("PropertyId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
                         .WithMany()

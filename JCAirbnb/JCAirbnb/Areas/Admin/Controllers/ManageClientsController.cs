@@ -123,10 +123,7 @@ namespace JCAirbnb.Areas.Admin.Controllers
         // GET: Admin/ManageClients/Delete/5
         public async Task<IActionResult> Delete(string id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
             var client = await _context.Clients
                 .Include(c => c.User)
@@ -144,8 +141,8 @@ namespace JCAirbnb.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            var user = await _context.Users.FindAsync(id);
-            _context.Users.Remove(user);
+            var user = await _context.Clients.Include(c => c.Reviews).Include(c => c.User).FirstOrDefaultAsync(c => c.Id == id);
+            _context.Clients.Remove(user);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
