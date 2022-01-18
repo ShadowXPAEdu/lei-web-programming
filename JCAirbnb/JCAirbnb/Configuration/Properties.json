@@ -1,7 +1,7 @@
 [
   {
     "Title": "Refúgio das Poldras",
-    "PropertyType": "Treehouse",
+    "PropertyType": "Treehouses",
     "Location": "Mondim de Basto, Vila Real District, Portugal",
     "BasePrice": 119,
     "Price": 71,
@@ -75,7 +75,7 @@
   },
   {
     "Title": "Unik øy - Solholmen i Alverstraumen",
-    "PropertyType": "Island",
+    "PropertyType": "Islands",
     "Location": "Alver, Vestland, Norway",
     "BasePrice": 785,
     "Price": 487,
@@ -112,7 +112,7 @@
   },
   {
     "Title": "Restored Old Barn in a beautiful Galician valley",
-    "PropertyType": "Barn",
+    "PropertyType": "Barns",
     "Location": "Monfero, Galicia, Spain",
     "BasePrice": 90,
     "Price": 72,
@@ -445,7 +445,7 @@
   },
   {
     "Title": "Unique eco-friendly cabin surrounded",
-    "PropertyType": "Treehouse",
+    "PropertyType": "Treehouses",
     "Location": "Cercal do Alentejo, Setubal, Portugal",
     "BasePrice": 75,
     "Price": 68,

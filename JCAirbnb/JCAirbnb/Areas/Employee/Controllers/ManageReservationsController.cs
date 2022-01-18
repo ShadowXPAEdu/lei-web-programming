@@ -113,12 +113,13 @@ namespace JCAirbnb.Areas.Employee.Controllers
                 try
                 {
                     var reservation = await _context.Reservations
-                                            .Include(r => r.ReservationCheckList)    
+                                            .Include(r => r.ReservationCheckList)
                                             .Include(r => r.ReservationState)
                                             .FirstOrDefaultAsync(r => r.Id == id);
                     if (reservation.ReservationCheckList != null)
                     {
-                        foreach (var item in values) {
+                        foreach (var item in values)
+                        {
                             var checkListItems = await _context.CheckListItems
                                              .FindAsync(item);
                             checkListItems.Verified = true;
@@ -191,7 +192,7 @@ namespace JCAirbnb.Areas.Employee.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CheckedOut(string id,
-            [Bind("Reservation")] ManageReservationsModel viewModel, 
+            [Bind("Reservation")] ManageReservationsModel viewModel,
             string[] values, [FromForm(Name = "files")] IEnumerable<IFormFile> files)
         {
             if (id != viewModel.Reservation.Id) return NotFound();
@@ -218,7 +219,7 @@ namespace JCAirbnb.Areas.Employee.Controllers
                         Id = Guid.NewGuid().ToString(),
                         Observations = viewModel.Reservation.Report.Observations,
                         Photos = new List<Photo>()
-                };
+                    };
 
                     foreach (var file in files)
                     {
