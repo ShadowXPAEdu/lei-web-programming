@@ -1,0 +1,149 @@
+﻿@model JCAirbnb.Models.ViewModel.HomeViewModel
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+@section CSS {
+    <style type="text/css">
+        .property-image, .property-image img {
+            width: 300px;
+            height: 300px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .property-title {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-weight: bold;
+        }
+
+        .property-price .per-night {
+            font-size: 0.8rem;
+        }
+
+        .property-info .property-host {
+            font-size: 0.8rem;
+        }
+
+        .property-info .property-rating {
+            font-size: 0.8rem;
+            color: gray;
+        }
+
+        .property-link {
+            text-decoration: none;
+            color: inherit;
+        }
+
+            .property-link:hover {
+                text-decoration: none;
+                color: gray;
+            }
+
+            .property-link:active {
+                text-decoration: none;
+                color: lightgray;
+            }
+
+        .carousel-control {
+            background: rgba(22,22,22,0.1);
+        }
+
+        .properties > div {
+            padding: 1.2rem;
+        }
+    </style>
+}
+
+<div class="property-search">
+    <form class="row justify-content-center">
+        <div class="form-group col-6">
+            <input type="text" placeholder="Search... (e.g. Mansions, Lisbon, etc...)" name="q" class="form-control" />
+        </div>
+        <div class="form-group col-2">
+            <button type="submit" class="form-control search-btn btn btn-primary"><i class="fas fa-search"></i> Search</button>
+        </div>
+    </form>
+</div>
+
+<div class="d-flex flex-row flex-wrap justify-content-around properties">
+    @for (int i = 0; i < Model.Properties.Count; i++)
+    {
+        var property = Model.Properties[i];
+        <div class="col-4 d-flex flex-column align-items-center">
+            <div class="container">
+                <div id="carousel-@i" class="carousel slide" data-ride="carousel">
+                    <ol class="carousel-indicators">
+                        @for (int j = 0; j < property.Photos.Count; j++)
+                        {
+                            <li data-target="#carousel-@i" data-slide-to="@j" class="@(j == 0 ? "active" : "")"></li>
+                        }
+                    </ol>
+
+                    <a class="property-link" asp-controller="" asp-action="Property" asp-route-id="@property.Id">
+                        <div class="carousel-inner property-image">
+                            @for (int j = 0; j < property.Photos.Count; j++)
+                            {
+                                var photo = property.Photos[j];
+                                <div class="carousel-item @(j == 0 ? "active" : "")">
+                                    <img src="~/img/photos/@photo.Path" />
+                                </div>
+                            }
+                        </div>
+                    </a>
+
+                    <a class="carousel-control carousel-control-prev" href="#carousel-@i" data-slide="prev">
+                        <span class="carousel-control-prev-icon"></span>
+                    </a>
+                    <a class="carousel-control carousel-control-next" href="#carousel-@i" data-slide="next">
+                        <span class="carousel-control-next-icon"></span>
+                    </a>
+                </div>
+            </div>
+            <a class="property-link" asp-controller="" asp-action="Property" asp-route-id="@property.Id">
+                <div class="property-info d-inline-flex align-items-center">
+                    <div class="col-7">
+                        <div class="property-title">
+                            @property.Title
+
+                        </div>
+                        <div class="property-host">
+                            @property.Manager.UserName
+                        </div>
+                    </div>
+                    <div class="col-5">
+                        <div class="property-price">
+                            <span class="price">€@property.Price</span><span class="per-night">/night</span>
+                        </div>
+                        <div class="property-rating">
+                            @property.Ratings.GetAverage().ToString("F2")
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    }
+</div>
+
+<hr />
+
+<div class="d-flex justify-content-center page-navigation">
+    @if (Model.HasPrevPage)
+    {
+        <div class="prev-page"><a asp-controller="" asp-action="" asp-route-page="@(Model.Page - 1)"><i class="fas fa-chevron-left"></i></a></div>
+    }
+    <div class="current-page">@Model.Page</div>
+    @if (Model.HasNextPage)
+    {
+        <div class="next-page"><a asp-controller="" asp-action="" asp-route-page="@(Model.Page + 1)"><i class="fas fa-chevron-right"></i></a></div>
+    }
+</div>
+
+@section Scripts {
+    <script type="text/html">
+
+    </script>
+}

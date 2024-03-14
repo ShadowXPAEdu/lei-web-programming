@@ -1,0 +1,386 @@
+{
+  "CheckLists": [
+    {
+      "Id": "75558124-850b-4a70-bac2-9d6538cf88e4",
+      "Title": "Acetaminophen, Aspirin, Caffeine"
+    },
+    {
+      "Id": "05f20c2d-ec39-4b9c-8f9c-faf9285abe7d",
+      "Title": "RANITIDINE HYDROCHLORIDE"
+    },
+    {
+      "Id": "0ec53426-15d8-44c4-90ef-2c6ec8483791",
+      "Title": "NITROGLYCERIN"
+    },
+    {
+      "Id": "a9514398-53d1-4d4c-bc46-2c142b6f5951",
+      "Title": "Calcium Carbonate"
+    },
+    {
+      "Id": "5b5ec666-2e5c-463a-9352-1ec2cd46c635",
+      "Title": "Stemphylium sarciniforms"
+    },
+    {
+      "Id": "82540776-8073-46e3-b965-d375c2d1ef45",
+      "Title": "PredniSONE"
+    },
+    {
+      "Id": "c46af889-628b-46a3-8095-953cfa927a17",
+      "Title": "Metolazone"
+    },
+    {
+      "Id": "428bc81c-131c-44a6-828d-36615daed991",
+      "Title": "Dextromethorphan HBr, Guaifenesin"
+    },
+    {
+      "Id": "75ec853e-7e81-45e4-ad0e-71ea6792754e",
+      "Title": "hydroxyzine pamoate"
+    },
+    {
+      "Id": "20e2c27f-c6c0-41f1-a5a0-8d719166e87d",
+      "Title": "SPF 15 Cream"
+    },
+    {
+      "Id": "321e802a-c8cf-4b2c-b5ad-38745b16ecad",
+      "Title": "Naproxen"
+    },
+    {
+      "Id": "b56532a7-9973-45ea-b4aa-902b0a3960b0",
+      "Title": "OXYGEN"
+    },
+    {
+      "Id": "ad0e1ea4-a2f9-4b19-9e9f-5f6e240d55dd",
+      "Title": "Willow Black"
+    },
+    {
+      "Id": "229c5f98-385d-46c1-b206-d5615923216b",
+      "Title": "Cetirizine hydrochloride"
+    },
+    {
+      "Id": "7d8496fe-4bad-4c95-bed8-72dae91c537b",
+      "Title": "salicylic acid"
+    },
+    {
+      "Id": "f51b8694-4bea-4204-92c3-64b25301f67a",
+      "Title": "Camphor Menthol"
+    },
+    {
+      "Id": "13adb187-76d6-4d06-a113-c67065afe346",
+      "Title": "Acetaminophen, Dextromethorphan HBr, Guaifenesin, Phenylephrine HCl"
+    },
+    {
+      "Id": "78f3e5f6-eefe-41dd-b78e-85ef846bd7f6",
+      "Title": "Alcohol"
+    },
+    {
+      "Id": "41cc9046-e606-4445-9f2e-3163be25bc76",
+      "Title": "ketorolac tromethamine"
+    },
+    {
+      "Id": "1ce852b9-f1d7-4ec3-811d-792b87c1e857",
+      "Title": "meclizine hydrochloride"
+    }
+  ],
+  "CheckListItems": [
+    {
+      "Id": "7d7c4591-a5d1-420f-a8c2-27f70639b9a7",
+      "Description": "Sodium Polystyrene Sulfonate",
+      "Verified": false
+    },
+    {
+      "Id": "9937132e-58a1-4e45-b34d-cd22b13ee56e",
+      "Description": "CYZONE",
+      "Verified": false
+    },
+    {
+      "Id": "9d2759cf-c55d-4504-baf7-0aee5db39463",
+      "Description": "ADSOL Red Cell Preservation Solution System in Plastic Container (PL 146 Plastic)",
+      "Verified": true
+    },
+    {
+      "Id": "c35e414b-7fba-4538-9704-d42ac6c7d260",
+      "Description": "Ibuprofen",
+      "Verified": false
+    },
+    {
+      "Id": "94636da4-5be9-4b1c-a0f0-1d2478196ea2",
+      "Description": "Naproxen",
+      "Verified": false
+    },
+    {
+      "Id": "f76b8393-eb1d-4325-8de2-f1078da268de",
+      "Description": "antacid",
+      "Verified": true
+    },
+    {
+      "Id": "af7de247-46f2-411b-b54b-adf66b2a9826",
+      "Description": "good neighbor pharmacy nicotine",
+      "Verified": false
+    },
+    {
+      "Id": "a06a6925-a000-4314-a4b1-5a5efdedca01",
+      "Description": "Azithromycin Dihydrate",
+      "Verified": true
+    },
+    {
+      "Id": "f2556089-4251-4df4-8ff1-527b4c50446f",
+      "Description": "Meloxicam",
+      "Verified": true
+    },
+    {
+      "Id": "0a656e9c-4d75-42be-b6ac-9e7fa444ac09",
+      "Description": "Privine",
+      "Verified": true
+    },
+    {
+      "Id": "6814592c-05fa-4a39-b49b-db8d86626cc6",
+      "Description": "Salicylic acid",
+      "Verified": true
+    },
+    {
+      "Id": "d21439e1-8a81-4df0-8e4c-d497694fad0c",
+      "Description": "Galantamine hydrobromide",
+      "Verified": true
+    },
+    {
+      "Id": "06e04b93-9e2c-4638-897b-504258d581c5",
+      "Description": "ATORVASTATIN CALCIUM",
+      "Verified": false
+    },
+    {
+      "Id": "292f85e7-b7d8-42d5-82b0-875f23d9f82a",
+      "Description": "Hydrogen Peroxide",
+      "Verified": true
+    },
+    {
+      "Id": "7421b328-9cdb-4839-8f0a-50000c1f38bc",
+      "Description": "hydrocortisone",
+      "Verified": false
+    },
+    {
+      "Id": "88cf6dd8-df92-48b2-a4e9-81caa1f9d1c9",
+      "Description": "Allergy",
+      "Verified": false
+    },
+    {
+      "Id": "99b7abd1-774a-4bba-a789-f3faf844e81f",
+      "Description": "Vinotinto Hand Sanitizer",
+      "Verified": false
+    },
+    {
+      "Id": "acf81350-11e5-49b6-85eb-0780cb022d5d",
+      "Description": "Benazepril Hydrochloride",
+      "Verified": false
+    },
+    {
+      "Id": "92e3cacc-ff97-4420-89da-413d97a5c9ec",
+      "Description": "ZOLOFT",
+      "Verified": true
+    },
+    {
+      "Id": "185270d1-83fe-41b3-bbd3-f201fa50260f",
+      "Description": "CYCLOBENZAPRINE HYDROCHLORIDE",
+      "Verified": true
+    },
+    {
+      "Id": "9fe0ea72-d0ce-4b48-9c42-1b7cf17d9445",
+      "Description": "AN ADC WHITENING ESSENCE",
+      "Verified": false
+    },
+    {
+      "Id": "6bf7d648-1960-444a-bf55-06fb4066b7c6",
+      "Description": "Sisal",
+      "Verified": false
+    },
+    {
+      "Id": "ab16d7a9-824a-4a05-942d-d0d39e91dfdb",
+      "Description": "P32 Sodium Phosphate",
+      "Verified": false
+    },
+    {
+      "Id": "059eeb29-fe8a-45d8-a28c-a296e1e8907b",
+      "Description": "Royal ANTIBACTERIAL BANDAGE",
+      "Verified": true
+    },
+    {
+      "Id": "3c593705-414a-4df8-981b-b12b67d6a661",
+      "Description": "Muscle Rub Greaseless",
+      "Verified": false
+    },
+    {
+      "Id": "3e83f882-68d0-4289-a7a4-cf26200b1348",
+      "Description": "Nu Skin Clear Action",
+      "Verified": true
+    },
+    {
+      "Id": "2c9c056f-846e-4c41-9145-9ca8ddeba257",
+      "Description": "Naturasil",
+      "Verified": false
+    },
+    {
+      "Id": "20cf6121-0b22-4245-956f-1546ddb14568",
+      "Description": "Australian Gold",
+      "Verified": false
+    },
+    {
+      "Id": "fb00cb5b-1363-4765-ae50-7dae01e529a9",
+      "Description": "3D Lifting",
+      "Verified": true
+    },
+    {
+      "Id": "e45fffb5-8019-4c68-b09b-232bfbfb58c8",
+      "Description": "Tizanidine Hydrochloride",
+      "Verified": true
+    },
+    {
+      "Id": "69f22323-3223-4be2-b165-fd347a2e8e79",
+      "Description": "Alprazolam",
+      "Verified": false
+    },
+    {
+      "Id": "73a758f8-3b5a-456b-8ca3-e0aaf8ec4509",
+      "Description": "Rye Grain",
+      "Verified": true
+    },
+    {
+      "Id": "bd596aae-eb0e-4650-a3e0-1adb475c3aa7",
+      "Description": "Verapamil Hydrochloride",
+      "Verified": false
+    },
+    {
+      "Id": "284f27a1-262c-487f-918c-15b5c35522c8",
+      "Description": "Childrens Nortemp",
+      "Verified": false
+    },
+    {
+      "Id": "6dadb2ba-5057-4ac6-a121-d25d36a14f50",
+      "Description": "Cefadroxil",
+      "Verified": false
+    },
+    {
+      "Id": "d482818f-4ff7-4b85-91fe-a93bc88ede46",
+      "Description": "Carbamazepine",
+      "Verified": true
+    },
+    {
+      "Id": "6954a5cc-d43d-40c9-987d-3c2a4832c2e8",
+      "Description": "Maximum Strength Laxative",
+      "Verified": false
+    },
+    {
+      "Id": "07035954-e63c-4129-ac7a-a8876791d742",
+      "Description": "omeprazole",
+      "Verified": true
+    },
+    {
+      "Id": "faef258b-788d-428a-a40e-5d548c489ec3",
+      "Description": "BABOR Cleansing Mild Peeling",
+      "Verified": true
+    },
+    {
+      "Id": "80348073-51d4-42c1-93ad-0f9980bf6b07",
+      "Description": "LIFT LUMIERE",
+      "Verified": true
+    },
+    {
+      "Id": "544edb83-ea33-48d1-8cc5-db8c6051ccac",
+      "Description": "Sterile Water",
+      "Verified": true
+    },
+    {
+      "Id": "561e9f4e-b0cb-4ab4-ae74-73b53d33e630",
+      "Description": "Anticavity Fluoride Rinse",
+      "Verified": true
+    },
+    {
+      "Id": "43c677d0-932d-4773-84dd-c2f3f13ae35f",
+      "Description": "ESIKA",
+      "Verified": false
+    },
+    {
+      "Id": "1764c0eb-f412-467d-9c24-5b665675cca7",
+      "Description": "Health Mart Sinus and Cold D",
+      "Verified": true
+    },
+    {
+      "Id": "20068b62-df59-4ed0-8523-003d21aa2dec",
+      "Description": "DUEXIS",
+      "Verified": true
+    },
+    {
+      "Id": "d04a38b0-ec5c-4aa1-b78e-48c9d17c0609",
+      "Description": "Ibuprofen",
+      "Verified": false
+    },
+    {
+      "Id": "f4cd311a-c4b8-4e2c-92db-4056497d4106",
+      "Description": "Sulindac",
+      "Verified": false
+    },
+    {
+      "Id": "526eea61-a9f5-418d-93c4-d90554d77a73",
+      "Description": "Goldenrod",
+      "Verified": true
+    },
+    {
+      "Id": "92ca0715-28a1-4d3d-af3c-cb62521209c5",
+      "Description": "Diclofenac Sodium and Misoprostol",
+      "Verified": false
+    },
+    {
+      "Id": "677fb57c-40fa-4584-b7aa-9c544531bcd0",
+      "Description": "Sweet Gum",
+      "Verified": false
+    },
+    {
+      "Id": "fd4c96ed-6997-4ea2-ac66-7481ff2db0cd",
+      "Description": "Losartan Potassium and Hydrochlorothiazide",
+      "Verified": false
+    },
+    {
+      "Id": "d9c50919-f0f4-4c67-a7db-a998fb9d4b35",
+      "Description": "Lumene Time Freeze Firming Day SPF 15 Sunscreen Broad Spectrum",
+      "Verified": false
+    },
+    {
+      "Id": "17e13a56-b9e4-4027-ab38-0eb46f20845d",
+      "Description": "Leader Allergy",
+      "Verified": false
+    },
+    {
+      "Id": "0d41645b-9d18-4ea8-a4d3-b0877a7c629f",
+      "Description": "Non-Drowsy Daytime Multi-Symptom Cold and Flu",
+      "Verified": true
+    },
+    {
+      "Id": "6bea8735-4a75-460e-bee7-a0a00b7c9929",
+      "Description": "Allergy Relief",
+      "Verified": false
+    },
+    {
+      "Id": "3f479245-40c4-4fcd-88f8-c60bdbcb017e",
+      "Description": "VENLAFAXINE HYDROCHLORIDE",
+      "Verified": true
+    },
+    {
+      "Id": "77e95def-d283-4e15-b13d-4a3987aa04ea",
+      "Description": "Rejuvaderm medispa fading",
+      "Verified": true
+    },
+    {
+      "Id": "42de0309-febe-466e-a463-ce7476d64052",
+      "Description": "good neighbor pharmacy aspirin",
+      "Verified": true
+    },
+    {
+      "Id": "64c7d166-cb47-4af5-9888-a7cc9687196a",
+      "Description": "SPAI-SONS",
+      "Verified": false
+    },
+    {
+      "Id": "181cd846-d722-485c-bb97-f80a36e0bdab",
+      "Description": "NITROGEN",
+      "Verified": true
+    }
+  ]
+}

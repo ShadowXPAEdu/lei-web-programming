@@ -1,0 +1,99 @@
+﻿@model JCAirbnb.Areas.Manager.Models.ManagePropertyCreateViewModel
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section CSS {
+
+}
+
+<h1>Create</h1>
+<hr />
+<form asp-action="Create" enctype="multipart/form-data">
+    <div class="row">
+        <div class="col-md-6">
+            <h4>Property:</h4>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Property.Title" class="control-label"></label>
+                <input asp-for="Property.Title" class="form-control" />
+                <span asp-validation-for="Property.Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Property.Description" class="control-label"></label>
+                <input asp-for="Property.Description" class="form-control" />
+                <span asp-validation-for="Property.Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Property.Location" class="control-label"></label>
+                <input asp-for="Property.Location" class="form-control" />
+                <span asp-validation-for="Property.Location" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Property.BasePrice" class="control-label"></label>
+                <input asp-for="Property.BasePrice" min="0" class="form-control" />
+                <span asp-validation-for="Property.BasePrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Property.Price" class="control-label"></label>
+                <input asp-for="Property.Price" min="0" class="form-control" />
+                <span asp-validation-for="Property.Price" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <h4>Divisions:</h4>
+            <div class="form-group">
+                <label asp-for="Property.Divisions.Guest" class="control-label"></label>
+                <input type="number" min="0" name="guest" class="form-control" value="0" />
+                <span asp-validation-for="Property.Divisions.Guest" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Property.Divisions.Bedroom" class="control-label"></label>
+                <input type="number" min="0" name="bedroom" class="form-control" value="0" />
+                <span asp-validation-for="Property.Divisions.Bedroom" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Property.Divisions.Bed" class="control-label"></label>
+                <input type="number" min="0" name="bed" class="form-control" value="0" />
+                <span asp-validation-for="Property.Divisions.Bed" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Property.Divisions.Bath" class="control-label"></label>
+                <input type="number" min="0" name="bath" class="form-control" value="0" />
+                <span asp-validation-for="Property.Divisions.Bath" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Property.Divisions.PrivateBath" class="control-label"></label>
+                <input type="number" min="0" name="privateBath" class="form-control" value="0" />
+                <span asp-validation-for="Property.Divisions.PrivateBath" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <h4>Property type:</h4>
+            <div class="flex-fill">
+                <div class="form-group d-inline-block">
+                    <select name="propTypeId" class="custom-select">
+                        @foreach (var item in Model.PropertyTypes)
+                        {
+                            <option value="@item.Id">@item.Title</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group d-inline-block">
+                    <input name="files" type="file" multiple accept="image/*" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group d-inline-block">
+        <input type="submit" value="Add Property" class="btn btn-primary" />
+    </div>
+</form>
+
+<div>
+    <a asp-action="">Back to List</a>
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

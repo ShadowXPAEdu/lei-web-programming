@@ -1,0 +1,157 @@
+﻿@model JCAirbnb.Areas.Client.Models.CheckOutViewModel
+
+@{
+    ViewData["Title"] = "Check-out";
+}
+
+@section CSS {
+    <style type="text/css">
+        input[type="radio"] {
+            margin: 0 0.2rem;
+        }
+    </style>
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div>
+    <h4>Reservation @Model.Reservation.Id</h4>
+    <hr />
+    <div class="row">
+        <div class="col-6">
+            <h4>Property</h4>
+            <hr />
+            <dl class="row">
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.Reservation.Property.Title)
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.Reservation.Property.Title)
+                </dd>
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.Reservation.Property.PropertyType)
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.Reservation.Property.PropertyType.Title)
+                </dd>
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.Reservation.Property.Location)
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.Reservation.Property.Location)
+                </dd>
+                <dt class="col-sm-4">
+                    Current price
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.Reservation.Property.Price)
+                </dd>
+            </dl>
+        </div>
+        <div class="col-6">
+            <h4>Details</h4>
+            <hr />
+            <dl class="row">
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.Reservation.CheckIn)
+                </dt>
+                <dd class="col-sm-8">
+                    @Model.Reservation.CheckIn.ToLongDateString()
+                </dd>
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.Reservation.CheckOut)
+                </dt>
+                <dd class="col-sm-8">
+                    @Model.Reservation.CheckOut.ToLongDateString()
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <hr />
+    <h4>Rate your stay!</h4>
+    <hr />
+    <form asp-action="CheckOut" class="col-12">
+        <input asp-for="Reservation.Id" type="hidden" />
+        <div>
+            <h4>Rating</h4>
+            <hr />
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <h5>@Html.DisplayNameFor(m => m.Ratings.Cleanliness)</h5>
+                        <input type="radio" id="C0" asp-for="Ratings.Cleanliness" value="0" checked />
+                        <label for="C0" class="control-label">0</label>
+                        @for (int i = 1; i < 6; i++)
+                        {
+                            <input type="radio" id="C@(i)" asp-for="Ratings.Cleanliness" value="@(i)" />
+                            <label for="C@(i)" class="control-label">@(i)</label>
+                        }
+                    </div>
+                    <div class="form-group">
+                        <h5>@Html.DisplayNameFor(m => m.Ratings.Communication)</h5>
+                        <input type="radio" id="C0" asp-for="Ratings.Communication" value="0" checked />
+                        <label for="C0" class="control-label">0</label>
+                        @for (int i = 1; i < 6; i++)
+                        {
+                            <input type="radio" id="C@(i)" asp-for="Ratings.Communication" value="@(i)" />
+                            <label for="C@(i)" class="control-label">@(i)</label>
+                        }
+                    </div>
+                    <div class="form-group">
+                        <h5>@Html.DisplayNameFor(m => m.Ratings.CheckIn)</h5>
+                        <input type="radio" id="C0" asp-for="Ratings.CheckIn" value="0" checked />
+                        <label for="C0" class="control-label">0</label>
+                        @for (int i = 1; i < 6; i++)
+                        {
+                            <input type="radio" id="C@(i)" asp-for="Ratings.CheckIn" value="@(i)" />
+                            <label for="C@(i)" class="control-label">@(i)</label>
+                        }
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <h5>@Html.DisplayNameFor(m => m.Ratings.Accuracy)</h5>
+                        <input type="radio" id="C0" asp-for="Ratings.Accuracy" value="0" checked />
+                        <label for="C0" class="control-label">0</label>
+                        @for (int i = 1; i < 6; i++)
+                        {
+                            <input type="radio" id="C@(i)" asp-for="Ratings.Accuracy" value="@(i)" />
+                            <label for="C@(i)" class="control-label">@(i)</label>
+                        }
+                    </div>
+                    <div class="form-group">
+                        <h5>@Html.DisplayNameFor(m => m.Ratings.Location)</h5>
+                        <input type="radio" id="C0" asp-for="Ratings.Location" value="0" checked />
+                        <label for="C0" class="control-label">0</label>
+                        @for (int i = 1; i < 6; i++)
+                        {
+                            <input type="radio" id="C@(i)" asp-for="Ratings.Location" value="@(i)" />
+                            <label for="C@(i)" class="control-label">@(i)</label>
+                        }
+                    </div>
+                    <div class="form-group">
+                        <h5>@Html.DisplayNameFor(m => m.Ratings.Value)</h5>
+                        <input type="radio" id="C0" asp-for="Ratings.Value" value="0" checked />
+                        <label for="C0" class="control-label">0</label>
+                        @for (int i = 1; i < 6; i++)
+                        {
+                            <input type="radio" id="C@(i)" asp-for="Ratings.Value" value="@(i)" />
+                            <label for="C@(i)" class="control-label">@(i)</label>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <h4>Comments</h4>
+            <hr />
+            <div class="form-group">
+                <label for="Comment">Leave us a comment</label>
+                <textarea id="Comment" asp-for="Comment" class="form-control"></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Check-out" class="btn btn-success" />
+        </div>
+    </form>
+</div>

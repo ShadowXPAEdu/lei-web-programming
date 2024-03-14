@@ -1,0 +1,116 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - JCAirbnb</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap-grid.min.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap-reboot.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+
+    <style type="text/css">
+        a > i {
+            padding: 0.2rem;
+            top: 0.1rem;
+            position: relative;
+        }
+
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+
+        .dropdown-menu > li > a:hover {
+            background: #f5f5f5;
+        }
+
+        .minWidthMaxContent {
+            min-width: max-content;
+        }
+    </style>
+
+    @await RenderSectionAsync("CSS", required: false)
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="" asp-action="">JCAirbnb</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="" asp-action="">Home</a>
+                        </li>
+                        @if (User.IsInRole("Administrator"))
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link text-dark" asp-area="Admin" asp-controller="Home" asp-action="">Admin area<i class="fas fa-caret-down"></i></a>
+                                <ul class="dropdown-menu clearfix">
+                                    <li><a class="nav-link text-dark" asp-area="Admin" asp-controller="ManageClients" asp-action="">Manage clients</a></li>
+                                    <li><a class="nav-link text-dark" asp-area="Admin" asp-controller="ManageCommodities" asp-action="">Manage commodities</a></li>
+                                    <li><a class="nav-link text-dark" asp-area="Admin" asp-controller="ManageReservationStates" asp-action="">Manage reservation states</a></li>
+                                    <li><a class="nav-link text-dark" asp-area="Admin" asp-controller="ManagePropertyTypes" asp-action="">Manage property types</a></li>
+                                    <li><a class="nav-link text-dark" asp-area="Admin" asp-controller="ManageOwner" asp-action="">Manage managers</a></li>
+                                </ul>
+                            </li>
+                        }
+                        @if (User.IsInRole("Manager"))
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link text-dark" asp-area="Manager" asp-controller="Home" asp-action="">Manager area<i class="fas fa-caret-down"></i></a>
+                                <ul class="dropdown-menu clearfix">
+                                    <li><a class="nav-link text-dark" asp-area="Manager" asp-controller="ManageEmployees" asp-action="">Manage employees</a></li>
+                                    <li><a class="nav-link text-dark" asp-area="Manager" asp-controller="ManageProperties" asp-action="">Manage properties</a></li>
+                                    <li><a class="nav-link text-dark" asp-area="Manager" asp-controller="ManageCheckLists" asp-action="">Manage checklists</a></li>
+                                    <li><a class="nav-link text-dark" asp-area="Manager" asp-controller="ManageReservations" asp-action="">Manage reservations</a></li>
+                                </ul>
+                            </li>
+                        }
+                        @if (User.IsInRole("Manager") || User.IsInRole("Employee"))
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link text-dark" asp-area="Employee" asp-controller="Home" asp-action="">Employee area<i class="fas fa-caret-down"></i></a>
+                                <ul class="dropdown-menu clearfix">
+                                    <li><a class="nav-link text-dark" asp-area="Employee" asp-controller="ManageReservations" asp-action="">Manage reservations</a></li>
+                                </ul>
+                            </li>
+                        }
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link text-dark" asp-area="Client" asp-controller="Home" asp-action="Profile">Client area<i class="fas fa-caret-down"></i></a>
+                                <ul class="dropdown-menu clearfix">
+                                    <li><a class="nav-link text-dark" asp-area="Client" asp-controller="Home" asp-action="Profile">Profile</a></li>
+                                    <li><a class="nav-link text-dark" asp-area="Client" asp-controller="Home" asp-action="">Reservations</a></li>
+                                </ul>
+                            </li>
+                        }
+                    </ul>
+                    <partial name="_LoginPartial" />
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2022 - JCAirbnb - <a asp-area="" asp-controller="" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,209 @@
+﻿
+@model JCAirbnb.Areas.Manager.Models.ManagePropertyEditViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Edit</h1>
+
+<h4>Property</h4>
+<hr />
+<form asp-action="Edit">
+    <div class="row">
+        <div class="col-md-4">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Property.Id" />
+            <div class="form-group">
+                <label asp-for="Property.Title" class="control-label"></label>
+                <input asp-for="Property.Title" class="form-control" />
+                <span asp-validation-for="Property.Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Property.Description" class="control-label"></label>
+                <input asp-for="Property.Description" class="form-control" />
+                <span asp-validation-for="Property.Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Property.Location" class="control-label"></label>
+                <input asp-for="Property.Location" class="form-control" />
+                <span asp-validation-for="Property.Location" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Property.BasePrice" class="control-label"></label>
+                <input asp-for="Property.BasePrice" class="form-control" />
+                <span asp-validation-for="Property.BasePrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Property.Price" class="control-label"></label>
+                <input asp-for="Property.Price" class="form-control" />
+                <span asp-validation-for="Property.Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </div>
+        <div class="col-md-2">
+            <input asp-for="Property.Divisions.Id" type="hidden" />
+            <div class="form-group">
+                <label asp-for="Property.Divisions.Guest" class="control-label"></label>
+                <input asp-for="Property.Divisions.Guest" type="number" min="0" name="guest" class="form-control" />
+                <span asp-validation-for="Property.Divisions.Guest" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Property.Divisions.Bedroom" class="control-label"></label>
+                <input asp-for="Property.Divisions.Bedroom" type="number" min="0" name="bedroom" class="form-control" />
+                <span asp-validation-for="Property.Divisions.Bedroom" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Property.Divisions.Bed" class="control-label"></label>
+                <input asp-for="Property.Divisions.Bed" type="number" min="0" name="bed" class="form-control" />
+                <span asp-validation-for="Property.Divisions.Bed" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Property.Divisions.Bath" class="control-label"></label>
+                <input asp-for="Property.Divisions.Bath" type="number" min="0" name="bath" class="form-control" />
+                <span asp-validation-for="Property.Divisions.Bath" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Property.Divisions.PrivateBath" class="control-label"></label>
+                <input asp-for="Property.Divisions.PrivateBath" type="number" min="0" name="privateBath" class="form-control" />
+                <span asp-validation-for="Property.Divisions.PrivateBath" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <h4>Property tipe:</h4>
+            <div class="flex-fill">
+                <div class="form-group d-inline-block">
+                    <select name="propTypeId" class="custom-select">
+                        @foreach (var item in Model.PropertyTypes)
+                        {
+                            @if (item.Id == Model.Property.PropertyType.Id)
+                            {
+                                <option selected value="@item.Id">@item.Title</option>
+                            }
+                            else
+                            {
+                                <option value="@item.Id">@item.Title</option>
+                            }
+                        }
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<div class="row">
+    <div class="col-4">
+        <form asp-action="EditCommodity" asp-route-id="@Model.Property.Id">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Property" />
+            <input type="hidden" asp-for="Commodities" />
+            <input type="hidden" asp-for="AddingCommodity" value="true" />
+            <div class="flex-fill">
+                <div class="form-group d-inline-block">
+                    <select name="commodity" class="custom-select">
+                        @foreach (var item in Model.Commodities)
+                        {
+                            <option value="@item.Id">@item.Title</option>
+                        }
+                    </select>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group d-inline-block ">
+                            <input type="submit" name="submit" value="Included Commodity" class="btn btn-primary" />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group d-inline-block ">
+                            <input type="submit" name="submit" value="Not Included Commodity" class="btn btn-primary" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Commodities
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Property.Commodities)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(m => item.Commodity.Title)
+                            @Html.DisplayFor(m => item.Included)
+                        </td>
+                        <td>
+                            <form asp-action="RemoveCommodity" asp-route-id="@Model.Property.Id">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <input type="hidden" asp-for="Property" />
+                                <input type="hidden" asp-for="Property.Commodities" />
+                                <input type="hidden" asp-for="AddingCommodity" value="false" />
+                                <input type="hidden" name="commodity" value="@item.Commodity.Id" />
+                                <div class="form-group">
+                                    <input type="submit" value="Remove Commodity" class="btn btn-danger" />
+                                </div>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<form asp-action="AddPhotos" asp-route-id="@Model.Property.Id" enctype="multipart/form-data">
+    <h4>Add photos</h4>
+    <div class="form-group d-inline-block">
+        <input name="filesToAdd" type="file" multiple accept="image/*" />
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Add photos" class="btn btn-primary" />
+    </div>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Images
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Property.Photos)
+        {
+            <tr>
+                <td>
+                    <img src="~/img/photos/@item.Path" width="300" height="300" />
+                </td>
+                <td>
+                    <form asp-action="Removephoto" asp-route-id="@Model.Property.Id">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" name="photoId" value="@item.Id" />
+                        <div class="form-group">
+                            <input type="submit" value="Remove Image" class="btn btn-danger" />
+                        </div>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div>
+    <a asp-action="">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

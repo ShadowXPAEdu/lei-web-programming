@@ -1,0 +1,194 @@
+﻿@model JCAirbnb.Areas.Manager.Models.ManageReservationsVerifyingViewModel
+
+@{
+    ViewData["Title"] = "Reservation";
+}
+@section CSS {
+    <style type="text/css">
+        .property-image, .property-image img {
+            height: 450px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .property-images {
+            margin: 1.2rem;
+        }
+
+        .carousel-control {
+            background: rgba(22,22,22,0.1);
+        }
+    </style>
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<hr />
+<div class="row">
+    <div class="col-6">
+        <div class="row">
+            <div class="col-4">
+                <h4>Property</h4>
+            </div>
+        </div>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-5">
+                @Html.DisplayNameFor(m => m.Reservation.Property)
+            </dt>
+            <dd class="col-sm-7" id="checkInDate">
+                @Html.DisplayFor(m => m.Reservation.Property.Title)
+            </dd>
+        </dl>
+        <dl class="row">
+            <dt class="col-sm-5">
+                @Html.DisplayNameFor(m => m.Reservation.Property.Price)
+            </dt>
+            <dd class="col-sm-7" id="checkInDate">
+                @Html.DisplayFor(m => m.Reservation.Property.Price)
+            </dd>
+        </dl>
+        <dl class="row">
+            <dt class="col-sm-5">
+                @Html.DisplayNameFor(m => m.Reservation.Property.PropertyType)
+            </dt>
+            <dd class="col-sm-7" id="checkInDate">
+                @Html.DisplayFor(m => m.Reservation.Property.PropertyType.Title)
+            </dd>
+        </dl>
+    </div>
+    <div class="col-6">
+        <div class="row">
+            <div class="col-4">
+                <h4>Reservation</h4>
+            </div>
+        </div>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-5">
+                @Html.DisplayNameFor(m => m.Reservation.CheckIn)
+            </dt>
+            <dd class="col-sm-7">
+                @Model.Reservation.CheckIn.ToLongDateString()
+            </dd>
+        </dl>
+        <dl class="row">
+            <dt class="col-sm-5">
+                @Html.DisplayNameFor(m => m.Reservation.CheckOut)
+            </dt>
+            <dd class="col-sm-7">
+                @Model.Reservation.CheckOut.ToLongDateString()
+            </dd>
+        </dl>
+        <dl class="row">
+            <dt class="col-sm-5">
+                @Html.DisplayNameFor(m => m.Reservation.ReservationState)
+            </dt>
+            <dd class="col-sm-7">
+                @Html.DisplayFor(m => m.Reservation.ReservationState.Title)
+            </dd>
+        </dl>
+    </div>
+    <div class="col-6">
+        <div class="row">
+            <div class="col-4">
+                <h4>Tenant</h4>
+            </div>
+        </div>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-5">
+                @Html.DisplayNameFor(m => m.Reservation.User.UserName)
+            </dt>
+            <dd class="col-sm-7">
+                @Html.DisplayFor(m => m.Reservation.User.UserName)
+            </dd>
+        </dl><dl class="row">
+            <dt class="col-sm-5">
+                @Html.DisplayNameFor(m => m.Reservation.User.Email)
+            </dt>
+            <dd class="col-sm-7">
+                @Html.DisplayFor(m => m.Reservation.User.Email)
+            </dd>
+        </dl>
+    </div>
+</div>
+<hr />
+<div class="row">
+    <div class="form-group col-6">
+        <h4>Reservation check list</h4>
+        @foreach (var item in Model.ReservationCheckLists)
+        {
+            <div class="col-12">
+                @Html.DisplayFor(m => item.Description)
+                <input type="checkbox" @(item.Verified ? "checked" : "") disabled name="values" class="btn btn-primary" />
+            </div>
+        }
+    </div>
+    <div class="form-group col-6">
+        <h4>Delivery check list</h4>
+        @foreach (var item2 in Model.DeliveryCheckLists)
+        {
+            <div class="col-12">
+                @Html.DisplayFor(m => item2.Description)
+                <input type="checkbox" @(item2.Verified ? "checked" : "") disabled name="values" class="btn btn-primary" />
+            </div>
+        }
+    </div>
+</div>
+<hr />
+<h4>Observations</h4>
+<div>
+    @Model.Reservation.Report.Observations
+</div>
+
+@if (Model.Reservation.Report.Photos.Count != 0)
+{
+    <div class="property-images">
+        <div class="container">
+            <div id="carousel" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    @for (int j = 0; j < Model.Reservation.Report.Photos.Count; j++)
+                    {
+                        <li data-target="#carousel" data-slide-to="@j" class="@(j == 0 ? "active" : "")"></li>
+                    }
+                </ol>
+
+                <div class="carousel-inner property-image">
+                    @for (int j = 0; j < Model.Reservation.Report.Photos.Count; j++)
+                    {
+                        var photo = Model.Reservation.Report.Photos[j];
+                        <div class="carousel-item @(j == 0 ? "active" : "")">
+                            <img src="~/img/report/@photo.Path" />
+                        </div>
+                    }
+                </div>
+
+                <a class="carousel-control carousel-control-prev" href="#carousel" data-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                </a>
+                <a class="carousel-control carousel-control-next" href="#carousel" data-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                </a>
+            </div>
+        </div>
+    </div>
+}
+<hr />
+<h4>Review the client</h4>
+
+<form asp-action="Verifying">
+    <input asp-for="Reservation.Id" type="hidden" />
+    <div class="form-group">
+        <textarea class="form-control" name="comment"></textarea>
+    </div>
+    <input type="submit" value="Save" class="btn btn-primary" />
+</form>
+<br />
+<div>
+    <a asp-action="">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,47 @@
+﻿@model JCAirbnb.Areas.Manager.Models.ManageCheckListDetailsViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>CheckList</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CheckList.Title)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CheckList.Title)
+        </dd>
+    </dl>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(m => m.CheckListItems)
+                </th>
+                <th>Verified</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.CheckListItems)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(m => item.Description)
+                    </td>
+                    <td>
+                        <p class="btn btn-sm btn-@(item.Verified ? "primary" : "danger")">&nbsp;</p>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.CheckList.Id">Edit</a> |
+    <a asp-action="">Back to List</a>
+</div>

@@ -1,0 +1,69 @@
+﻿@model IEnumerable<JCAirbnb.Models.Reservation>
+
+@{
+    ViewData["Title"] = "Manage reservations";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Property)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User.UserName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Property.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CheckIn)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CheckOut)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReservationState.Title)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Property.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Property.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CheckIn)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CheckOut)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReservationState.Title)
+                </td>
+                <td>
+                    @if (item.ReservationState.Title == "Reserved")
+                    {
+                        <a asp-action="Reserved" class="btn btn-primary" asp-route-id="@item.Id">Check-in</a>
+                        <a asp-action="Delete" class="btn btn-danger" asp-route-id="@item.Id">Cancel reservation</a>
+                    }
+                    @if (item.ReservationState.Title == "Checked out")
+                    {
+                        <a asp-action="CheckedOut" class="btn btn-primary" asp-route-id="@item.Id">Verify</a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

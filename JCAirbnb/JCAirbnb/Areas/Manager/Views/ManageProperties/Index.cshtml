@@ -1,0 +1,84 @@
+﻿@model IEnumerable<JCAirbnb.Models.Property>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Manage Properties</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Location)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BasePrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Divisions.Guest)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Divisions.Bedroom)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Divisions.Bed)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Divisions.Bath)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Divisions.PrivateBath)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Location)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BasePrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <th>
+                @Html.DisplayFor(modelItem => item.Divisions.Guest)
+            </th>
+            <th>
+                @Html.DisplayFor(modelItem => item.Divisions.Bedroom)
+            </th>
+            <th>
+                @Html.DisplayFor(modelItem => item.Divisions.Bed)
+            </th>
+            <th>
+                @Html.DisplayFor(modelItem => item.Divisions.Bath)
+            </th>
+            <th>
+                @Html.DisplayFor(modelItem => item.Divisions.PrivateBath)
+            </th>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

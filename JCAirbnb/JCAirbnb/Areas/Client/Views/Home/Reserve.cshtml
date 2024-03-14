@@ -1,0 +1,139 @@
+﻿@model JCAirbnb.Areas.Client.Models.ReserveViewModel
+
+@{
+    ViewData["Title"] = $"Reserve {Model.Property.Title}";
+}
+
+@section CSS {
+    <style type="text/css">
+        .property-price {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .old-price {
+            color: gray;
+        }
+
+        .per-night {
+            font-size: 1rem;
+            font-weight: normal;
+        }
+
+        .order-final-price {
+            margin-top: 1.4rem;
+            font-size: 1.2rem;
+        }
+    </style>
+}
+
+<div>
+    <h4>@ViewData["Title"]</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(m => m.CheckIn)
+        </dt>
+        <dd class="col-sm-10" id="checkInDate">
+            @Model.CheckIn.ToLongDateString()
+        </dd>
+    </dl>
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(m => m.CheckOut)
+        </dt>
+        <dd class="col-sm-10" id="checkOutDate">
+            @Model.CheckOut.ToLongDateString()
+        </dd>
+    </dl>
+</div>
+
+<hr />
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="payment">
+            <form asp-action="Reserve">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="CheckIn" class="control-label"></label>
+                    <input id="checkIn" asp-for="CheckIn" class="form-control" />
+                    <span asp-validation-for="CheckIn" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CheckOut" class="control-label"></label>
+                    <input id="checkOut" asp-for="CheckOut" class="form-control" />
+                    <span asp-validation-for="CheckOut" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CardNumber" class="control-label"></label>
+                    <input asp-for="CardNumber" class="form-control" />
+                    <span asp-validation-for="CardNumber" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ExpireDate" class="control-label"></label>
+                    <input asp-for="ExpireDate" class="form-control" />
+                    <span asp-validation-for="ExpireDate" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CVC" class="control-label"></label>
+                    <input asp-for="CVC" class="form-control" />
+                    <span asp-validation-for="CVC" class="text-danger"></span>
+                </div>
+                <input class="btn btn-success" value="Reserve" type="submit" />
+            </form>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="order">
+            <div class="order-title">
+                <h4>@Model.Property.Title</h4>
+            </div>
+            <div class="property-price">
+                @if (Model.Property.BasePrice != Model.Property.Price)
+                {
+                    <span class="old-price"><s>€@Html.DisplayFor(model => model.Property.BasePrice)</s></span>
+                }
+                <span class="price">€@Html.DisplayFor(model => model.Property.Price)</span><span class="per-night">/night</span>
+            </div>
+            <div class="order-final-price">
+                @{var days = Model.CheckOut - Model.CheckIn;}
+                <div class="final-price"><b>Total:</b> €<span id="price">@(days.Days * Model.Property.Price)</span></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+        function onDateChange() {
+            const checkIn = $("#checkIn");
+            const checkOut = $("#checkOut");
+
+            let checkInVal = checkIn[0].value.toString().replaceAll('-', '');
+            let checkOutVal = checkOut[0].value.toString().replaceAll('-', '');
+
+            if (checkOutVal <= checkInVal)
+                checkOut[0].value = new Date(Date.parse(checkIn[0].value) + 86400000).toISOString().split('T')[0];
+
+            checkInVal = checkIn[0].value.toString().replaceAll('-', '');
+            checkOutVal = checkOut[0].value.toString().replaceAll('-', '');
+
+            const difference = checkOutVal - checkInVal;
+            const price = (difference * @Model.Property.Price);
+
+            $("#price").text(price);
+            $("#checkInDate").text(new Date(checkIn[0].value).toLocaleDateString('en-us', { weekday: "long", year: "numeric", month: "long", day: "numeric" }));
+            $("#checkOutDate").text(new Date(checkOut[0].value).toLocaleDateString('en-us', { weekday: "long", year: "numeric", month: "long", day: "numeric" }));
+        }
+
+        $(function () {
+            const checkIn = $("#checkIn");
+            const checkOut = $("#checkOut");
+            checkIn.on("input", function () { onDateChange() });
+            checkOut.on("input", function () { onDateChange() });
+            checkIn[0].value = new Date(Date.parse('@Model.CheckIn')).toISOString().split('T')[0];
+            checkOut[0].value = new Date(Date.parse('@Model.CheckOut')).toISOString().split('T')[0];
+        });
+    </script>
+}

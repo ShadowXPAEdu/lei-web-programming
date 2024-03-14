@@ -1,0 +1,8 @@
+[
+  { "Title": "Reserved" },
+  { "Title": "Pending" },
+  { "Title": "Checked in" },
+  { "Title": "Checked out" },
+  { "Title": "Verifying" },
+  { "Title": "Completed" }
+]

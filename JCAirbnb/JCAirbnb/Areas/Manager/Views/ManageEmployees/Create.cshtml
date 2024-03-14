@@ -1,0 +1,54 @@
+﻿@model Microsoft.AspNetCore.Identity.IdentityUser
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Add Employee</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            @*<div asp-validation-summary="ModelOnly" class="text-danger"></div>*@
+            <div class="form-group">
+                <label class="control-label">Username</label>
+                <input name="username" class="form-control" />
+                @*<span asp-validation-for="Id" class="text-danger"></span>*@
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Search" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+@if (Model != null)
+{
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="AddEmployee">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <p></p>
+                <h6>The user searched was found in database!</h6>
+                <div class="form-group">
+                    <input asp-for="Id" class="form-control" type="hidden" />
+                    <label class="control-label">@Model.UserName / @Model.Email</label>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Add Employee" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+}
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
